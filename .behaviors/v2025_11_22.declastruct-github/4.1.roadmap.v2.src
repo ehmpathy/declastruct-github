@@ -1,0 +1,12 @@
+declare a roadmap,
+
+- checklist style
+- with ordered dependencies
+- with behavioral acceptance criteria
+- with behavioral acceptance verification at each step
+
+for how to execute the blueprint specified in .behaviors/v2025_11_22.declastruct-github/3.3.blueprint.v2.i1.md
+
+---
+
+emit into .behaviors/v2025_11_22.declastruct-github/4.1.roadmap.v2.i1.md

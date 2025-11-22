@@ -1,0 +1,15 @@
+propose a blueprint for how we can implement the wish described
+- in .behaviors/v2025_11_22.declastruct-github/0.wish.md
+and
+- in readme.md
+
+follow the patterns already present in this repo
+
+---
+
+note, we'll remove the aws-lambda resources after the implementation
+
+
+---
+
+emit to .behaviors/v2025_11_22.declastruct-github/3.3.blueprint.v1.i1.md

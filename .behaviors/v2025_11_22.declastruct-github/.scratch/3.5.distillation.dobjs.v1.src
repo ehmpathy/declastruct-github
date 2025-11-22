@@ -1,0 +1,22 @@
+bootup your mechanic's role via `npx rhachet roles boot --repo ehmpathy --role mechanic`
+
+---
+
+propose a distillation of the domain objects we'll make to implement
+- .behaviors/v2025_11_22.declastruct-github/3.3.blueprint.v1.i1.md
+
+with refs of
+-
+
+
+
+use the `domain-objects` typescript pattern to declare them
+
+pay special attention to the unique and primary keys; ensure they align with what the remote api actually supports
+
+also, pay close attention to the attributes we plan to support
+
+
+---
+
+emit into .behaviors/v2025_11_22.declastruct-github/3.5.distillation.dobjs.v1.i1.md
