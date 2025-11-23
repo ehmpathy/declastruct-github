@@ -3,6 +3,9 @@ import util from 'util';
 // eslint-disable-next-line no-undef
 jest.setTimeout(90000); // since we're calling downstream apis
 
+// set console.log to not truncate nested objects
+util.inspect.defaultOptions.depth = 5;
+
 /**
  * sanity check that unit tests are only run the 'test' environment
  *
