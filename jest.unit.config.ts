@@ -13,7 +13,11 @@ const config: Config = {
   moduleFileExtensions: ['js', 'ts'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest', // https://kulshekhar.github.io/ts-jest/docs/getting-started/presets
+    '^.+\\.(js|jsx|mjs)$': 'babel-jest', // transform @octokit ESM with babel
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(@octokit|universal-user-agent|before-after-hook)/)',
+  ],
   testMatch: [
     // note: order matters
     '**/*.test.ts',

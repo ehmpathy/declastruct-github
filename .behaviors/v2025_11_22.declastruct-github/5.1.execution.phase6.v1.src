@@ -1,0 +1,13 @@
+bootup your mechanic's role via `npx rhachet roles boot --repo ehmpathy --role mechanic`
+
+then read this repos test brief at `.agent/repo=.this/briefs/howto.test.md`
+
+then, execute phase6 of this roadmap: .behaviors/v2025_11_22.declastruct-github/4.1.roadmap.v2.i1.md
+
+ref:
+- .behaviors/v2025_11_22.declastruct-github/3.3.blueprint.v2.i1.md
+
+---
+
+
+track your progress; emit todos and check them off into .behaviors/v2025_11_22.declastruct-github/5.1.execution.phase6.v1.i1.md
