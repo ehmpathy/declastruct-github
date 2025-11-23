@@ -1,5 +1,5 @@
 import { Endpoints } from '@octokit/types';
-import { RefByUnique } from 'domain-objects';
+import { refByUnique, RefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import { HasMetadata, isNotUndefined, NotUndefined } from 'type-fns';
 
@@ -38,9 +38,12 @@ export const castToDeclaredGithubBranch = (input: {
   branch: GithubBranchResponse;
   repo: RefByUnique<typeof DeclaredGithubRepo>;
 }): HasMetadata<DeclaredGithubBranch> => {
-  return new DeclaredGithubBranch({
+  return DeclaredGithubBranch.as({
     name: getOrThrow(input.branch, 'name'),
-    repo: input.repo,
+    repo:
+      input.repo instanceof DeclaredGithubRepo
+        ? refByUnique<typeof DeclaredGithubRepo>(input.repo)
+        : input.repo,
     commit: { sha: getOrThrow(getOrThrow(input.branch, 'commit'), 'sha') },
     protected: input.branch.protected,
   }) as HasMetadata<DeclaredGithubBranch>;

@@ -8,7 +8,7 @@ export const getSampleRepo = (input: {
   owner: string;
   name: string;
 }): DeclaredGithubRepo =>
-  new DeclaredGithubRepo({
+  DeclaredGithubRepo.as({
     owner: input.owner,
     name: input.name,
     description: null,

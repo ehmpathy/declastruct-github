@@ -3,7 +3,7 @@
 ![test](https://github.com/ehmpathy/declastruct-github/workflows/test/badge.svg)
 ![publish](https://github.com/ehmpathy/declastruct-github/workflows/publish/badge.svg)
 
-Declarative control of Github constructs, via [declastruct](https://github.com/ehmpathy/declastruct).
+Declarative control of Github resource constructs, via [declastruct](https://github.com/ehmpathy/declastruct).
 
 Declare the structures you want. Plan to see the changes required. Apply to make it so 🪄
 
@@ -23,11 +23,15 @@ npm install -s declastruct-github
 declare the resources you wish to have - and what state you wish them to be in
 
 ```ts
-export const getProvider = async () => DeclastructGithubProvider.as({
-  credentials: {
-    token: process.env.GITHUB_TOKEN,
-  }
-})
+import { getDeclastructGithubProvider, DeclaredGithubRepo, DeclaredGithubRepoConfig } from 'declastruct-github';
+
+export const getProviders = async () => [
+  getDeclastructGithubProvider({
+    credentials: {
+      token: process.env.GITHUB_TOKEN,
+    }
+  })
+]
 
 export const getResources = async () => {
   const repo = DeclaredGithubRepo.as({

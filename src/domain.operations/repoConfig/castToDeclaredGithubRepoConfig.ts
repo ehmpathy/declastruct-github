@@ -1,5 +1,5 @@
 import { Endpoints } from '@octokit/types';
-import { RefByUnique } from 'domain-objects';
+import { refByUnique, RefByUnique } from 'domain-objects';
 import { HasMetadata } from 'type-fns';
 
 import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
@@ -16,8 +16,11 @@ export const castToDeclaredGithubRepoConfig = (input: {
   response: GithubRepoResponse;
   repo: RefByUnique<typeof DeclaredGithubRepo>;
 }): HasMetadata<DeclaredGithubRepoConfig> => {
-  return new DeclaredGithubRepoConfig({
-    repo: input.repo,
+  return DeclaredGithubRepoConfig.as({
+    repo:
+      input.repo instanceof DeclaredGithubRepo
+        ? refByUnique<typeof DeclaredGithubRepo>(input.repo)
+        : input.repo,
     hasIssues: input.response.has_issues,
     hasProjects: input.response.has_projects,
     hasWiki: input.response.has_wiki,

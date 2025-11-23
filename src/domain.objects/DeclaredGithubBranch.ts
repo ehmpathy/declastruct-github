@@ -36,4 +36,7 @@ export class DeclaredGithubBranch
   implements DeclaredGithubBranch
 {
   public static unique = ['repo', 'name'] as const;
+  public static nested = {
+    repo: RefByUnique<typeof DeclaredGithubRepo>,
+  };
 }

@@ -120,4 +120,7 @@ export class DeclaredGithubBranchProtection
   implements DeclaredGithubBranchProtection
 {
   public static unique = ['branch'] as const;
+  public static nested = {
+    branch: RefByUnique<typeof DeclaredGithubBranch>,
+  };
 }

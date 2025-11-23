@@ -1,4 +1,4 @@
-import { isUniDateTime } from '@ehmpathy/uni-time';
+import { asUniDateTime } from '@ehmpathy/uni-time';
 import { Endpoints } from '@octokit/types';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import { HasMetadata, isNotUndefined, NotUndefined } from 'type-fns';
@@ -37,7 +37,7 @@ type GithubRepoResponse =
 export const castToDeclaredGithubRepo = (
   input: GithubRepoResponse,
 ): HasMetadata<DeclaredGithubRepo> => {
-  return new DeclaredGithubRepo({
+  return DeclaredGithubRepo.as({
     id: getOrThrow(input, 'id'),
     owner: getOrThrow(getOrThrow(input, 'owner'), 'login'),
     name: getOrThrow(input, 'name'),
@@ -47,11 +47,7 @@ export const castToDeclaredGithubRepo = (
     visibility:
       (input.visibility as 'public' | 'private' | 'internal') ?? 'public',
     archived: input.archived ?? false,
-    createdAt: input.created_at
-      ? isUniDateTime.assure(input.created_at)
-      : undefined,
-    updatedAt: input.updated_at
-      ? isUniDateTime.assure(input.updated_at)
-      : undefined,
+    createdAt: input.created_at ? asUniDateTime(input.created_at) : undefined,
+    updatedAt: input.updated_at ? asUniDateTime(input.updated_at) : undefined,
   }) as HasMetadata<DeclaredGithubRepo>;
 };

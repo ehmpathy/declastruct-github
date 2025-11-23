@@ -1,5 +1,5 @@
 import { Endpoints } from '@octokit/types';
-import { RefByUnique } from 'domain-objects';
+import { refByUnique, RefByUnique } from 'domain-objects';
 import { HasMetadata } from 'type-fns';
 
 import { DeclaredGithubBranch } from '../../domain.objects/DeclaredGithubBranch';
@@ -16,8 +16,11 @@ export const castToDeclaredGithubBranchProtection = (input: {
   response: GithubBranchProtectionResponse;
   branch: RefByUnique<typeof DeclaredGithubBranch>;
 }): HasMetadata<DeclaredGithubBranchProtection> => {
-  return new DeclaredGithubBranchProtection({
-    branch: input.branch,
+  return DeclaredGithubBranchProtection.as({
+    branch:
+      input.branch instanceof DeclaredGithubBranch
+        ? refByUnique<typeof DeclaredGithubBranch>(input.branch)
+        : input.branch,
     enforceAdmins: input.response.enforce_admins?.enabled,
     allowsDeletions: input.response.allow_deletions?.enabled,
     allowsForcePushes: input.response.allow_force_pushes?.enabled,

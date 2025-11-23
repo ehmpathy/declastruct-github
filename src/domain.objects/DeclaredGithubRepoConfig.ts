@@ -113,4 +113,7 @@ export class DeclaredGithubRepoConfig
   implements DeclaredGithubRepoConfig
 {
   public static unique = ['repo'] as const;
+  public static nested = {
+    repo: RefByUnique<typeof DeclaredGithubRepo>,
+  };
 }

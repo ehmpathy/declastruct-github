@@ -18,3 +18,15 @@ if (
   process.env.I_KNOW_WHAT_IM_DOING !== 'true'
 )
   throw new Error(`integration.test is not targeting stage 'test'`);
+
+/**
+ * sanity check that GITHUB_TOKEN is available for integration tests
+ *
+ * usecases
+ * - prevent silent test failures due to missing credentials
+ * - provide clear instructions on how to set up token
+ */
+if (!process.env.GITHUB_TOKEN)
+  throw new Error(
+    'GITHUB_TOKEN not set. Run: source .agent/repo=.this/skills/use.demorepo.token.sh',
+  );
