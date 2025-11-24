@@ -40,7 +40,10 @@ export const getBranchProtection = asProcedure(
 
     // execute the GitHub API call
     try {
-      const branchRef = branch as { repo: { owner: string; name: string }; name: string };
+      const branchRef = branch as {
+        repo: { owner: string; name: string };
+        name: string;
+      };
       const response = await github.repos.getBranchProtection({
         owner: branchRef.repo.owner,
         repo: branchRef.repo.name,

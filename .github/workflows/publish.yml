@@ -13,7 +13,7 @@ jobs:
   test:
     uses: ./.github/workflows/.test.yml
     secrets:
-      prep-stripe-secret-key: ${{ secrets.PREP_STRIPE_SECRET_KEY }}
+      prep-github-token: ${{ secrets.DECLASTRUCT_GITHUB_DEMO_REPO_ADMIN_TOKEN }}
 
   publish:
     uses: ./.github/workflows/.publish-npm.yml

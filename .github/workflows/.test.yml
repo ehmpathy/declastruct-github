@@ -18,9 +18,9 @@ on:
       aws-secret-access-key:
         required: false
         description: required credentials to authenticate with aws the aws account against which to run the tests
-      prep-stripe-secret-key:
+      prep-github-token:
         required: true
-        description: stripe secret key to use for integration tests
+        description: token to use for integration and acceptance tests
 
 jobs:
   # install the dependencies
@@ -40,7 +40,7 @@ jobs:
       - name: set node-version
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: get node-modules from cache
         uses: actions/cache/restore@v4
@@ -61,7 +61,7 @@ jobs:
       - name: set node-version
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: get node-modules from cache
         uses: actions/cache/restore@v4
@@ -82,7 +82,7 @@ jobs:
       - name: set node version
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: set terraform version
         uses: hashicorp/setup-terraform@v3
@@ -106,7 +106,7 @@ jobs:
       - name: set node-version
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: get node-modules from cache
         uses: actions/cache/restore@v4
@@ -127,7 +127,7 @@ jobs:
       - name: set node-version
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: get node-modules from cache
         uses: actions/cache/restore@v4
@@ -148,7 +148,7 @@ jobs:
       - name: set node-version
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: get node-modules from cache
         uses: actions/cache/restore@v4
@@ -178,7 +178,7 @@ jobs:
       - name: test:integration
         run: THOROUGH=true npm run test:integration
         env:
-          PREP_STRIPE_SECRET_KEY: ${{ secrets.prep-stripe-secret-key }}
+          GITHUB_TOKEN: ${{ secrets.prep-github-token }}
 
   test-acceptance-locally:
     runs-on: ubuntu-24.04
@@ -190,7 +190,7 @@ jobs:
       - name: set node-version
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: get node-modules from cache
         uses: actions/cache/restore@v4
@@ -219,3 +219,5 @@ jobs:
 
       - name: test:acceptance:locally
         run: npm run test:acceptance:locally
+        env:
+          GITHUB_TOKEN: ${{ secrets.prep-github-token }}
