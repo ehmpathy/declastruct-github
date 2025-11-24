@@ -39,10 +39,7 @@ export const getResources = async () => {
     owner: 'ehmpathy',
     name: 'declastruct-github-demo',
     description: 'demo repo for declastruct-github',
-    homepage: null,
-    private: false,
     visibility: 'public',
-    archived: false,
   });
 
   const repoConfig = DeclaredGithubRepoConfig.as({

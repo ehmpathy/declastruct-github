@@ -12,8 +12,5 @@ export const getSampleRepo = (input: {
     owner: input.owner,
     name: input.name,
     description: null,
-    homepage: null,
-    private: false,
     visibility: 'public',
-    archived: false,
   });

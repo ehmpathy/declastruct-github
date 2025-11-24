@@ -1,4 +1,4 @@
-import { DomainEntity, RefByUnique } from 'domain-objects';
+import { DomainEntity, DomainLiteral, RefByUnique } from 'domain-objects';
 
 import { DeclaredGithubBranch } from './DeclaredGithubBranch';
 
@@ -122,5 +122,6 @@ export class DeclaredGithubBranchProtection
   public static unique = ['branch'] as const;
   public static nested = {
     branch: RefByUnique<typeof DeclaredGithubBranch>,
+    requiredStatusChecks: DomainLiteral,
   };
 }

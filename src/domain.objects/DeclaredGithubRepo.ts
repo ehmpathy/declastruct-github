@@ -42,14 +42,15 @@ export interface DeclaredGithubRepo {
 
   /**
    * .what = homepage URL
-   * .note = null if not set
+   * .note = optional; defaults to null
    */
-  homepage: string | null;
+  homepage?: string | null;
 
   /**
    * .what = whether the repo is private
+   * .note = optional; derived from visibility !== 'public' if not provided
    */
-  private: boolean;
+  private?: boolean;
 
   /**
    * .what = visibility setting
@@ -59,8 +60,9 @@ export interface DeclaredGithubRepo {
 
   /**
    * .what = whether the repo is archived
+   * .note = optional; defaults to false
    */
-  archived: boolean;
+  archived?: boolean;
 }
 
 export class DeclaredGithubRepo

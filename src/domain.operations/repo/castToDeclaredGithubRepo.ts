@@ -37,15 +37,17 @@ type GithubRepoResponse =
 export const castToDeclaredGithubRepo = (
   input: GithubRepoResponse,
 ): HasMetadata<DeclaredGithubRepo> => {
+  const visibility =
+    (input.visibility as 'public' | 'private' | 'internal') ?? 'public';
+
   return DeclaredGithubRepo.as({
     id: getOrThrow(input, 'id'),
     owner: getOrThrow(getOrThrow(input, 'owner'), 'login'),
     name: getOrThrow(input, 'name'),
     description: input.description ?? null,
     homepage: input.homepage ?? null,
-    private: getOrThrow(input, 'private'),
-    visibility:
-      (input.visibility as 'public' | 'private' | 'internal') ?? 'public',
+    private: input.private ?? visibility !== 'public',
+    visibility,
     archived: input.archived ?? false,
     createdAt: input.created_at ? asUniDateTime(input.created_at) : undefined,
     updatedAt: input.updated_at ? asUniDateTime(input.updated_at) : undefined,
