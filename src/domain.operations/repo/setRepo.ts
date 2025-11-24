@@ -23,6 +23,11 @@ export const setRepo = asProcedure(
   ): Promise<HasMetadata<DeclaredGithubRepo>> => {
     const desired = input.finsert ?? input.upsert;
 
+    // apply defaults for optional fields
+    const desiredHomepage = desired.homepage ?? null;
+    const desiredPrivate = desired.private ?? desired.visibility !== 'public';
+    const desiredArchived = desired.archived ?? false;
+
     // get cached GitHub client
     const github = getGithubClient({}, context);
 
@@ -49,11 +54,11 @@ export const setRepo = asProcedure(
           owner: desired.owner,
           repo: desired.name,
           description: desired.description ?? undefined,
-          homepage: desired.homepage ?? undefined,
-          private: desired.private,
+          homepage: desiredHomepage ?? undefined,
+          private: desiredPrivate,
           visibility:
             desired.visibility === 'internal' ? undefined : desired.visibility,
-          archived: desired.archived,
+          archived: desiredArchived,
         });
 
         return castToDeclaredGithubRepo(updated.data);
@@ -72,8 +77,8 @@ export const setRepo = asProcedure(
         org: desired.owner,
         name: desired.name,
         description: desired.description ?? undefined,
-        homepage: desired.homepage ?? undefined,
-        private: desired.private,
+        homepage: desiredHomepage ?? undefined,
+        private: desiredPrivate,
         visibility:
           desired.visibility === 'internal' ? undefined : desired.visibility,
       });
