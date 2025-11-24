@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/ehmpathy/declastruct-github/compare/v1.0.0...v1.0.1) (2025-11-24)
+
+
+### Bug Fixes
+
+* **cicd:** release provision github via declastruct ghaction ([#2](https://github.com/ehmpathy/declastruct-github/issues/2)) ([b8a5f2c](https://github.com/ehmpathy/declastruct-github/commit/b8a5f2c70d071d64bcd9d13409a1db0d6991a60a))
+
 ## 1.0.0 (2025-11-24)
 
 
