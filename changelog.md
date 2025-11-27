@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/ehmpathy/declastruct-github/compare/v1.0.1...v1.0.2) (2025-11-24)
+
+
+### Bug Fixes
+
+* **cicd:** apply declastruct github on merge to main ([2b9208b](https://github.com/ehmpathy/declastruct-github/commit/2b9208bd6d66b9cb4f2fc13d7f0af76d507b4940))
+
 ## [1.0.1](https://github.com/ehmpathy/declastruct-github/compare/v1.0.0...v1.0.1) (2025-11-24)
 
 
