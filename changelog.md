@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/ehmpathy/declastruct-github/compare/v1.0.2...v1.0.3) (2025-11-28)
+
+
+### Bug Fixes
+
+* **deps:** bump to latest declastruct and domain-objects ([#5](https://github.com/ehmpathy/declastruct-github/issues/5)) ([2fa38f1](https://github.com/ehmpathy/declastruct-github/commit/2fa38f1219244f6397967284926b9347bd2af440))
+
 ## [1.0.2](https://github.com/ehmpathy/declastruct-github/compare/v1.0.1...v1.0.2) (2025-11-24)
 
 
