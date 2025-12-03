@@ -1,7 +1,7 @@
 import { asUniDateTime } from '@ehmpathy/uni-time';
-import { Endpoints } from '@octokit/types';
+import type { Endpoints } from '@octokit/types';
 import { UnexpectedCodePathError } from 'helpful-errors';
-import { HasMetadata, isNotUndefined, NotUndefined } from 'type-fns';
+import { type HasMetadata, isNotUndefined, type NotUndefined } from 'type-fns';
 
 import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 

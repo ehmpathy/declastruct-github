@@ -32,12 +32,12 @@ jobs:
     needs: [install]
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0 # we need all commits to test:commits
 
       - name: set node-version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
@@ -55,10 +55,10 @@ jobs:
     needs: [install]
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set node-version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
@@ -76,10 +76,10 @@ jobs:
     needs: [install]
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set node version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
@@ -100,10 +100,10 @@ jobs:
     needs: [install]
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set node-version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
@@ -121,10 +121,10 @@ jobs:
     needs: [install]
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set node-version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
@@ -142,10 +142,10 @@ jobs:
     needs: [install]
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set node-version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
@@ -171,8 +171,11 @@ jobs:
             && echo 'wrong aws account' && exit 1 \
             || echo 'correct aws account';
 
-      - name: provision:integration-test-db
-        run: npm run provision:integration-test-db --if-present
+      - name: start:testdb
+        run: npm run start:testdb --if-present
+
+      - name: start:livedb:dev
+        run: npm run start:livedb:dev --if-present
 
       - name: test:integration
         run: THOROUGH=true npm run test:integration
@@ -184,10 +187,10 @@ jobs:
     needs: [install]
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set node-version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
@@ -213,8 +216,11 @@ jobs:
             && echo 'wrong aws account' && exit 1 \
             || echo 'correct aws account';
 
-      - name: provision:integration-test-db
-        run: npm run provision:integration-test-db --if-present
+      - name: start:testdb
+        run: npm run start:testdb --if-present
+
+      - name: start:livedb:dev
+        run: npm run start:livedb:dev --if-present
 
       - name: test:acceptance:locally
         run: npm run test:acceptance:locally

@@ -1,6 +1,6 @@
-import { Endpoints } from '@octokit/types';
-import { refByUnique, RefByUnique } from 'domain-objects';
-import { HasMetadata } from 'type-fns';
+import type { Endpoints } from '@octokit/types';
+import { type RefByUnique, refByUnique } from 'domain-objects';
+import type { HasMetadata } from 'type-fns';
 
 import { DeclaredGithubBranch } from '../../domain.objects/DeclaredGithubBranch';
 import { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';

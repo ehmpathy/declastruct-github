@@ -1,6 +1,6 @@
-import { Endpoints } from '@octokit/types';
-import { refByUnique, RefByUnique } from 'domain-objects';
-import { HasMetadata } from 'type-fns';
+import type { Endpoints } from '@octokit/types';
+import { type RefByUnique, refByUnique } from 'domain-objects';
+import type { HasMetadata } from 'type-fns';
 
 import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 import { DeclaredGithubRepoConfig } from '../../domain.objects/DeclaredGithubRepoConfig';

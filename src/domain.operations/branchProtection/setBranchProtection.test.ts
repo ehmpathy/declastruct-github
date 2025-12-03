@@ -1,7 +1,7 @@
-import { VisualogicContext } from 'visualogic';
+import type { VisualogicContext } from 'visualogic';
 
-import { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';
+import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';
 import * as castModule from './castToDeclaredGithubBranchProtection';
 import * as getBranchProtectionModule from './getBranchProtection';
 

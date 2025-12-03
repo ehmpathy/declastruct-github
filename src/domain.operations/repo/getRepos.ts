@@ -1,10 +1,10 @@
 import { HelpfulError } from 'helpful-errors';
-import { HasMetadata } from 'type-fns';
-import { VisualogicContext } from 'visualogic';
+import type { HasMetadata } from 'type-fns';
+import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '../../access/sdks/getGithubClient';
-import { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
+import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 import { castToDeclaredGithubRepo } from './castToDeclaredGithubRepo';
 
 /**

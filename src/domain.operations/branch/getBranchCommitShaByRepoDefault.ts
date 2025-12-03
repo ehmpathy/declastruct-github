@@ -1,10 +1,10 @@
-import { RefByUnique } from 'domain-objects';
+import type { RefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
-import { VisualogicContext } from 'visualogic';
+import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '../../access/sdks/getGithubClient';
-import { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
+import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 import { getBranch } from './getBranch';
 
 /**

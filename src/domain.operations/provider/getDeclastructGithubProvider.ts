@@ -5,8 +5,8 @@ import { DeclaredGithubBranchDao } from '../../access/daos/DeclaredGithubBranchD
 import { DeclaredGithubBranchProtectionDao } from '../../access/daos/DeclaredGithubBranchProtectionDao';
 import { DeclaredGithubRepoConfigDao } from '../../access/daos/DeclaredGithubRepoConfigDao';
 import { DeclaredGithubRepoDao } from '../../access/daos/DeclaredGithubRepoDao';
-import { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclastructGithubProvider } from '../../domain.objects/DeclastructGithubProvider';
+import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { DeclastructGithubProvider } from '../../domain.objects/DeclastructGithubProvider';
 
 /**
  * .what = creates a declastruct provider for github resources

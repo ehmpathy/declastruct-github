@@ -1,11 +1,11 @@
 import { asProcedure } from 'as-procedure';
 import { HelpfulError } from 'helpful-errors';
-import { HasMetadata, PickOne } from 'type-fns';
-import { VisualogicContext } from 'visualogic';
+import type { HasMetadata, PickOne } from 'type-fns';
+import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '../../access/sdks/getGithubClient';
-import { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
+import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 import { castToDeclaredGithubRepo } from './castToDeclaredGithubRepo';
 import { getRepo } from './getRepo';
 
