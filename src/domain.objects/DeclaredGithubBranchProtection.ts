@@ -1,6 +1,6 @@
 import { DomainEntity, DomainLiteral, RefByUnique } from 'domain-objects';
 
-import { DeclaredGithubBranch } from './DeclaredGithubBranch';
+import type { DeclaredGithubBranch } from './DeclaredGithubBranch';
 
 /**
  * .what = a declarative structure which represents GitHub branch protection rules

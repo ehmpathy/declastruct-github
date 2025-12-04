@@ -1,6 +1,6 @@
 import { DomainEntity, RefByUnique } from 'domain-objects';
 
-import { DeclaredGithubRepo } from './DeclaredGithubRepo';
+import type { DeclaredGithubRepo } from './DeclaredGithubRepo';
 
 /**
  * .what = a declarative structure which represents a GitHub repository's configuration

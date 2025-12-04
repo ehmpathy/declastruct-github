@@ -1,12 +1,12 @@
 import { asProcedure } from 'as-procedure';
-import { RefByUnique } from 'domain-objects';
+import type { RefByUnique } from 'domain-objects';
 import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
-import { HasMetadata, PickOne } from 'type-fns';
-import { VisualogicContext } from 'visualogic';
+import type { HasMetadata, PickOne } from 'type-fns';
+import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '../../access/sdks/getGithubClient';
-import { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';
+import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';
 import { castToDeclaredGithubBranchProtection } from './castToDeclaredGithubBranchProtection';
 
 /**

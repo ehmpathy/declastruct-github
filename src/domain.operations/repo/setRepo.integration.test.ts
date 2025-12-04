@@ -1,7 +1,6 @@
 import { given, then } from 'test-fns';
 
 import { getSampleGithubContext } from '../../.test/assets/getSampleGithubContext';
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 
 const log = console;
 

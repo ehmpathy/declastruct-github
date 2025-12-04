@@ -3,7 +3,7 @@ import { isRefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
 import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 import { getRepo } from '../../domain.operations/repo/getRepo';
 import { setRepo } from '../../domain.operations/repo/setRepo';

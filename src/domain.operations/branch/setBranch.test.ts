@@ -1,7 +1,7 @@
-import { VisualogicContext } from 'visualogic';
+import type { VisualogicContext } from 'visualogic';
 
-import { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubBranch } from '../../domain.objects/DeclaredGithubBranch';
+import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { DeclaredGithubBranch } from '../../domain.objects/DeclaredGithubBranch';
 import * as getBranchModule from './getBranch';
 import { setBranch } from './setBranch';
 

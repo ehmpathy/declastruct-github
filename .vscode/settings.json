@@ -1,13 +1,6 @@
 {
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/node_modules": false
-  },
-  "cSpell.words": [
-    "datetime"
-  ]
+  "terraform.languageServer.enable": false,
+  "eslint.enable": false,
+  "yaml.validate": false,
+  "cSpell.enabled": false
 }

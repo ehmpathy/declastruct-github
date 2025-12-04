@@ -1,11 +1,11 @@
-import { DeclastructDao, DeclastructProvider } from 'declastruct';
+import type { DeclastructDao, DeclastructProvider } from 'declastruct';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import { ContextGithubApi } from './ContextGithubApi';
-import { DeclaredGithubBranch } from './DeclaredGithubBranch';
-import { DeclaredGithubBranchProtection } from './DeclaredGithubBranchProtection';
-import { DeclaredGithubRepo } from './DeclaredGithubRepo';
-import { DeclaredGithubRepoConfig } from './DeclaredGithubRepoConfig';
+import type { ContextGithubApi } from './ContextGithubApi';
+import type { DeclaredGithubBranch } from './DeclaredGithubBranch';
+import type { DeclaredGithubBranchProtection } from './DeclaredGithubBranchProtection';
+import type { DeclaredGithubRepo } from './DeclaredGithubRepo';
+import type { DeclaredGithubRepoConfig } from './DeclaredGithubRepoConfig';
 
 /**
  * .what = the declastruct provider for github resources

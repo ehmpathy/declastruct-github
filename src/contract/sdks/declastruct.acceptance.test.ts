@@ -1,11 +1,10 @@
 import { execSync } from 'child_process';
-import { DeclastructChange } from 'declastruct';
-import { existsSync, mkdirSync, readFileSync, rmSync } from 'fs';
+import type { DeclastructChange } from 'declastruct';
+import { existsSync, mkdirSync, readFileSync } from 'fs';
 import { join } from 'path';
-import { given, when, then } from 'test-fns';
+import { given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '../../.test/assets/getSampleGithubContext';
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 import { getDeclastructGithubProvider } from '../../domain.operations/provider/getDeclastructGithubProvider';
 
 const log = console;

@@ -1,7 +1,7 @@
-import { Endpoints } from '@octokit/types';
-import { refByUnique, RefByUnique } from 'domain-objects';
+import type { Endpoints } from '@octokit/types';
+import { type RefByUnique, refByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
-import { HasMetadata, isNotUndefined, NotUndefined } from 'type-fns';
+import { type HasMetadata, isNotUndefined, type NotUndefined } from 'type-fns';
 
 import { DeclaredGithubBranch } from '../../domain.objects/DeclaredGithubBranch';
 import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';

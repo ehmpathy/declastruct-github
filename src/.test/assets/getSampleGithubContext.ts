@@ -1,6 +1,6 @@
 import { UnexpectedCodePathError } from 'helpful-errors';
 
-import { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
 
 /**
  * .what = provides sample GitHub context for testing

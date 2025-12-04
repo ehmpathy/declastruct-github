@@ -1,7 +1,7 @@
-import { VisualogicContext } from 'visualogic';
+import type { VisualogicContext } from 'visualogic';
 
-import { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
+import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 import * as castModule from './castToDeclaredGithubRepo';
 import * as getRepoModule from './getRepo';
 
