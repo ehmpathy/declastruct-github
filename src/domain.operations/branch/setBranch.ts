@@ -1,5 +1,6 @@
+import { waitFor } from '@ehmpathy/uni-time';
 import { asProcedure } from 'as-procedure';
-import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
+import { HelpfulError } from 'helpful-errors';
 import type { HasMetadata, PickOne } from 'type-fns';
 import type { VisualogicContext } from 'visualogic';
 
@@ -58,22 +59,21 @@ export const setBranch = asProcedure(
           force: false, // don't force update - fail if not fast-forward
         });
 
-        // fetch the updated branch to return full metadata
-        return (
-          (await getBranch(
-            {
-              by: {
-                unique: {
-                  repo: desired.repo,
-                  name: desired.name,
+        // fetch the updated branch to return full metadata (with retry for eventual consistency)
+        return await waitFor(
+          async () =>
+            (await getBranch(
+              {
+                by: {
+                  unique: {
+                    repo: desired.repo,
+                    name: desired.name,
+                  },
                 },
               },
-            },
-            context,
-          )) ??
-          UnexpectedCodePathError.throw('updated branch not found', {
-            name: desired.name,
-          })
+              context,
+            )) ?? undefined,
+          { timeout: { seconds: 3 } },
         );
       } catch (error) {
         if (!(error instanceof Error)) throw error;
@@ -103,22 +103,21 @@ export const setBranch = asProcedure(
         sha: commitSha,
       });
 
-      // fetch the created branch to return full metadata
-      return (
-        (await getBranch(
-          {
-            by: {
-              unique: {
-                repo: desired.repo,
-                name: desired.name,
+      // fetch the created branch to return full metadata (with retry for eventual consistency)
+      return await waitFor(
+        async () =>
+          (await getBranch(
+            {
+              by: {
+                unique: {
+                  repo: desired.repo,
+                  name: desired.name,
+                },
               },
             },
-          },
-          context,
-        )) ??
-        UnexpectedCodePathError.throw('created branch not found', {
-          name: desired.name,
-        })
+            context,
+          )) ?? undefined,
+        { timeout: { seconds: 3 } },
       );
     } catch (error) {
       if (!(error instanceof Error)) throw error;
