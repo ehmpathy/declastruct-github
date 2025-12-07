@@ -13,18 +13,25 @@ import { setRepo } from '../../domain.operations/repo/setRepo';
  * .why = wraps existing repo operations to conform to declastruct interface
  */
 export const DeclaredGithubRepoDao = new DeclastructDao<
-  DeclaredGithubRepo,
   typeof DeclaredGithubRepo,
   ContextGithubApi & ContextLogTrail
 >({
+  dobj: DeclaredGithubRepo,
   get: {
-    byUnique: async (input, context) => {
-      return getRepo({ by: { unique: input } }, context);
-    },
-    byRef: async (input, context) => {
-      if (isRefByUnique({ of: DeclaredGithubRepo })(input))
+    one: {
+      byUnique: async (input, context) => {
         return getRepo({ by: { unique: input } }, context);
-      UnexpectedCodePathError.throw('unsupported ref type', { input });
+      },
+      byPrimary: null,
+      byRef: async (input, context) => {
+        if (isRefByUnique({ of: DeclaredGithubRepo })(input))
+          return getRepo({ by: { unique: input } }, context);
+        UnexpectedCodePathError.throw('unsupported ref type', { input });
+      },
+    },
+    ref: {
+      byPrimary: null,
+      byUnique: null,
     },
   },
   set: {
@@ -34,5 +41,6 @@ export const DeclaredGithubRepoDao = new DeclastructDao<
     upsert: async (input, context) => {
       return setRepo({ upsert: input }, context);
     },
+    delete: null,
   },
 });
