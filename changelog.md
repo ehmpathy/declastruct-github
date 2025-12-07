@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.7](https://github.com/ehmpathy/declastruct-github/compare/v1.0.6...v1.0.7) (2025-12-07)
+
+
+### Bug Fixes
+
+* **branch:** wait for read-after-write delay on branch create ([#13](https://github.com/ehmpathy/declastruct-github/issues/13)) ([715ab03](https://github.com/ehmpathy/declastruct-github/commit/715ab0355feb0c3dde6bbd39baf12070d40fd462))
+* **practs:** bump best practs ([#15](https://github.com/ehmpathy/declastruct-github/issues/15)) ([8f56f80](https://github.com/ehmpathy/declastruct-github/commit/8f56f80622b99d915446499e31a71c29c1007ff7))
+
 ## [1.0.6](https://github.com/ehmpathy/declastruct-github/compare/v1.0.5...v1.0.6) (2025-12-07)
 
 
