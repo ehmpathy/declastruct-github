@@ -14,18 +14,25 @@ import { setBranch } from '../../domain.operations/branch/setBranch';
  * .note = upsert allows updating the branch's commit SHA
  */
 export const DeclaredGithubBranchDao = new DeclastructDao<
-  DeclaredGithubBranch,
   typeof DeclaredGithubBranch,
   ContextGithubApi & ContextLogTrail
 >({
+  dobj: DeclaredGithubBranch,
   get: {
-    byUnique: async (input, context) => {
-      return getBranch({ by: { unique: input } }, context);
-    },
-    byRef: async (input, context) => {
-      if (isRefByUnique({ of: DeclaredGithubBranch })(input))
+    one: {
+      byUnique: async (input, context) => {
         return getBranch({ by: { unique: input } }, context);
-      UnexpectedCodePathError.throw('unsupported ref type', { input });
+      },
+      byPrimary: null,
+      byRef: async (input, context) => {
+        if (isRefByUnique({ of: DeclaredGithubBranch })(input))
+          return getBranch({ by: { unique: input } }, context);
+        UnexpectedCodePathError.throw('unsupported ref type', { input });
+      },
+    },
+    ref: {
+      byPrimary: null,
+      byUnique: null,
     },
   },
   set: {
@@ -35,5 +42,6 @@ export const DeclaredGithubBranchDao = new DeclastructDao<
     upsert: async (input, context) => {
       return setBranch({ upsert: input }, context);
     },
+    delete: null,
   },
 });

@@ -14,22 +14,18 @@ import type { DeclaredGithubRepoConfig } from './DeclaredGithubRepoConfig';
 export type DeclastructGithubProvider = DeclastructProvider<
   {
     DeclaredGithubRepo: DeclastructDao<
-      DeclaredGithubRepo,
       typeof DeclaredGithubRepo,
       ContextGithubApi & ContextLogTrail
     >;
     DeclaredGithubBranch: DeclastructDao<
-      DeclaredGithubBranch,
       typeof DeclaredGithubBranch,
       ContextGithubApi & ContextLogTrail
     >;
     DeclaredGithubRepoConfig: DeclastructDao<
-      DeclaredGithubRepoConfig,
       typeof DeclaredGithubRepoConfig,
       ContextGithubApi & ContextLogTrail
     >;
     DeclaredGithubBranchProtection: DeclastructDao<
-      DeclaredGithubBranchProtection,
       typeof DeclaredGithubBranchProtection,
       ContextGithubApi & ContextLogTrail
     >;

@@ -48,12 +48,12 @@ describe('getDeclastructGithubProvider', () => {
     when('using repo dao', () => {
       const repoDao = provider.daos.DeclaredGithubRepo;
 
-      then('should have get.byUnique method', () => {
-        expect(repoDao.get.byUnique).toBeDefined();
+      then('should have get.one.byUnique method', () => {
+        expect(repoDao.get.one.byUnique).toBeDefined();
       });
 
-      then('should have get.byRef method', () => {
-        expect(repoDao.get.byRef).toBeDefined();
+      then('should have get.one.byRef method', () => {
+        expect(repoDao.get.one.byRef).toBeDefined();
       });
 
       then('should have set.finsert method', () => {
@@ -69,7 +69,7 @@ describe('getDeclastructGithubProvider', () => {
          * .what = validates byUnique can fetch existing repo from github
          * .why = ensures read operations work correctly via provider interface
          */
-        const repo = await repoDao.get.byUnique(
+        const repo = await repoDao.get.one.byUnique(
           {
             owner: 'ehmpathy',
             name: 'declastruct-github-demo',
@@ -87,12 +87,12 @@ describe('getDeclastructGithubProvider', () => {
     when('using branch dao', () => {
       const branchDao = provider.daos.DeclaredGithubBranch;
 
-      then('should have get.byUnique method', () => {
-        expect(branchDao.get.byUnique).toBeDefined();
+      then('should have get.one.byUnique method', () => {
+        expect(branchDao.get.one.byUnique).toBeDefined();
       });
 
-      then('should have get.byRef method', () => {
-        expect(branchDao.get.byRef).toBeDefined();
+      then('should have get.one.byRef method', () => {
+        expect(branchDao.get.one.byRef).toBeDefined();
       });
 
       then('should have set.finsert method', () => {
@@ -108,7 +108,7 @@ describe('getDeclastructGithubProvider', () => {
          * .what = validates byUnique can fetch existing branch from github
          * .why = ensures read operations work correctly via provider interface
          */
-        const branch = await branchDao.get.byUnique(
+        const branch = await branchDao.get.one.byUnique(
           {
             repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
             name: 'main',
@@ -125,12 +125,12 @@ describe('getDeclastructGithubProvider', () => {
     when('using repo config dao', () => {
       const repoConfigDao = provider.daos.DeclaredGithubRepoConfig;
 
-      then('should have get.byUnique method', () => {
-        expect(repoConfigDao.get.byUnique).toBeDefined();
+      then('should have get.one.byUnique method', () => {
+        expect(repoConfigDao.get.one.byUnique).toBeDefined();
       });
 
-      then('should have get.byRef method', () => {
-        expect(repoConfigDao.get.byRef).toBeDefined();
+      then('should have get.one.byRef method', () => {
+        expect(repoConfigDao.get.one.byRef).toBeDefined();
       });
 
       then('should have set.finsert method', () => {
@@ -146,7 +146,7 @@ describe('getDeclastructGithubProvider', () => {
          * .what = validates byUnique can fetch existing repo config from github
          * .why = ensures read operations work correctly via provider interface
          */
-        const config = await repoConfigDao.get.byUnique(
+        const config = await repoConfigDao.get.one.byUnique(
           {
             repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
           },
@@ -197,12 +197,12 @@ describe('getDeclastructGithubProvider', () => {
     when('using branch protection dao', () => {
       const branchProtectionDao = provider.daos.DeclaredGithubBranchProtection;
 
-      then('should have get.byUnique method', () => {
-        expect(branchProtectionDao.get.byUnique).toBeDefined();
+      then('should have get.one.byUnique method', () => {
+        expect(branchProtectionDao.get.one.byUnique).toBeDefined();
       });
 
-      then('should have get.byRef method', () => {
-        expect(branchProtectionDao.get.byRef).toBeDefined();
+      then('should have get.one.byRef method', () => {
+        expect(branchProtectionDao.get.one.byRef).toBeDefined();
       });
 
       then('should have set.finsert method', () => {
@@ -218,7 +218,7 @@ describe('getDeclastructGithubProvider', () => {
          * .what = validates byUnique can fetch existing branch protection from github
          * .why = ensures read operations work correctly via provider interface
          */
-        const protection = await branchProtectionDao.get.byUnique(
+        const protection = await branchProtectionDao.get.one.byUnique(
           {
             branch: {
               repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },

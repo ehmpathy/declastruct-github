@@ -124,7 +124,7 @@ describe('declastruct CLI workflow', () => {
           { log },
         );
 
-        const repo = await provider.daos.DeclaredGithubRepo.get.byUnique(
+        const repo = await provider.daos.DeclaredGithubRepo.get.one.byUnique(
           {
             owner: 'ehmpathy',
             name: 'declastruct-github-demo',

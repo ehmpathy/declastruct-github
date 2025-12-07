@@ -13,18 +13,25 @@ import { setBranchProtection } from '../../domain.operations/branchProtection/se
  * .why = wraps existing branch protection operations to conform to declastruct interface
  */
 export const DeclaredGithubBranchProtectionDao = new DeclastructDao<
-  DeclaredGithubBranchProtection,
   typeof DeclaredGithubBranchProtection,
   ContextGithubApi & ContextLogTrail
 >({
+  dobj: DeclaredGithubBranchProtection,
   get: {
-    byUnique: async (input, context) => {
-      return getBranchProtection({ by: { unique: input } }, context);
-    },
-    byRef: async (input, context) => {
-      if (isRefByUnique({ of: DeclaredGithubBranchProtection })(input))
+    one: {
+      byUnique: async (input, context) => {
         return getBranchProtection({ by: { unique: input } }, context);
-      UnexpectedCodePathError.throw('unsupported ref type', { input });
+      },
+      byPrimary: null,
+      byRef: async (input, context) => {
+        if (isRefByUnique({ of: DeclaredGithubBranchProtection })(input))
+          return getBranchProtection({ by: { unique: input } }, context);
+        UnexpectedCodePathError.throw('unsupported ref type', { input });
+      },
+    },
+    ref: {
+      byPrimary: null,
+      byUnique: null,
     },
   },
   set: {
@@ -34,5 +41,6 @@ export const DeclaredGithubBranchProtectionDao = new DeclastructDao<
     upsert: async (input, context) => {
       return setBranchProtection({ upsert: input }, context);
     },
+    delete: null,
   },
 });
