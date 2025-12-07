@@ -1,7 +1,0 @@
-{
-  "THOROUGH=true npm run test 2>&1": 1765146433,
-  "find /home/vlad/git/ehmpathy/declastruct-github/node_modules/declastruct/dist -name \"*.ts\" -o -name \"*.d.ts\" 2>/dev/null | head -30": 1765146507,
-  "cat /home/vlad/git/ehmpathy/declastruct-github/node_modules/declastruct/dist/index.d.ts": 1765146518,
-  "find /home/vlad/git/ehmpathy/declastruct-github/node_modules/declastruct -type f -name \"*.d.ts\"": 1765146534,
-  "find node_modules/declastruct -name \"*.d.ts\"": 1765146539
-}

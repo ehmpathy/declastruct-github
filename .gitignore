@@ -1,7 +1,9 @@
+*.local.json
 *.log
 *.tsbuildinfo
 .artifact
 .env
+.local.json
 .serverless
 .temp
 .terraform
@@ -11,4 +13,3 @@
 coverage
 dist
 node_modules
-.local.json

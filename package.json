@@ -29,6 +29,7 @@
     "fix:format:biome": "biome check --write src",
     "fix:format": "npm run fix:format:biome",
     "fix:lint": "biome check --write src",
+    "fix": "npm run fix:format && npm run fix:lint",
     "build:clean": "rm dist/ -rf",
     "build:compile": "tsc -p ./tsconfig.build.json",
     "build": "npm run build:clean && npm run build:compile",
@@ -50,7 +51,7 @@
     "preversion": "npm run prepush",
     "postversion": "git push origin HEAD --tags --no-verify",
     "prepare:husky": "npx husky install && chmod ug+x .husky/*",
-    "prepare": "[ -d .git ] && npm run prepare:husky || exit 0"
+    "prepare": "[ -e .git ] && npm run prepare:husky || exit 0"
   },
   "dependencies": {
     "@ehmpathy/uni-time": "1.7.4",
@@ -76,9 +77,9 @@
     "@types/node": "22.15.21",
     "cz-conventional-changelog": "3.3.0",
     "declapract": "0.13.0",
-    "declapract-typescript-ehmpathy": "0.43.7",
-    "declastruct": "^1.5.1",
-    "declastruct-github": "^1.0.3",
+    "declapract-typescript-ehmpathy": "0.43.11",
+    "declastruct": "1.5.1",
+    "declastruct-github": "1.0.6",
     "depcheck": "1.4.3",
     "esbuild-register": "3.6.0",
     "husky": "8.0.3",
