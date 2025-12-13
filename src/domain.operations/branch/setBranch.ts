@@ -73,7 +73,7 @@ export const setBranch = asProcedure(
               },
               context,
             )) ?? undefined,
-          { timeout: { seconds: 3 } },
+          { timeout: { seconds: 10 } },
         );
       } catch (error) {
         if (!(error instanceof Error)) throw error;
@@ -84,26 +84,33 @@ export const setBranch = asProcedure(
     }
 
     // otherwise, create it
-    try {
-      // determine commit SHA to create branch from
-      const commitSha =
-        desired.commit?.sha ??
-        (await getBranchCommitShaByRepoDefault(
-          {
-            repo: desired.repo,
-          },
-          context,
-        ));
+    // determine commit SHA to create branch from
+    const commitSha =
+      desired.commit?.sha ??
+      (await getBranchCommitShaByRepoDefault(
+        {
+          repo: desired.repo,
+        },
+        context,
+      ));
 
-      // create the branch using git refs API
+    // create the branch using git refs API
+    try {
       await github.git.createRef({
         owner: desired.repo.owner,
         repo: desired.repo.name,
         ref: `refs/heads/${desired.name}`,
         sha: commitSha,
       });
+    } catch (error) {
+      if (!(error instanceof Error)) throw error;
+      throw new HelpfulError('github.setBranch.createRef error', {
+        cause: error,
+      });
+    }
 
-      // fetch the created branch to return full metadata (with retry for eventual consistency)
+    // fetch the created branch to return full metadata (with retry for eventual consistency)
+    try {
       return await waitFor(
         async () =>
           (await getBranch(
@@ -117,11 +124,11 @@ export const setBranch = asProcedure(
             },
             context,
           )) ?? undefined,
-        { timeout: { seconds: 3 } },
+        { timeout: { seconds: 10 } },
       );
     } catch (error) {
       if (!(error instanceof Error)) throw error;
-      throw new HelpfulError('github.setBranch.create error', {
+      throw new HelpfulError('github.setBranch.waitForBranch error', {
         cause: error,
       });
     }

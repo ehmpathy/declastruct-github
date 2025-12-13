@@ -15,5 +15,8 @@ concurrency:
 jobs:
   suite:
     uses: ./.github/workflows/.test.yml
+    with:
+      creds-github-app-owner: ehmpathy
+      creds-github-app-id: ${{ vars.DECLASTRUCT_GITHUB_TESTAUTH_APP_ID }}
     secrets:
-      prep-github-token: ${{ secrets.DECLASTRUCT_GITHUB_DEMO_REPO_ADMIN_TOKEN }}
+      creds-github-app-private-key: ${{ secrets.DECLASTRUCT_GITHUB_TESTAUTH_APP_PRIVATE_KEY }}

@@ -35,11 +35,6 @@ export interface DeclaredGithubRepoConfig {
   hasWiki?: boolean;
 
   /**
-   * .what = whether downloads are enabled
-   */
-  hasDownloads?: boolean;
-
-  /**
    * .what = whether this is a template repository
    */
   isTemplate?: boolean;

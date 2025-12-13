@@ -50,7 +50,6 @@ export const setRepoConfig = asProcedure(
         has_issues: desired.hasIssues,
         has_projects: desired.hasProjects,
         has_wiki: desired.hasWiki,
-        has_downloads: desired.hasDownloads,
         is_template: desired.isTemplate,
         default_branch: desired.defaultBranch,
         allow_squash_merge: desired.allowSquashMerge,

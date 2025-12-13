@@ -1,10 +1,12 @@
-import { HelpfulError } from 'helpful-errors';
+import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
 import type { HasMetadata } from 'type-fns';
 import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '../../access/sdks/getGithubClient';
 import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
 import type { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
+import { hasContextWithAppToken } from '../context/hasContextWithAppToken';
+import { hasContextWithPatToken } from '../context/hasContextWithPatToken';
 import { castToDeclaredGithubRepo } from './castToDeclaredGithubRepo';
 
 /**
@@ -26,6 +28,10 @@ export const getRepos = async (
   // get cached GitHub client
   const github = getGithubClient({}, context);
 
+  // detect token type for choosing appropriate endpoint
+  const isAppToken = hasContextWithAppToken(null, context);
+  const isPat = hasContextWithPatToken(null, context);
+
   // execute the GitHub API call
   try {
     const response = await (async () => {
@@ -38,11 +44,26 @@ export const getRepos = async (
         });
       }
 
-      // otherwise, list repos for authenticated user
-      return github.repos.listForAuthenticatedUser({
-        page: input.page?.range?.until.page,
-        per_page: input.page?.limit,
-      });
+      // list repos accessible to the authenticated context
+      // - app token: use installation endpoint (listForAuthenticatedUser not available)
+      // - PAT: use user endpoint
+      if (isAppToken) {
+        const result = await github.apps.listReposAccessibleToInstallation({
+          page: input.page?.range?.until.page,
+          per_page: input.page?.limit,
+        });
+        return { data: result.data.repositories };
+      }
+      if (isPat) {
+        return github.repos.listForAuthenticatedUser({
+          page: input.page?.range?.until.page,
+          per_page: input.page?.limit,
+        });
+      }
+      throw new UnexpectedCodePathError(
+        'unsupported token type for listing repos',
+        { tokenPrefix: context.github.token.slice(0, 10) + '...' },
+      );
     })();
 
     const repos = response.data ?? [];
