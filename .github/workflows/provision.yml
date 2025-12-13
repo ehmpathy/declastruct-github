@@ -15,10 +15,36 @@ concurrency:
   cancel-in-progress: true #  cancel workflows for non-latest commits
 
 jobs:
+  # generate app token for provisioning
+  tokens:
+    runs-on: ubuntu-latest
+    outputs:
+      github-token: ${{ steps.app-token.outputs.token }}
+    steps:
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.DECLASTRUCT_GITHUB_APP_ID }}
+          private-key: ${{ secrets.DECLASTRUCT_GITHUB_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+  # provision github resources (repos, branches, protections)
   github:
+    needs: [tokens]
     uses: ./.github/workflows/.declastruct.yml
     with:
       wish-path: provision/github/declastruct.resources.ts
       github-environment: prod
     secrets:
-      github-token: ${{ secrets.PROVISION_GITHUB_GITHUB_TOKEN }}
+      github-token: ${{ needs.tokens.outputs.github-token }}
+
+  # provision github apps (apps, installations)
+  github-apps:
+    needs: [tokens]
+    uses: ./.github/workflows/.declastruct.yml
+    with:
+      wish-path: provision/github.apps/resources.ts
+      github-environment: prod
+    secrets:
+      github-token: ${{ needs.tokens.outputs.github-token }}

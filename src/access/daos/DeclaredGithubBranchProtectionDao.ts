@@ -22,7 +22,7 @@ export const DeclaredGithubBranchProtectionDao = new DeclastructDao<
       byUnique: async (input, context) => {
         return getBranchProtection({ by: { unique: input } }, context);
       },
-      byPrimary: null,
+      byPrimary: undefined,
       byRef: async (input, context) => {
         if (isRefByUnique({ of: DeclaredGithubBranchProtection })(input))
           return getBranchProtection({ by: { unique: input } }, context);
@@ -30,8 +30,8 @@ export const DeclaredGithubBranchProtectionDao = new DeclastructDao<
       },
     },
     ref: {
-      byPrimary: null,
-      byUnique: null,
+      byPrimary: undefined,
+      byUnique: undefined,
     },
   },
   set: {
@@ -41,6 +41,6 @@ export const DeclaredGithubBranchProtectionDao = new DeclastructDao<
     upsert: async (input, context) => {
       return setBranchProtection({ upsert: input }, context);
     },
-    delete: null,
+    delete: undefined,
   },
 });

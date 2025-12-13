@@ -22,7 +22,7 @@ export const DeclaredGithubRepoDao = new DeclastructDao<
       byUnique: async (input, context) => {
         return getRepo({ by: { unique: input } }, context);
       },
-      byPrimary: null,
+      byPrimary: undefined,
       byRef: async (input, context) => {
         if (isRefByUnique({ of: DeclaredGithubRepo })(input))
           return getRepo({ by: { unique: input } }, context);
@@ -30,8 +30,8 @@ export const DeclaredGithubRepoDao = new DeclastructDao<
       },
     },
     ref: {
-      byPrimary: null,
-      byUnique: null,
+      byPrimary: undefined,
+      byUnique: undefined,
     },
   },
   set: {
@@ -41,6 +41,6 @@ export const DeclaredGithubRepoDao = new DeclastructDao<
     upsert: async (input, context) => {
       return setRepo({ upsert: input }, context);
     },
-    delete: null,
+    delete: undefined,
   },
 });
