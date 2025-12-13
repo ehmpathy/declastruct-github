@@ -3,12 +3,18 @@
  * .why = enables consumers to use the declastruct provider interface and domain objects
  */
 
+// domain objects - repos
 export { DeclaredGithubBranch } from '../../domain.objects/DeclaredGithubBranch';
 export { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';
-
-// domain objects
 export { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 export { DeclaredGithubRepoConfig } from '../../domain.objects/DeclaredGithubRepoConfig';
-export type { DeclastructGithubProvider } from '../../domain.objects/DeclastructGithubProvider';
+
+// domain objects - apps
+export { DeclaredGithubApp } from '../../domain.objects/DeclaredGithubApp';
+export { DeclaredGithubAppInstallation } from '../../domain.objects/DeclaredGithubAppInstallation';
+export type { DeclaredGithubAppPermissions } from '../../domain.objects/DeclaredGithubAppPermissions';
+export { DeclaredGithubOwner } from '../../domain.objects/DeclaredGithubOwner';
+
 // provider
+export type { DeclastructGithubProvider } from '../../domain.objects/DeclastructGithubProvider';
 export { getDeclastructGithubProvider } from '../../domain.operations/provider/getDeclastructGithubProvider';

@@ -2,6 +2,8 @@ import type { DeclastructDao, DeclastructProvider } from 'declastruct';
 import type { ContextLogTrail } from 'simple-log-methods';
 
 import type { ContextGithubApi } from './ContextGithubApi';
+import type { DeclaredGithubApp } from './DeclaredGithubApp';
+import type { DeclaredGithubAppInstallation } from './DeclaredGithubAppInstallation';
 import type { DeclaredGithubBranch } from './DeclaredGithubBranch';
 import type { DeclaredGithubBranchProtection } from './DeclaredGithubBranchProtection';
 import type { DeclaredGithubRepo } from './DeclaredGithubRepo';
@@ -27,6 +29,14 @@ export type DeclastructGithubProvider = DeclastructProvider<
     >;
     DeclaredGithubBranchProtection: DeclastructDao<
       typeof DeclaredGithubBranchProtection,
+      ContextGithubApi & ContextLogTrail
+    >;
+    DeclaredGithubApp: DeclastructDao<
+      typeof DeclaredGithubApp,
+      ContextGithubApi & ContextLogTrail
+    >;
+    DeclaredGithubAppInstallation: DeclastructDao<
+      typeof DeclaredGithubAppInstallation,
       ContextGithubApi & ContextLogTrail
     >;
   },
