@@ -1,0 +1,18 @@
+bootup your mechanic's role via `npx rhachet roles boot --repo ehmpathy --role mechanic`
+
+then, bootup your context
+- .behavior/v2025_12_11.github-apps/3.3.blueprint.v1.i1.md
+
+now, review the current git diff since main
+
+what was missed?
+- what was missed behaviorally?
+- what was missed in terms of mechanics practices?
+
+emit your feedback in terms of BLOCKERs and NITPICKs
+into
+- .behavior/v2025_12_11.github-apps/5.2.selfreview.phase0_to_phaseN.v1.i1.md
+
+then respond and resolve them
+emit your progress into
+- .behavior/v2025_12_11.github-apps/5.3.selfresponse.phase0_to_phaseN.v1.i1.md

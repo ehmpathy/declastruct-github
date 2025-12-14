@@ -1,6 +1,8 @@
 import { DeclastructProvider } from 'declastruct';
 import type { ContextLogTrail } from 'simple-log-methods';
 
+import { DeclaredGithubAppDao } from '../../access/daos/DeclaredGithubAppDao';
+import { DeclaredGithubAppInstallationDao } from '../../access/daos/DeclaredGithubAppInstallationDao';
 import { DeclaredGithubBranchDao } from '../../access/daos/DeclaredGithubBranchDao';
 import { DeclaredGithubBranchProtectionDao } from '../../access/daos/DeclaredGithubBranchProtectionDao';
 import { DeclaredGithubRepoConfigDao } from '../../access/daos/DeclaredGithubRepoConfigDao';
@@ -34,6 +36,8 @@ export const getDeclastructGithubProvider = (
     DeclaredGithubBranch: DeclaredGithubBranchDao,
     DeclaredGithubRepoConfig: DeclaredGithubRepoConfigDao,
     DeclaredGithubBranchProtection: DeclaredGithubBranchProtectionDao,
+    DeclaredGithubApp: DeclaredGithubAppDao,
+    DeclaredGithubAppInstallation: DeclaredGithubAppInstallationDao,
   };
 
   // return provider with all required properties

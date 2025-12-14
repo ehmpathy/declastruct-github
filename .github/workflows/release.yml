@@ -6,12 +6,36 @@ on:
       - main
 
 jobs:
-  release-please:
+  please-release:
     runs-on: ubuntu-24.04
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need full history for tags
+
+      - name: check tags
+        id: check-tags
+        run: |
+          if git tag | grep -q .; then
+            echo "has-tags=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-tags=false" >> $GITHUB_OUTPUT
+            echo "No tags found - will start at v0.1.0"
+          fi
+
+      - name: get github token
+        id: github-token
+        uses: actions/create-github-app-token@v2
+        with:
+          owner: ehmpathy
+          repositories: ${{ github.event.repository.name }}
+          app-id: ${{ vars.RHELEASE_APP_ID }}
+          private-key: ${{ secrets.RHELEASE_APP_PRIVATE_KEY }}
+
       - uses: google-github-actions/release-please-action@v3.7.6 # https://github.com/googleapis/release-please-action/issues/840
         with:
-          token: ${{ secrets.RELEASE_PLEASE_GITHUB_TOKEN }}
+          token: ${{ steps.github-token.outputs.token }}
           release-type: node
+          release-as: ${{ steps.check-tags.outputs.has-tags == 'false' && '0.1.0' || null }} # ensures new packages start at a sane choice of v0, instead of their default of v1
           pull-request-title-pattern: "chore(release): v${version} 🎉"
           changelog-path: changelog.md

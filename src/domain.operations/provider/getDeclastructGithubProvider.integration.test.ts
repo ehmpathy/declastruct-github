@@ -171,7 +171,6 @@ describe('getDeclastructGithubProvider', () => {
           hasIssues: true,
           hasProjects: false,
           hasWiki: false,
-          hasDownloads: true,
           isTemplate: false,
           defaultBranch: 'main',
           allowSquashMerge: true,

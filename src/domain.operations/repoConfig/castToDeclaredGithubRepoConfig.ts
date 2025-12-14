@@ -24,7 +24,6 @@ export const castToDeclaredGithubRepoConfig = (input: {
     hasIssues: input.response.has_issues,
     hasProjects: input.response.has_projects,
     hasWiki: input.response.has_wiki,
-    hasDownloads: input.response.has_downloads,
     isTemplate: input.response.is_template,
     defaultBranch: input.response.default_branch,
     allowSquashMerge: input.response.allow_squash_merge,
