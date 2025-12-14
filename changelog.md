@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/ehmpathy/declastruct-github/compare/v1.0.7...v1.1.0) (2025-12-14)
+
+
+### Features
+
+* **apps:** support control of github apps and installs ([#16](https://github.com/ehmpathy/declastruct-github/issues/16)) ([2e9f10b](https://github.com/ehmpathy/declastruct-github/commit/2e9f10bc74527d4a1fdd9781731497c0c5ea94bc))
+
 ## [1.0.7](https://github.com/ehmpathy/declastruct-github/compare/v1.0.6...v1.0.7) (2025-12-07)
 
 
