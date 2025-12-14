@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/ehmpathy/declastruct-github/compare/v1.1.0...v1.1.1) (2025-12-14)
+
+
+### Bug Fixes
+
+* **cicd:** bump nvmrc to support npm oidc ([#18](https://github.com/ehmpathy/declastruct-github/issues/18)) ([c8ecbc8](https://github.com/ehmpathy/declastruct-github/commit/c8ecbc8a08790a46689f7e2f61e353fb844665db))
+
 ## [1.1.0](https://github.com/ehmpathy/declastruct-github/compare/v1.0.7...v1.1.0) (2025-12-14)
 
 
