@@ -1,4 +1,4 @@
-import { DeclaredResource } from 'declastruct';
+import type { DeclaredResource } from 'declastruct';
 
 import {
   DeclaredGithubApp,
@@ -14,7 +14,10 @@ export const getResourcesOfAppDeclastructGithubConformer = async (): Promise<
   DeclaredResource[]
 > => {
   // declare the owner
-  const owner = new DeclaredGithubOwner({ type: 'organization', slug: 'ehmpathy' });
+  const owner = new DeclaredGithubOwner({
+    type: 'organization',
+    slug: 'ehmpathy',
+  });
 
   // declare the app
   const app = DeclaredGithubApp.as({

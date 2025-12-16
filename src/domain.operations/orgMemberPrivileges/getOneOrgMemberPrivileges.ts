@@ -4,9 +4,10 @@ import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
 import type { HasMetadata, PickOne } from 'type-fns';
 import type { VisualogicContext } from 'visualogic';
 
-import { getGithubClient } from '../../access/sdks/getGithubClient';
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import type { DeclaredGithubOrgMemberPrivileges } from '../../domain.objects/DeclaredGithubOrgMemberPrivileges';
+import { getGithubClient } from '@src/access/sdks/getGithubClient';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import type { DeclaredGithubOrgMemberPrivileges } from '@src/domain.objects/DeclaredGithubOrgMemberPrivileges';
+
 import { castToDeclaredGithubOrgMemberPrivileges } from './castToDeclaredGithubOrgMemberPrivileges';
 
 /**

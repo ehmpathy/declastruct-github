@@ -1,6 +1,7 @@
 import { given, then, when } from 'test-fns';
 
-import { DeclaredGithubOrgMemberPrivileges } from '../../domain.objects/DeclaredGithubOrgMemberPrivileges';
+import { DeclaredGithubOrgMemberPrivileges } from '@src/domain.objects/DeclaredGithubOrgMemberPrivileges';
+
 import { castToDeclaredGithubOrgMemberPrivileges } from './castToDeclaredGithubOrgMemberPrivileges';
 
 describe('castToDeclaredGithubOrgMemberPrivileges', () => {

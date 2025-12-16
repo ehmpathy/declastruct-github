@@ -3,8 +3,9 @@ import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
 import type { HasMetadata, PickOne } from 'type-fns';
 import type { VisualogicContext } from 'visualogic';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import type { DeclaredGithubApp } from '../../domain.objects/DeclaredGithubApp';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import type { DeclaredGithubApp } from '@src/domain.objects/DeclaredGithubApp';
+
 import { getOneApp } from './getOneApp';
 
 /**

@@ -1,4 +1,4 @@
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 
 /**
  * .what = checks if context contains a GitHub Personal Access Token (PAT)

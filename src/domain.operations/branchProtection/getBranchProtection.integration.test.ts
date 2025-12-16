@@ -1,7 +1,8 @@
 import { given, then } from 'test-fns';
 
-import { getSampleGithubContext } from '../../.test/assets/getSampleGithubContext';
-import { getSampleRepo } from '../../.test/assets/getSampleRepo';
+import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
+import { getSampleRepo } from '@src/.test/assets/getSampleRepo';
+
 import { getBranchProtection } from './getBranchProtection';
 
 const log = console;

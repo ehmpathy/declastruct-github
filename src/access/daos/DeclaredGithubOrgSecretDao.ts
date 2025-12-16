@@ -3,11 +3,11 @@ import { isRefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubOrgSecret } from '../../domain.objects/DeclaredGithubOrgSecret';
-import { delOrgSecret } from '../../domain.operations/orgSecret/delOrgSecret';
-import { getOneOrgSecret } from '../../domain.operations/orgSecret/getOneOrgSecret';
-import { setOrgSecret } from '../../domain.operations/orgSecret/setOrgSecret';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import { DeclaredGithubOrgSecret } from '@src/domain.objects/DeclaredGithubOrgSecret';
+import { delOrgSecret } from '@src/domain.operations/orgSecret/delOrgSecret';
+import { getOneOrgSecret } from '@src/domain.operations/orgSecret/getOneOrgSecret';
+import { setOrgSecret } from '@src/domain.operations/orgSecret/setOrgSecret';
 
 /**
  * .what = declastruct DAO for GitHub Organization Secret resources

@@ -2,7 +2,7 @@ import { asUniDateTime } from '@ehmpathy/uni-time';
 import type { Endpoints } from '@octokit/types';
 import { assure, type HasMetadata, isPresent } from 'type-fns';
 
-import { DeclaredGithubOrg } from '../../domain.objects/DeclaredGithubOrg';
+import { DeclaredGithubOrg } from '@src/domain.objects/DeclaredGithubOrg';
 
 type GithubOrgResponse = Endpoints['GET /orgs/{org}']['response']['data'];
 

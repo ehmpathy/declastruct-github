@@ -1,10 +1,10 @@
 import { genDeclastructDao } from 'declastruct';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubApp } from '../../domain.objects/DeclaredGithubApp';
-import { getOneApp } from '../../domain.operations/app/getOneApp';
-import { setApp } from '../../domain.operations/app/setApp';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import { DeclaredGithubApp } from '@src/domain.objects/DeclaredGithubApp';
+import { getOneApp } from '@src/domain.operations/app/getOneApp';
+import { setApp } from '@src/domain.operations/app/setApp';
 
 /**
  * .what = declastruct DAO for GitHub App resources

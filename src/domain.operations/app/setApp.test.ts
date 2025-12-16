@@ -1,9 +1,10 @@
 import { getError, HelpfulError } from 'helpful-errors';
 import { given, then, when } from 'test-fns';
 
-import { DeclaredGithubApp } from '../../domain.objects/DeclaredGithubApp';
-import { DeclaredGithubAppPermissions } from '../../domain.objects/DeclaredGithubAppPermissions';
-import { DeclaredGithubOwner } from '../../domain.objects/DeclaredGithubOwner';
+import { DeclaredGithubApp } from '@src/domain.objects/DeclaredGithubApp';
+import { DeclaredGithubAppPermissions } from '@src/domain.objects/DeclaredGithubAppPermissions';
+import { DeclaredGithubOwner } from '@src/domain.objects/DeclaredGithubOwner';
+
 import { setApp } from './setApp';
 
 // mock getOneApp

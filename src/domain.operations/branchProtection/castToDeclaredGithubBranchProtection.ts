@@ -2,8 +2,8 @@ import type { Endpoints } from '@octokit/types';
 import { type RefByUnique, refByUnique } from 'domain-objects';
 import type { HasMetadata } from 'type-fns';
 
-import { DeclaredGithubBranch } from '../../domain.objects/DeclaredGithubBranch';
-import { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';
+import { DeclaredGithubBranch } from '@src/domain.objects/DeclaredGithubBranch';
+import { DeclaredGithubBranchProtection } from '@src/domain.objects/DeclaredGithubBranchProtection';
 
 export type GithubBranchProtectionResponse =
   Endpoints['GET /repos/{owner}/{repo}/branches/{branch}/protection']['response']['data'];

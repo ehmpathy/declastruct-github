@@ -1,4 +1,4 @@
-import { DeclaredResource } from 'declastruct';
+import type { DeclaredResource } from 'declastruct';
 
 import {
   DeclaredGithubApp,
@@ -16,14 +16,18 @@ export const getResourcesOfAppRhelease = async (): Promise<
   DeclaredResource[]
 > => {
   // declare the owner
-  const owner = new DeclaredGithubOwner({ type: 'organization', slug: 'ehmpathy' });
+  const owner = new DeclaredGithubOwner({
+    type: 'organization',
+    slug: 'ehmpathy',
+  });
 
   // declare the app
   const app = DeclaredGithubApp.as({
     owner,
     slug: 'rhelease',
     name: 'rhelease',
-    description: 'grants the narrowest auth possible to power please-release workflows with short-lived github app tokens. (github, where is your oidc auth?)',
+    description:
+      'grants the narrowest auth possible to power please-release workflows with short-lived github app tokens. (github, where is your oidc auth?)',
     homepageUrl: 'https://github.com/ehmpathy/rhelease',
     public: false,
     permissions: {

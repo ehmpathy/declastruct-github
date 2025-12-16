@@ -2,8 +2,8 @@ import type { Endpoints } from '@octokit/types';
 import { type RefByUnique, refByUnique } from 'domain-objects';
 import type { HasMetadata } from 'type-fns';
 
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
-import { DeclaredGithubRepoConfig } from '../../domain.objects/DeclaredGithubRepoConfig';
+import { DeclaredGithubRepo } from '@src/domain.objects/DeclaredGithubRepo';
+import { DeclaredGithubRepoConfig } from '@src/domain.objects/DeclaredGithubRepoConfig';
 
 type GithubRepoResponse =
   Endpoints['GET /repos/{owner}/{repo}']['response']['data'];

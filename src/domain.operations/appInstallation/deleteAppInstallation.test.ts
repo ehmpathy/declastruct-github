@@ -1,8 +1,9 @@
 import { getError, HelpfulError } from 'helpful-errors';
 import { given, then, when } from 'test-fns';
 
-import { DeclaredGithubAppInstallation } from '../../domain.objects/DeclaredGithubAppInstallation';
-import { DeclaredGithubOwner } from '../../domain.objects/DeclaredGithubOwner';
+import { DeclaredGithubAppInstallation } from '@src/domain.objects/DeclaredGithubAppInstallation';
+import { DeclaredGithubOwner } from '@src/domain.objects/DeclaredGithubOwner';
+
 import { deleteAppInstallation } from './deleteAppInstallation';
 
 const log = console;

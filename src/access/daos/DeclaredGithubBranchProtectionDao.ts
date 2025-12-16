@@ -3,10 +3,10 @@ import { isRefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';
-import { getBranchProtection } from '../../domain.operations/branchProtection/getBranchProtection';
-import { setBranchProtection } from '../../domain.operations/branchProtection/setBranchProtection';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import { DeclaredGithubBranchProtection } from '@src/domain.objects/DeclaredGithubBranchProtection';
+import { getBranchProtection } from '@src/domain.operations/branchProtection/getBranchProtection';
+import { setBranchProtection } from '@src/domain.operations/branchProtection/setBranchProtection';
 
 /**
  * .what = declastruct DAO for github branch protection resources

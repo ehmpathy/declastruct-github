@@ -1,8 +1,9 @@
 import { given, then, when } from 'test-fns';
 import type { VisualogicContext } from 'visualogic';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import type { DeclaredGithubOrg } from '../../domain.objects/DeclaredGithubOrg';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import type { DeclaredGithubOrg } from '@src/domain.objects/DeclaredGithubOrg';
+
 import * as castModule from './castToDeclaredGithubOrg';
 import * as getOrgModule from './getOneOrg';
 

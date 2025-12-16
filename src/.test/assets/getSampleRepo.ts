@@ -1,4 +1,4 @@
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
+import { DeclaredGithubRepo } from '@src/domain.objects/DeclaredGithubRepo';
 
 /**
  * .what = provides sample repo for testing

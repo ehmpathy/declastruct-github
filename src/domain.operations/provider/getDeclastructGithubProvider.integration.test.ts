@@ -1,8 +1,9 @@
 import { given, then, when } from 'test-fns';
 
-import { getSampleGithubContext } from '../../.test/assets/getSampleGithubContext';
-import { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';
-import { DeclaredGithubRepoConfig } from '../../domain.objects/DeclaredGithubRepoConfig';
+import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
+import { DeclaredGithubBranchProtection } from '@src/domain.objects/DeclaredGithubBranchProtection';
+import { DeclaredGithubRepoConfig } from '@src/domain.objects/DeclaredGithubRepoConfig';
+
 import { getDeclastructGithubProvider } from './getDeclastructGithubProvider';
 
 const log = console;

@@ -3,8 +3,8 @@ import { type RefByUnique, refByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import { type HasMetadata, isNotUndefined, type NotUndefined } from 'type-fns';
 
-import { DeclaredGithubBranch } from '../../domain.objects/DeclaredGithubBranch';
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
+import { DeclaredGithubBranch } from '@src/domain.objects/DeclaredGithubBranch';
+import { DeclaredGithubRepo } from '@src/domain.objects/DeclaredGithubRepo';
 
 /**
  * .what = extracts required value from object or throws

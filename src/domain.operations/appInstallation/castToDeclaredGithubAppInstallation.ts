@@ -4,9 +4,9 @@ import { refByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { HasMetadata } from 'type-fns';
 
-import { DeclaredGithubApp } from '../../domain.objects/DeclaredGithubApp';
-import { DeclaredGithubAppInstallation } from '../../domain.objects/DeclaredGithubAppInstallation';
-import { DeclaredGithubOwner } from '../../domain.objects/DeclaredGithubOwner';
+import { DeclaredGithubApp } from '@src/domain.objects/DeclaredGithubApp';
+import { DeclaredGithubAppInstallation } from '@src/domain.objects/DeclaredGithubAppInstallation';
+import { DeclaredGithubOwner } from '@src/domain.objects/DeclaredGithubOwner';
 
 type GithubInstallationResponse =
   | Endpoints['GET /orgs/{org}/installation']['response']['data']

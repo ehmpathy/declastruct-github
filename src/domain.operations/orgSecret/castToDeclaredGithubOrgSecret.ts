@@ -3,8 +3,8 @@ import type { Endpoints } from '@octokit/types';
 import type { RefByUnique } from 'domain-objects';
 import type { HasMetadata } from 'type-fns';
 
-import type { DeclaredGithubOrg } from '../../domain.objects/DeclaredGithubOrg';
-import { DeclaredGithubOrgSecret } from '../../domain.objects/DeclaredGithubOrgSecret';
+import type { DeclaredGithubOrg } from '@src/domain.objects/DeclaredGithubOrg';
+import { DeclaredGithubOrgSecret } from '@src/domain.objects/DeclaredGithubOrgSecret';
 
 type GithubOrgSecretResponse =
   Endpoints['GET /orgs/{org}/actions/secrets/{secret_name}']['response']['data'];

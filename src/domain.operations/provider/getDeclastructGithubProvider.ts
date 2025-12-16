@@ -1,18 +1,18 @@
 import { DeclastructProvider } from 'declastruct';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import { DeclaredGithubAppDao } from '../../access/daos/DeclaredGithubAppDao';
-import { DeclaredGithubAppInstallationDao } from '../../access/daos/DeclaredGithubAppInstallationDao';
-import { DeclaredGithubBranchDao } from '../../access/daos/DeclaredGithubBranchDao';
-import { DeclaredGithubBranchProtectionDao } from '../../access/daos/DeclaredGithubBranchProtectionDao';
-import { DeclaredGithubOrgDao } from '../../access/daos/DeclaredGithubOrgDao';
-import { DeclaredGithubOrgMemberPrivilegesDao } from '../../access/daos/DeclaredGithubOrgMemberPrivilegesDao';
-import { DeclaredGithubOrgSecretDao } from '../../access/daos/DeclaredGithubOrgSecretDao';
-import { DeclaredGithubOrgVariableDao } from '../../access/daos/DeclaredGithubOrgVariableDao';
-import { DeclaredGithubRepoConfigDao } from '../../access/daos/DeclaredGithubRepoConfigDao';
-import { DeclaredGithubRepoDao } from '../../access/daos/DeclaredGithubRepoDao';
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import type { DeclastructGithubProvider } from '../../domain.objects/DeclastructGithubProvider';
+import { DeclaredGithubAppDao } from '@src/access/daos/DeclaredGithubAppDao';
+import { DeclaredGithubAppInstallationDao } from '@src/access/daos/DeclaredGithubAppInstallationDao';
+import { DeclaredGithubBranchDao } from '@src/access/daos/DeclaredGithubBranchDao';
+import { DeclaredGithubBranchProtectionDao } from '@src/access/daos/DeclaredGithubBranchProtectionDao';
+import { DeclaredGithubOrgDao } from '@src/access/daos/DeclaredGithubOrgDao';
+import { DeclaredGithubOrgMemberPrivilegesDao } from '@src/access/daos/DeclaredGithubOrgMemberPrivilegesDao';
+import { DeclaredGithubOrgSecretDao } from '@src/access/daos/DeclaredGithubOrgSecretDao';
+import { DeclaredGithubOrgVariableDao } from '@src/access/daos/DeclaredGithubOrgVariableDao';
+import { DeclaredGithubRepoConfigDao } from '@src/access/daos/DeclaredGithubRepoConfigDao';
+import { DeclaredGithubRepoDao } from '@src/access/daos/DeclaredGithubRepoDao';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import type { DeclastructGithubProvider } from '@src/domain.objects/DeclastructGithubProvider';
 
 /**
  * .what = creates a declastruct provider for github resources

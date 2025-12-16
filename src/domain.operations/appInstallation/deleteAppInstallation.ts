@@ -2,8 +2,8 @@ import { asProcedure } from 'as-procedure';
 import { HelpfulError } from 'helpful-errors';
 import type { VisualogicContext } from 'visualogic';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import type { DeclaredGithubAppInstallation } from '../../domain.objects/DeclaredGithubAppInstallation';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import type { DeclaredGithubAppInstallation } from '@src/domain.objects/DeclaredGithubAppInstallation';
 
 /**
  * .what = deletes a GitHub App installation

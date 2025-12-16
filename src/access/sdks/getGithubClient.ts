@@ -4,7 +4,7 @@ import { createCache } from 'simple-in-memory-cache';
 import { pick } from 'type-fns';
 import { withSimpleCache } from 'with-simple-cache';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 
 /**
  * .what = returns a cached GitHub API client instance

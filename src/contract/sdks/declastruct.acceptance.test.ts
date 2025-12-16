@@ -4,8 +4,8 @@ import { existsSync, mkdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { given, then, when } from 'test-fns';
 
-import { getSampleGithubContext } from '../../.test/assets/getSampleGithubContext';
-import { getDeclastructGithubProvider } from '../../domain.operations/provider/getDeclastructGithubProvider';
+import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
+import { getDeclastructGithubProvider } from '@src/domain.operations/provider/getDeclastructGithubProvider';
 
 const log = console;
 
