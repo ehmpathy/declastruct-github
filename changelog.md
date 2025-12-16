@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/ehmpathy/declastruct-github/compare/v1.2.1...v1.3.0) (2025-12-16)
+
+
+### Features
+
+* **dao:** upgrade to latest declastruct dao shape ([#24](https://github.com/ehmpathy/declastruct-github/issues/24)) ([2fda429](https://github.com/ehmpathy/declastruct-github/commit/2fda4295ff7eaea8cb798bbb86494647fecba5fa))
+
 ## [1.2.1](https://github.com/ehmpathy/declastruct-github/compare/v1.2.0...v1.2.1) (2025-12-16)
 
 
