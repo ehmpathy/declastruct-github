@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/ehmpathy/declastruct-github/compare/v1.1.1...v1.2.0) (2025-12-16)
+
+
+### Features
+
+* **org:** control org privs, org vars, and org secrets ([#20](https://github.com/ehmpathy/declastruct-github/issues/20)) ([b7f750c](https://github.com/ehmpathy/declastruct-github/commit/b7f750cf5b2a3f284c773978ef86c2b920bbf9da))
+
 ## [1.1.1](https://github.com/ehmpathy/declastruct-github/compare/v1.1.0...v1.1.1) (2025-12-14)
 
 
