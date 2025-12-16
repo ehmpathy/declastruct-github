@@ -38,13 +38,13 @@ describe('setOrg', () => {
     jest.clearAllMocks();
   });
 
-  given('a finsert operation', () => {
+  given('a findsert operation', () => {
     when('the org already exists', () => {
       then('it should return the existing org', async () => {
         const before = { ...orgSample };
         (getOrgModule.getOneOrg as jest.Mock).mockResolvedValue(before);
 
-        const result = await setOrg({ finsert: orgSample }, context);
+        const result = await setOrg({ findsert: orgSample }, context);
 
         expect(result).toBe(before);
         expect(mockOrgsUpdate).not.toHaveBeenCalled();
@@ -55,7 +55,7 @@ describe('setOrg', () => {
       then('it should throw an error', async () => {
         (getOrgModule.getOneOrg as jest.Mock).mockResolvedValue(null);
 
-        await expect(setOrg({ finsert: orgSample }, context)).rejects.toThrow(
+        await expect(setOrg({ findsert: orgSample }, context)).rejects.toThrow(
           'GitHub Organization does not exist and cannot be created via API',
         );
       });

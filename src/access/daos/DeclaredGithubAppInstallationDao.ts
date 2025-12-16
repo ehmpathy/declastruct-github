@@ -25,8 +25,8 @@ export const DeclaredGithubAppInstallationDao = genDeclastructDao<
     },
   },
   set: {
-    finsert: async (input, context) => {
-      return setAppInstallation({ finsert: input }, context);
+    findsert: async (input, context) => {
+      return setAppInstallation({ findsert: input }, context);
     },
     upsert: async (input, context) => {
       return setAppInstallation({ upsert: input }, context);

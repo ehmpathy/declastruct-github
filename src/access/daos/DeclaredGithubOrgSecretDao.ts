@@ -37,8 +37,8 @@ export const DeclaredGithubOrgSecretDao = new DeclastructDao<
     },
   },
   set: {
-    finsert: async (input, context) => {
-      return setOrgSecret({ finsert: input }, context);
+    findsert: async (input, context) => {
+      return setOrgSecret({ findsert: input }, context);
     },
     upsert: async (input, context) => {
       return setOrgSecret({ upsert: input }, context);

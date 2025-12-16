@@ -21,12 +21,12 @@ import { getOneOrgMemberPrivileges } from './getOneOrgMemberPrivileges';
 export const setOrgMemberPrivileges = asProcedure(
   async (
     input: PickOne<{
-      finsert: DeclaredGithubOrgMemberPrivileges;
+      findsert: DeclaredGithubOrgMemberPrivileges;
       upsert: DeclaredGithubOrgMemberPrivileges;
     }>,
     context: ContextGithubApi & VisualogicContext,
   ): Promise<HasMetadata<DeclaredGithubOrgMemberPrivileges>> => {
-    const desired = input.finsert ?? input.upsert;
+    const desired = input.findsert ?? input.upsert;
     const github = getGithubClient({}, context);
 
     // Check current state
@@ -42,8 +42,8 @@ export const setOrgMemberPrivileges = asProcedure(
       });
     }
 
-    // If finsert and found, return as-is (no changes)
-    if (before && input.finsert) return before;
+    // If findsert and found, return as-is (no changes)
+    if (before && input.findsert) return before;
 
     // Apply member privilege updates via PATCH
     try {

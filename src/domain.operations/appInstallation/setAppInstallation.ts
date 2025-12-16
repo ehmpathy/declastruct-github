@@ -10,20 +10,20 @@ import type { DeclaredGithubAppInstallation } from '@src/domain.objects/Declared
 import { getOneAppInstallation } from './getOneAppInstallation';
 
 /**
- * .what = sets a GitHub App installation: finsert or upsert
+ * .what = sets a GitHub App installation: findsert or upsert
  * .why = provides declarative interface for managing installations with partial automation
  * .note = installations cannot be created via API; repository selection can be synced for existing installations
  */
 export const setAppInstallation = asProcedure(
   async (
     input: PickOne<{
-      finsert: DeclaredGithubAppInstallation;
+      findsert: DeclaredGithubAppInstallation;
       upsert: DeclaredGithubAppInstallation;
     }>,
     context: ContextGithubApi & VisualogicContext,
   ): Promise<HasMetadata<DeclaredGithubAppInstallation>> => {
     const desired =
-      input.finsert ??
+      input.findsert ??
       input.upsert ??
       UnexpectedCodePathError.throw(
         'no installation provided to setAppInstallation',
@@ -64,8 +64,8 @@ export const setAppInstallation = asProcedure(
       );
     }
 
-    // if it's a finsert and exists, return the found installation
-    if (input.finsert) return foundBefore;
+    // if it's a findsert and exists, return the found installation
+    if (input.findsert) return foundBefore;
 
     // if it's an upsert and exists, sync repository selection if needed
     if (input.upsert) {

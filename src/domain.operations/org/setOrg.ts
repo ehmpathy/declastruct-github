@@ -22,12 +22,12 @@ import { getOneOrg } from './getOneOrg';
 export const setOrg = asProcedure(
   async (
     input: PickOne<{
-      finsert: DeclaredGithubOrg;
+      findsert: DeclaredGithubOrg;
       upsert: DeclaredGithubOrg;
     }>,
     context: ContextGithubApi & VisualogicContext,
   ): Promise<HasMetadata<DeclaredGithubOrg>> => {
-    const desired = input.finsert ?? input.upsert;
+    const desired = input.findsert ?? input.upsert;
     const github = getGithubClient({}, context);
 
     // Check if org exists
@@ -48,8 +48,8 @@ export const setOrg = asProcedure(
       );
     }
 
-    // If finsert and found, return as-is (no changes)
-    if (before && input.finsert) return before;
+    // If findsert and found, return as-is (no changes)
+    if (before && input.findsert) return before;
 
     // Apply profile updates via PATCH
     try {

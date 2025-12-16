@@ -50,7 +50,7 @@ describe('setAppInstallation', () => {
     getGithubClient.mockReturnValue(mockGithub);
   });
 
-  given('a finsert operation', () => {
+  given('a findsert operation', () => {
     when('the installation already exists', () => {
       const foundInstallation = DeclaredGithubAppInstallation.as({
         id: 12345,
@@ -63,7 +63,7 @@ describe('setAppInstallation', () => {
 
       then('it should return the existing installation', async () => {
         const result = await setAppInstallation(
-          { finsert: sampleInstallation },
+          { findsert: sampleInstallation },
           mockContext as never,
         );
 
@@ -94,7 +94,7 @@ describe('setAppInstallation', () => {
         async () => {
           const error = await getError(
             setAppInstallation(
-              { finsert: sampleInstallation },
+              { findsert: sampleInstallation },
               mockContext as never,
             ),
           );

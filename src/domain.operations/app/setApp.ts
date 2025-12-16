@@ -9,20 +9,20 @@ import type { DeclaredGithubApp } from '@src/domain.objects/DeclaredGithubApp';
 import { getOneApp } from './getOneApp';
 
 /**
- * .what = sets a GitHub App: finsert or upsert
+ * .what = sets a GitHub App: findsert or upsert
  * .why = provides declarative interface with helpful errors since apps cannot be created/updated via API
  * .note = GitHub Apps must be created via web UI or manifest flow; this function throws HelpfulError with actionable URLs
  */
 export const setApp = asProcedure(
   async (
     input: PickOne<{
-      finsert: DeclaredGithubApp;
+      findsert: DeclaredGithubApp;
       upsert: DeclaredGithubApp;
     }>,
     context: ContextGithubApi & VisualogicContext,
   ): Promise<HasMetadata<DeclaredGithubApp>> => {
     const desired =
-      input.finsert ??
+      input.findsert ??
       input.upsert ??
       UnexpectedCodePathError.throw('no app provided to setApp', { input });
 
@@ -54,8 +54,8 @@ export const setApp = asProcedure(
       context,
     );
 
-    // if it's a finsert and exists, return the found app
-    if (foundBefore && input.finsert) return foundBefore;
+    // if it's a findsert and exists, return the found app
+    if (foundBefore && input.findsert) return foundBefore;
 
     // if it's an upsert and exists, throw HelpfulError with settings URL
     if (foundBefore && input.upsert) {

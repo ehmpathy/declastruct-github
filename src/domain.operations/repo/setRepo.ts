@@ -11,18 +11,18 @@ import { castToDeclaredGithubRepo } from './castToDeclaredGithubRepo';
 import { getRepo } from './getRepo';
 
 /**
- * .what = sets a GitHub repository: upsert or finsert
+ * .what = sets a GitHub repository: upsert or findsert
  * .why = enables declarative creation and updates of repos following declastruct patterns
  */
 export const setRepo = asProcedure(
   async (
     input: PickOne<{
-      finsert: DeclaredGithubRepo;
+      findsert: DeclaredGithubRepo;
       upsert: DeclaredGithubRepo;
     }>,
     context: ContextGithubApi & VisualogicContext,
   ): Promise<HasMetadata<DeclaredGithubRepo>> => {
-    const desired = input.finsert ?? input.upsert;
+    const desired = input.findsert ?? input.upsert;
 
     // apply defaults for optional fields
     const desiredHomepage = desired.homepage ?? null;
@@ -45,8 +45,8 @@ export const setRepo = asProcedure(
       context,
     );
 
-    // if it's a finsert and had a before, then return that
-    if (before && input.finsert) return before;
+    // if it's a findsert and had a before, then return that
+    if (before && input.findsert) return before;
 
     // if its an upsert and had a before, then this requires an update operation
     if (before && input.upsert) {

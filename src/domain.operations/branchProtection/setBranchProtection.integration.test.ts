@@ -64,7 +64,7 @@ describe('setBranchProtection', () => {
       expect(result.branch.name).toBe('main');
     });
 
-    it('should return existing protection for finsert', async () => {
+    it('should return existing protection for findsert', async () => {
       const sampleRepo = getSampleRepo({
         owner: 'ehmpathy',
         name: 'declastruct-github-demo',
@@ -88,12 +88,12 @@ describe('setBranchProtection', () => {
         context,
       );
 
-      // Only run finsert test if protection exists
+      // Only run findsert test if protection exists
       if (currentProtection) {
-        // Finsert should return existing protection without making changes
+        // findsert should return existing protection without making changes
         const result = await setBranchProtection(
           {
-            finsert: {
+            findsert: {
               branch: {
                 repo: { owner: sampleRepo.owner, name: sampleRepo.name },
                 name: 'main',
@@ -109,7 +109,7 @@ describe('setBranchProtection', () => {
 
         expect(result).toBeDefined();
         expect(result.branch.name).toBe('main');
-        // Should match current protection, not the finsert values
+        // Should match current protection, not the findsert values
         expect(result).toEqual(currentProtection);
       }
     });

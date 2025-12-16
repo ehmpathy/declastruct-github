@@ -57,7 +57,7 @@ describe('setRepoConfig', () => {
       expect(result.deleteBranchOnMerge).toBe(true);
     });
 
-    it('should return existing config for finsert', async () => {
+    it('should return existing config for findsert', async () => {
       const sampleRepo = getSampleRepo({
         owner: 'ehmpathy',
         name: 'declastruct-github-demo',
@@ -80,10 +80,10 @@ describe('setRepoConfig', () => {
 
       expect(currentConfig).toBeDefined();
 
-      // Finsert should return existing config without making changes
+      // findsert should return existing config without making changes
       const result = await setRepoConfig(
         {
-          finsert: {
+          findsert: {
             repo: { owner: sampleRepo.owner, name: sampleRepo.name },
             hasIssues: true,
             hasProjects: true,
@@ -100,7 +100,7 @@ describe('setRepoConfig', () => {
 
       expect(result).toBeDefined();
       expect(result.repo.name).toBe(sampleRepo.name);
-      // Should match current config, not the finsert values
+      // Should match current config, not the findsert values
       expect(result).toEqual(currentConfig);
     });
   });

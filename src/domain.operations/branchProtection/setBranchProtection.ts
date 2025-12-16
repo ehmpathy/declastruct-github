@@ -14,18 +14,18 @@ import {
 import { getBranchProtection } from './getBranchProtection';
 
 /**
- * .what = sets a GitHub branch's protection rules: upsert or finsert
+ * .what = sets a GitHub branch's protection rules: upsert or findsert
  * .why = enables declarative updates of branch protection following declastruct patterns
  */
 export const setBranchProtection = asProcedure(
   async (
     input: PickOne<{
-      finsert: DeclaredGithubBranchProtection;
+      findsert: DeclaredGithubBranchProtection;
       upsert: DeclaredGithubBranchProtection;
     }>,
     context: ContextGithubApi & VisualogicContext,
   ): Promise<HasMetadata<DeclaredGithubBranchProtection>> => {
-    const desired = input.finsert ?? input.upsert;
+    const desired = input.findsert ?? input.upsert;
 
     // get cached GitHub client
     const github = getGithubClient({}, context);
@@ -42,8 +42,8 @@ export const setBranchProtection = asProcedure(
       context,
     );
 
-    // if it's a finsert and had a before, then return that
-    if (before && input.finsert) return before;
+    // if it's a findsert and had a before, then return that
+    if (before && input.findsert) return before;
 
     // update the branch protection (always use update since protection is part of branch, not a separate resource)
     try {

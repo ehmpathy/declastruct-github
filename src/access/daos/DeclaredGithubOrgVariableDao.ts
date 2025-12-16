@@ -36,8 +36,8 @@ export const DeclaredGithubOrgVariableDao = new DeclastructDao<
     },
   },
   set: {
-    finsert: async (input, context) => {
-      return setOrgVariable({ finsert: input }, context);
+    findsert: async (input, context) => {
+      return setOrgVariable({ findsert: input }, context);
     },
     upsert: async (input, context) => {
       return setOrgVariable({ upsert: input }, context);
