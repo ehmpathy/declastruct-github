@@ -17,12 +17,12 @@ import { getOneOrgVariable } from './getOneOrgVariable';
 export const setOrgVariable = asProcedure(
   async (
     input: PickOne<{
-      finsert: DeclaredGithubOrgVariable;
+      findsert: DeclaredGithubOrgVariable;
       upsert: DeclaredGithubOrgVariable;
     }>,
     context: ContextGithubApi & VisualogicContext,
   ): Promise<HasMetadata<DeclaredGithubOrgVariable>> => {
-    const desired = input.finsert ?? input.upsert;
+    const desired = input.findsert ?? input.upsert;
     const github = getGithubClient({}, context);
 
     // Check if variable exists
@@ -49,8 +49,8 @@ export const setOrgVariable = asProcedure(
           )
         : undefined;
 
-    // If finsert and found, return as-is
-    if (before && input.finsert) return before;
+    // If findsert and found, return as-is
+    if (before && input.findsert) return before;
 
     // If exists, update
     if (before && input.upsert) {

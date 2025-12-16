@@ -35,8 +35,8 @@ export const DeclaredGithubRepoConfigDao = new DeclastructDao<
     },
   },
   set: {
-    finsert: async (input, context) => {
-      return setRepoConfig({ finsert: input }, context);
+    findsert: async (input, context) => {
+      return setRepoConfig({ findsert: input }, context);
     },
     upsert: async (input, context) => {
       return setRepoConfig({ upsert: input }, context);

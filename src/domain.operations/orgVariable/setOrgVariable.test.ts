@@ -42,14 +42,14 @@ describe('setOrgVariable', () => {
     jest.clearAllMocks();
   });
 
-  given('a finsert operation', () => {
+  given('a findsert operation', () => {
     when('the variable already exists', () => {
       then('it should return the existing variable', async () => {
         const before = { ...variableSample };
         (getModule.getOneOrgVariable as jest.Mock).mockResolvedValue(before);
 
         const result = await setOrgVariable(
-          { finsert: variableSample },
+          { findsert: variableSample },
           context,
         );
 
@@ -69,7 +69,7 @@ describe('setOrgVariable', () => {
         mockCreateOrgVariable.mockResolvedValue({});
 
         const result = await setOrgVariable(
-          { finsert: variableSample },
+          { findsert: variableSample },
           context,
         );
 

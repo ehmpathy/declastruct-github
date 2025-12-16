@@ -35,8 +35,8 @@ export const DeclaredGithubBranchProtectionDao = new DeclastructDao<
     },
   },
   set: {
-    finsert: async (input, context) => {
-      return setBranchProtection({ finsert: input }, context);
+    findsert: async (input, context) => {
+      return setBranchProtection({ findsert: input }, context);
     },
     upsert: async (input, context) => {
       return setBranchProtection({ upsert: input }, context);

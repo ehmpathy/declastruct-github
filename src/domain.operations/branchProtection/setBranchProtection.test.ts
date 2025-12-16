@@ -52,14 +52,14 @@ describe('setBranchProtection', () => {
     jest.clearAllMocks();
   });
 
-  it('returns early for finsert if protection already exists (before)', async () => {
+  it('returns early for findsert if protection already exists (before)', async () => {
     const before = { ...protectionSample };
     (
       getBranchProtectionModule.getBranchProtection as jest.Mock
     ).mockResolvedValue(before);
 
     const result = await setBranchProtection(
-      { finsert: protectionSample },
+      { findsert: protectionSample },
       context,
     );
 
@@ -157,7 +157,7 @@ describe('setBranchProtection', () => {
     ).mockReturnValue(protectionSample);
 
     const result = await setBranchProtection(
-      { finsert: protectionSample },
+      { findsert: protectionSample },
       context,
     );
 

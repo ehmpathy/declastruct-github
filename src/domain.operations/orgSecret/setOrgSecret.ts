@@ -43,12 +43,12 @@ const encryptSecret = async (input: {
 export const setOrgSecret = asProcedure(
   async (
     input: PickOne<{
-      finsert: DeclaredGithubOrgSecret;
+      findsert: DeclaredGithubOrgSecret;
       upsert: DeclaredGithubOrgSecret;
     }>,
     context: ContextGithubApi & VisualogicContext,
   ): Promise<HasMetadata<DeclaredGithubOrgSecret>> => {
-    const desired = input.finsert ?? input.upsert;
+    const desired = input.findsert ?? input.upsert;
     const github = getGithubClient({}, context);
 
     // Check if secret exists (metadata only)
@@ -57,8 +57,8 @@ export const setOrgSecret = asProcedure(
       context,
     );
 
-    // If finsert and found, return as-is (no changes needed)
-    if (before && input.finsert) return before;
+    // If findsert and found, return as-is (no changes needed)
+    if (before && input.findsert) return before;
 
     // If no value provided and secret doesn't exist, error
     if (!desired.value && !before) {

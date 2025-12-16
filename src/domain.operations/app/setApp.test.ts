@@ -41,7 +41,7 @@ describe('setApp', () => {
     jest.clearAllMocks();
   });
 
-  given('a finsert operation', () => {
+  given('a findsert operation', () => {
     when('the app already exists', () => {
       const foundApp = DeclaredGithubApp.as({
         id: 12345,
@@ -54,7 +54,7 @@ describe('setApp', () => {
 
       then('it should return the existing app', async () => {
         const result = await setApp(
-          { finsert: sampleApp },
+          { findsert: sampleApp },
           mockContext as never,
         );
 
@@ -84,7 +84,7 @@ describe('setApp', () => {
         'it should throw HelpfulError with creation instructions',
         async () => {
           const error = await getError(
-            setApp({ finsert: sampleApp }, mockContext as never),
+            setApp({ findsert: sampleApp }, mockContext as never),
           );
 
           expect(error).toBeInstanceOf(HelpfulError);
@@ -105,7 +105,7 @@ describe('setApp', () => {
 
       then('it should throw HelpfulError with suggestion', async () => {
         const error = await getError(
-          setApp({ finsert: mismatchedApp }, mockContext as never),
+          setApp({ findsert: mismatchedApp }, mockContext as never),
         );
 
         expect(error).toBeInstanceOf(HelpfulError);

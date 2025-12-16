@@ -36,8 +36,8 @@ export const DeclaredGithubBranchDao = new DeclastructDao<
     },
   },
   set: {
-    finsert: async (input, context) => {
-      return setBranch({ finsert: input }, context);
+    findsert: async (input, context) => {
+      return setBranch({ findsert: input }, context);
     },
     upsert: async (input, context) => {
       return setBranch({ upsert: input }, context);

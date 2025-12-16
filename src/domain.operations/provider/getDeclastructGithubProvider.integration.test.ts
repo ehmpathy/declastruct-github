@@ -57,8 +57,8 @@ describe('getDeclastructGithubProvider', () => {
         expect(repoDao.get.one.byRef).toBeDefined();
       });
 
-      then('should have set.finsert method', () => {
-        expect(repoDao.set.finsert).toBeDefined();
+      then('should have set.findsert method', () => {
+        expect(repoDao.set.findsert).toBeDefined();
       });
 
       then('should have set.upsert method', () => {
@@ -96,8 +96,8 @@ describe('getDeclastructGithubProvider', () => {
         expect(branchDao.get.one.byRef).toBeDefined();
       });
 
-      then('should have set.finsert method', () => {
-        expect(branchDao.set.finsert).toBeDefined();
+      then('should have set.findsert method', () => {
+        expect(branchDao.set.findsert).toBeDefined();
       });
 
       then('should have set.upsert method', () => {
@@ -134,8 +134,8 @@ describe('getDeclastructGithubProvider', () => {
         expect(repoConfigDao.get.one.byRef).toBeDefined();
       });
 
-      then('should have set.finsert method', () => {
-        expect(repoConfigDao.set.finsert).toBeDefined();
+      then('should have set.findsert method', () => {
+        expect(repoConfigDao.set.findsert).toBeDefined();
       });
 
       then('should have set.upsert method', () => {
@@ -205,8 +205,8 @@ describe('getDeclastructGithubProvider', () => {
         expect(branchProtectionDao.get.one.byRef).toBeDefined();
       });
 
-      then('should have set.finsert method', () => {
-        expect(branchProtectionDao.set.finsert).toBeDefined();
+      then('should have set.findsert method', () => {
+        expect(branchProtectionDao.set.findsert).toBeDefined();
       });
 
       then('should have set.upsert method', () => {

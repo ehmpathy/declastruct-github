@@ -48,7 +48,7 @@ describe('setOrgMemberPrivileges', () => {
     jest.clearAllMocks();
   });
 
-  given('a finsert operation', () => {
+  given('a findsert operation', () => {
     when('the privileges already exist', () => {
       then('it should return the existing privileges', async () => {
         const before = { ...privilegesSample };
@@ -57,7 +57,7 @@ describe('setOrgMemberPrivileges', () => {
         );
 
         const result = await setOrgMemberPrivileges(
-          { finsert: privilegesSample },
+          { findsert: privilegesSample },
           context,
         );
 
@@ -73,7 +73,7 @@ describe('setOrgMemberPrivileges', () => {
         );
 
         await expect(
-          setOrgMemberPrivileges({ finsert: privilegesSample }, context),
+          setOrgMemberPrivileges({ findsert: privilegesSample }, context),
         ).rejects.toThrow('GitHub Organization does not exist');
       });
     });

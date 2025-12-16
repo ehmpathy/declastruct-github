@@ -53,13 +53,13 @@ describe('setOrgSecret', () => {
     });
   });
 
-  given('a finsert operation', () => {
+  given('a findsert operation', () => {
     when('the secret already exists', () => {
       then('it should return the existing secret', async () => {
         const before = { ...secretSample, value: undefined };
         (getModule.getOneOrgSecret as jest.Mock).mockResolvedValue(before);
 
-        const result = await setOrgSecret({ finsert: secretSample }, context);
+        const result = await setOrgSecret({ findsert: secretSample }, context);
 
         expect(result).toBe(before);
         expect(mockCreateOrUpdateOrgSecret).not.toHaveBeenCalled();
@@ -75,7 +75,7 @@ describe('setOrgSecret', () => {
           .mockResolvedValueOnce(created);
         mockCreateOrUpdateOrgSecret.mockResolvedValue({});
 
-        const result = await setOrgSecret({ finsert: secretSample }, context);
+        const result = await setOrgSecret({ findsert: secretSample }, context);
 
         expect(mockGetOrgPublicKey).toHaveBeenCalledWith({ org: 'test-org' });
         expect(mockCreateOrUpdateOrgSecret).toHaveBeenCalledWith({
@@ -96,7 +96,7 @@ describe('setOrgSecret', () => {
         (getModule.getOneOrgSecret as jest.Mock).mockResolvedValue(null);
 
         await expect(
-          setOrgSecret({ finsert: secretWithoutValue }, context),
+          setOrgSecret({ findsert: secretWithoutValue }, context),
         ).rejects.toThrow('Cannot create secret without a value');
       });
     });

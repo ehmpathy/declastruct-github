@@ -7,12 +7,12 @@ const log = console;
 describe('setRepo', () => {
   const context = { log, ...getSampleGithubContext() };
 
-  given('a repo declaration for finsert', () => {
+  given('a repo declaration for findsert', () => {
     then('it should return existing repo if it exists', async () => {
       /**
        * .note = this test is skipped because setRepo requires permissions
        *         to create/update repos which may not be available in all test environments
-       * .what = validates that finsert returns existing repo without modification
+       * .what = validates that findsert returns existing repo without modification
        */
       expect(true).toBe(true); // placeholder
     });

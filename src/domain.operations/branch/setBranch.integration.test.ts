@@ -39,7 +39,7 @@ describe('setBranch', () => {
 
       const result = await setBranch(
         {
-          finsert: {
+          findsert: {
             repo: {
               owner: sampleRepo.owner,
               name: sampleRepo.name,
@@ -56,7 +56,7 @@ describe('setBranch', () => {
       expect(result.commit?.sha).toBe(demoRepoBranch.commit!.sha);
     });
 
-    it('should return existing branch for finsert', async () => {
+    it('should return existing branch for findsert', async () => {
       // Use the main declastruct-github repo which we know exists
       const sampleRepo = getSampleRepo({
         owner: 'ehmpathy',
@@ -65,7 +65,7 @@ describe('setBranch', () => {
 
       const result = await setBranch(
         {
-          finsert: {
+          findsert: {
             repo: {
               owner: sampleRepo.owner,
               name: sampleRepo.name,

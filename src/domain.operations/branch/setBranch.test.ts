@@ -43,7 +43,7 @@ describe('setBranch', () => {
     jest.clearAllMocks();
   });
 
-  it('returns early for finsert if branch already exists (before)', async () => {
+  it('returns early for findsert if branch already exists (before)', async () => {
     const before = {
       ...branchSample,
       commit: { sha: 'abc123' },
@@ -51,7 +51,7 @@ describe('setBranch', () => {
     };
     (getBranchModule.getBranch as jest.Mock).mockResolvedValue(before);
 
-    const result = await setBranch({ finsert: branchSample }, context);
+    const result = await setBranch({ findsert: branchSample }, context);
 
     expect(result).toBe(before);
     expect(getBranchModule.getBranch).toHaveBeenCalled();
@@ -91,7 +91,7 @@ describe('setBranch', () => {
 
     mockCreateRef.mockResolvedValue({ data: {} });
 
-    const result = await setBranch({ finsert: branchWithCommit }, context);
+    const result = await setBranch({ findsert: branchWithCommit }, context);
 
     expect(mockCreateRef).toHaveBeenCalledWith({
       owner: 'test-owner',
@@ -136,7 +136,7 @@ describe('setBranch', () => {
 
     mockCreateRef.mockResolvedValue({ data: {} });
 
-    const result = await setBranch({ finsert: branchWithoutCommit }, context);
+    const result = await setBranch({ findsert: branchWithoutCommit }, context);
 
     expect(mockGet).toHaveBeenCalledWith({
       owner: 'test-owner',

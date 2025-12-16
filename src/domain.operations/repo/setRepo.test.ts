@@ -46,11 +46,11 @@ describe('setRepo', () => {
     jest.clearAllMocks();
   });
 
-  it('returns early for finsert if repo already exists (before)', async () => {
+  it('returns early for findsert if repo already exists (before)', async () => {
     const before = { ...repoSample, id: 123 };
     (getRepoModule.getRepo as jest.Mock).mockResolvedValue(before);
 
-    const result = await setRepo({ finsert: repoSample }, context);
+    const result = await setRepo({ findsert: repoSample }, context);
 
     expect(result).toBe(before);
     expect(getRepoModule.getRepo).toHaveBeenCalled();
@@ -110,7 +110,7 @@ describe('setRepo', () => {
       id: 456,
     });
 
-    const result = await setRepo({ finsert: repoSample }, context);
+    const result = await setRepo({ findsert: repoSample }, context);
 
     expect(getRepoModule.getRepo).toHaveBeenCalled();
     expect(mockCreateInOrg).toHaveBeenCalledWith({
@@ -140,7 +140,7 @@ describe('setRepo', () => {
       id: 789,
     });
 
-    await setRepo({ finsert: repoWithInternalVisibility }, context);
+    await setRepo({ findsert: repoWithInternalVisibility }, context);
 
     expect(mockCreateInOrg).toHaveBeenCalledWith({
       org: 'test-owner',

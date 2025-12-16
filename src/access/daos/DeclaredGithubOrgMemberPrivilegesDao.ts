@@ -36,8 +36,8 @@ export const DeclaredGithubOrgMemberPrivilegesDao = new DeclastructDao<
     },
   },
   set: {
-    finsert: async (input, context) => {
-      return setOrgMemberPrivileges({ finsert: input }, context);
+    findsert: async (input, context) => {
+      return setOrgMemberPrivileges({ findsert: input }, context);
     },
     upsert: async (input, context) => {
       return setOrgMemberPrivileges({ upsert: input }, context);

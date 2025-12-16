@@ -12,18 +12,18 @@ import { getBranch } from './getBranch';
 import { getBranchCommitShaByRepoDefault } from './getBranchCommitShaByRepoDefault';
 
 /**
- * .what = sets a GitHub branch: upsert or finsert
+ * .what = sets a GitHub branch: upsert or findsert
  * .why = enables declarative creation and updates of branches following declastruct patterns
  */
 export const setBranch = asProcedure(
   async (
     input: PickOne<{
-      finsert: DeclaredGithubBranch;
+      findsert: DeclaredGithubBranch;
       upsert: DeclaredGithubBranch;
     }>,
     context: ContextGithubApi & VisualogicContext,
   ): Promise<HasMetadata<DeclaredGithubBranch>> => {
-    const desired = input.finsert ?? input.upsert;
+    const desired = input.findsert ?? input.upsert;
 
     // get cached GitHub client
     const github = getGithubClient({}, context);
@@ -41,8 +41,8 @@ export const setBranch = asProcedure(
       context,
     );
 
-    // if it's a finsert and had a before, then return that
-    if (before && input.finsert) return before;
+    // if it's a findsert and had a before, then return that
+    if (before && input.findsert) return before;
 
     // if its an upsert and had a before but no commit.sha change, return existing
     if (before && input.upsert && !desired.commit?.sha) return before;

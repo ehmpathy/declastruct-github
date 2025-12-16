@@ -36,8 +36,8 @@ export const DeclaredGithubOrgDao = new DeclastructDao<
     },
   },
   set: {
-    finsert: async (input, context) => {
-      return setOrg({ finsert: input }, context);
+    findsert: async (input, context) => {
+      return setOrg({ findsert: input }, context);
     },
     upsert: async (input, context) => {
       return setOrg({ upsert: input }, context);

@@ -11,18 +11,18 @@ import { castToDeclaredGithubRepoConfig } from './castToDeclaredGithubRepoConfig
 import { getRepoConfig } from './getRepoConfig';
 
 /**
- * .what = sets a GitHub repository's configuration: upsert or finsert
+ * .what = sets a GitHub repository's configuration: upsert or findsert
  * .why = enables declarative updates of repo config following declastruct patterns
  */
 export const setRepoConfig = asProcedure(
   async (
     input: PickOne<{
-      finsert: DeclaredGithubRepoConfig;
+      findsert: DeclaredGithubRepoConfig;
       upsert: DeclaredGithubRepoConfig;
     }>,
     context: ContextGithubApi & VisualogicContext,
   ): Promise<HasMetadata<DeclaredGithubRepoConfig>> => {
-    const desired = input.finsert ?? input.upsert;
+    const desired = input.findsert ?? input.upsert;
 
     // get cached GitHub client
     const github = getGithubClient({}, context);
@@ -39,8 +39,8 @@ export const setRepoConfig = asProcedure(
       context,
     );
 
-    // if it's a finsert and had a before, then return that
-    if (before && input.finsert) return before;
+    // if it's a findsert and had a before, then return that
+    if (before && input.findsert) return before;
 
     // update the repo config (always use update since config is part of repo, not a separate resource)
     try {
