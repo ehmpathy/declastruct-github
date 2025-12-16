@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/ehmpathy/declastruct-github/compare/v1.2.0...v1.2.1) (2025-12-16)
+
+
+### Bug Fixes
+
+* **practs:** deworm and bump to latest best ([#22](https://github.com/ehmpathy/declastruct-github/issues/22)) ([2551438](https://github.com/ehmpathy/declastruct-github/commit/2551438e7bfec9b5004c7e8aed546a10de7f2330))
+
 ## [1.2.0](https://github.com/ehmpathy/declastruct-github/compare/v1.1.1...v1.2.0) (2025-12-16)
 
 
