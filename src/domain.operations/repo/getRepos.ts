@@ -2,11 +2,12 @@ import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
 import type { HasMetadata } from 'type-fns';
 import type { VisualogicContext } from 'visualogic';
 
-import { getGithubClient } from '../../access/sdks/getGithubClient';
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import type { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
-import { hasContextWithAppToken } from '../context/hasContextWithAppToken';
-import { hasContextWithPatToken } from '../context/hasContextWithPatToken';
+import { getGithubClient } from '@src/access/sdks/getGithubClient';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import type { DeclaredGithubRepo } from '@src/domain.objects/DeclaredGithubRepo';
+import { hasContextWithAppToken } from '@src/domain.operations/context/hasContextWithAppToken';
+import { hasContextWithPatToken } from '@src/domain.operations/context/hasContextWithPatToken';
+
 import { castToDeclaredGithubRepo } from './castToDeclaredGithubRepo';
 
 /**

@@ -1,5 +1,6 @@
 import type { UniDateTime } from '@ehmpathy/uni-time';
 import { DomainEntity } from 'domain-objects';
+
 import { DeclaredGithubAppPermissions } from './DeclaredGithubAppPermissions';
 import { DeclaredGithubOwner } from './DeclaredGithubOwner';
 

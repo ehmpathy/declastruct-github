@@ -3,11 +3,11 @@ import { isRefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubOrgVariable } from '../../domain.objects/DeclaredGithubOrgVariable';
-import { delOrgVariable } from '../../domain.operations/orgVariable/delOrgVariable';
-import { getOneOrgVariable } from '../../domain.operations/orgVariable/getOneOrgVariable';
-import { setOrgVariable } from '../../domain.operations/orgVariable/setOrgVariable';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import { DeclaredGithubOrgVariable } from '@src/domain.objects/DeclaredGithubOrgVariable';
+import { delOrgVariable } from '@src/domain.operations/orgVariable/delOrgVariable';
+import { getOneOrgVariable } from '@src/domain.operations/orgVariable/getOneOrgVariable';
+import { setOrgVariable } from '@src/domain.operations/orgVariable/setOrgVariable';
 
 /**
  * .what = declastruct DAO for GitHub Organization Variable resources

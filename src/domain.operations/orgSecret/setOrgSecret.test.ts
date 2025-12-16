@@ -1,8 +1,9 @@
 import { given, then, when } from 'test-fns';
 import type { VisualogicContext } from 'visualogic';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import type { DeclaredGithubOrgSecret } from '../../domain.objects/DeclaredGithubOrgSecret';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import type { DeclaredGithubOrgSecret } from '@src/domain.objects/DeclaredGithubOrgSecret';
+
 import * as getModule from './getOneOrgSecret';
 
 const mockGetOrgPublicKey = jest.fn();

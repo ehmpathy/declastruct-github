@@ -1,7 +1,7 @@
 import { given, then, when } from 'test-fns';
 import type { VisualogicContext } from 'visualogic';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 
 const mockDeleteOrgVariable = jest.fn();
 

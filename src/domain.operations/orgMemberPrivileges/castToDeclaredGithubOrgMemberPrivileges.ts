@@ -3,8 +3,8 @@ import type { Endpoints } from '@octokit/types';
 import type { RefByUnique } from 'domain-objects';
 import type { HasMetadata } from 'type-fns';
 
-import type { DeclaredGithubOrg } from '../../domain.objects/DeclaredGithubOrg';
-import { DeclaredGithubOrgMemberPrivileges } from '../../domain.objects/DeclaredGithubOrgMemberPrivileges';
+import type { DeclaredGithubOrg } from '@src/domain.objects/DeclaredGithubOrg';
+import { DeclaredGithubOrgMemberPrivileges } from '@src/domain.objects/DeclaredGithubOrgMemberPrivileges';
 
 type GithubOrgResponse = Endpoints['GET /orgs/{org}']['response']['data'];
 

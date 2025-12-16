@@ -1,7 +1,8 @@
 import { given, then } from 'test-fns';
 
-import { getSampleGithubContext } from '../../.test/assets/getSampleGithubContext';
-import { DeclaredGithubOwner } from '../../domain.objects/DeclaredGithubOwner';
+import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
+import { DeclaredGithubOwner } from '@src/domain.objects/DeclaredGithubOwner';
+
 import { getOneApp } from './getOneApp';
 
 const log = console;

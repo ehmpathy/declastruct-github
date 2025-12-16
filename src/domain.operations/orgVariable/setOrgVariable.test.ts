@@ -1,8 +1,9 @@
 import { given, then, when } from 'test-fns';
 import type { VisualogicContext } from 'visualogic';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import type { DeclaredGithubOrgVariable } from '../../domain.objects/DeclaredGithubOrgVariable';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import type { DeclaredGithubOrgVariable } from '@src/domain.objects/DeclaredGithubOrgVariable';
+
 import * as getModule from './getOneOrgVariable';
 
 const mockCreateOrgVariable = jest.fn();

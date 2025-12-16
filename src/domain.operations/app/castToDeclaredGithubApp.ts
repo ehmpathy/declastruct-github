@@ -3,13 +3,13 @@ import type { Endpoints } from '@octokit/types';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { HasMetadata } from 'type-fns';
 
-import { DeclaredGithubApp } from '../../domain.objects/DeclaredGithubApp';
+import { DeclaredGithubApp } from '@src/domain.objects/DeclaredGithubApp';
 import {
   type DeclaredGithubAppOrganizationPermissions,
   DeclaredGithubAppPermissions,
   type DeclaredGithubAppRepositoryPermissions,
-} from '../../domain.objects/DeclaredGithubAppPermissions';
-import { DeclaredGithubOwner } from '../../domain.objects/DeclaredGithubOwner';
+} from '@src/domain.objects/DeclaredGithubAppPermissions';
+import { DeclaredGithubOwner } from '@src/domain.objects/DeclaredGithubOwner';
 
 type GithubAppResponse = Endpoints['GET /apps/{app_slug}']['response']['data'];
 

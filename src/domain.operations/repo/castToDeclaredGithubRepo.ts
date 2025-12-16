@@ -3,7 +3,7 @@ import type { Endpoints } from '@octokit/types';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import { type HasMetadata, isNotUndefined, type NotUndefined } from 'type-fns';
 
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
+import { DeclaredGithubRepo } from '@src/domain.objects/DeclaredGithubRepo';
 
 /**
  * .what = extracts required value from object or throws

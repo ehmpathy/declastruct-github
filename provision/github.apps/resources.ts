@@ -1,5 +1,5 @@
-import { DeclastructProvider } from 'declastruct';
-import { DomainEntity } from 'domain-objects';
+import type { DeclastructProvider } from 'declastruct';
+import type { DomainEntity } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 
 import { getDeclastructGithubProvider } from '../../src/contract/sdks';
@@ -22,8 +22,8 @@ export const getProviders = async (): Promise<DeclastructProvider[]> => [
     },
     {
       log: {
-        info: () => { },
-        debug: () => { },
+        info: () => {},
+        debug: () => {},
         warn: console.warn,
         error: console.error,
       },
@@ -37,8 +37,10 @@ export const getProviders = async (): Promise<DeclastructProvider[]> => [
  */
 export const getResources = async (): Promise<DomainEntity<any>[]> => {
   // gather all app resources
-  const resourcesOfAppDeclastructGithubTestAuth = await getResourcesOfAppDeclastructGithubTestAuth();
-  const resourcesOfAppDeclastructGithubConformer = await getResourcesOfAppDeclastructGithubConformer();
+  const resourcesOfAppDeclastructGithubTestAuth =
+    await getResourcesOfAppDeclastructGithubTestAuth();
+  const resourcesOfAppDeclastructGithubConformer =
+    await getResourcesOfAppDeclastructGithubConformer();
   const resourcesOfAppRhelease = await getResourcesOfAppRhelease();
 
   return [

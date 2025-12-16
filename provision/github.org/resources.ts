@@ -1,12 +1,12 @@
-import { DeclastructProvider, del } from 'declastruct';
-import { getDeclastructGithubProvider } from '../../src/contract/sdks';
-import { DomainEntity, RefByUnique } from 'domain-objects';
+import type { DeclastructProvider } from 'declastruct';
+import { type DomainEntity, RefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 
-import { DeclaredGithubOrgVariable } from '../../src/domain.objects/DeclaredGithubOrgVariable';
-import { DeclaredGithubOrgSecret } from '../../src/domain.objects/DeclaredGithubOrgSecret';
-import { DeclaredGithubOrgMemberPrivileges } from '../../src/domain.objects/DeclaredGithubOrgMemberPrivileges';
+import { getDeclastructGithubProvider } from '../../src/contract/sdks';
 import { DeclaredGithubOrg } from '../../src/domain.objects/DeclaredGithubOrg';
+import { DeclaredGithubOrgMemberPrivileges } from '../../src/domain.objects/DeclaredGithubOrgMemberPrivileges';
+import { DeclaredGithubOrgSecret } from '../../src/domain.objects/DeclaredGithubOrgSecret';
+import { DeclaredGithubOrgVariable } from '../../src/domain.objects/DeclaredGithubOrgVariable';
 
 export const getProviders = async (): Promise<DeclastructProvider[]> => [
   getDeclastructGithubProvider(
@@ -19,8 +19,8 @@ export const getProviders = async (): Promise<DeclastructProvider[]> => [
     },
     {
       log: {
-        info: () => { },
-        debug: () => { },
+        info: () => {},
+        debug: () => {},
         warn: console.warn,
         error: console.error,
       },
@@ -33,7 +33,8 @@ export const getResources = async (): Promise<DomainEntity<any>[]> => {
   const org = DeclaredGithubOrg.as({
     login: 'ehmpathy',
     name: 'ehmpathy',
-    description: 'open source tools, made with empathy, for future travelers. move fast and build maintainable products in a pit of success. goal, no brains required.',
+    description:
+      'open source tools, made with empathy, for future travelers. move fast and build maintainable products in a pit of success. goal, no brains required.',
   });
 
   // declare org member privileges (KEY SECURITY SETTINGS)
@@ -64,32 +65,36 @@ export const getResources = async (): Promise<DomainEntity<any>[]> => {
   });
 
   // declare github app variables for testauth app
-  const orgVariableDeclastructGithubTestauthAppId = DeclaredGithubOrgVariable.as({
-    org: { login: 'ehmpathy' },
-    name: 'DECLASTRUCT_GITHUB_TESTAUTH_APP_ID',
-    value: '2465069',
-    visibility: 'all',
-  });
-  const orgSecretDeclastructGithubTestauthAppPrivateKey = DeclaredGithubOrgSecret.as({
-    org: { login: 'ehmpathy' },
-    name: 'DECLASTRUCT_GITHUB_TESTAUTH_APP_PRIVATE_KEY',
-    value: process.env.SECRET_DECLASTRUCT_GITHUB_TESTAUTH_APP_PRIVATE_KEY,
-    visibility: 'all',
-  });
+  const orgVariableDeclastructGithubTestauthAppId =
+    DeclaredGithubOrgVariable.as({
+      org: { login: 'ehmpathy' },
+      name: 'DECLASTRUCT_GITHUB_TESTAUTH_APP_ID',
+      value: '2465069',
+      visibility: 'all',
+    });
+  const orgSecretDeclastructGithubTestauthAppPrivateKey =
+    DeclaredGithubOrgSecret.as({
+      org: { login: 'ehmpathy' },
+      name: 'DECLASTRUCT_GITHUB_TESTAUTH_APP_PRIVATE_KEY',
+      value: process.env.SECRET_DECLASTRUCT_GITHUB_TESTAUTH_APP_PRIVATE_KEY,
+      visibility: 'all',
+    });
 
   // declare github app variables for conformer app
-  const orgVariableDeclastructGithubConformerAppId = DeclaredGithubOrgVariable.as({
-    org: { login: 'ehmpathy' },
-    name: 'DECLASTRUCT_GITHUB_CONFORMER_APP_ID',
-    value: '2471935',
-    visibility: 'all',
-  });
-  const orgSecretDeclastructGithubConformerAppPrivateKey = DeclaredGithubOrgSecret.as({
-    org: { login: 'ehmpathy' },
-    name: 'DECLASTRUCT_GITHUB_CONFORMER_APP_PRIVATE_KEY',
-    value: process.env.SECRET_DECLASTRUCT_GITHUB_CONFORMER_APP_PRIVATE_KEY,
-    visibility: 'all',
-  });
+  const orgVariableDeclastructGithubConformerAppId =
+    DeclaredGithubOrgVariable.as({
+      org: { login: 'ehmpathy' },
+      name: 'DECLASTRUCT_GITHUB_CONFORMER_APP_ID',
+      value: '2471935',
+      visibility: 'all',
+    });
+  const orgSecretDeclastructGithubConformerAppPrivateKey =
+    DeclaredGithubOrgSecret.as({
+      org: { login: 'ehmpathy' },
+      name: 'DECLASTRUCT_GITHUB_CONFORMER_APP_PRIVATE_KEY',
+      value: process.env.SECRET_DECLASTRUCT_GITHUB_CONFORMER_APP_PRIVATE_KEY,
+      visibility: 'all',
+    });
 
   // declare github app variables for rhelease app
   const orgVariableRheleaseAppId = DeclaredGithubOrgVariable.as({

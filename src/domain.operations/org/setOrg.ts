@@ -3,9 +3,10 @@ import { HelpfulError } from 'helpful-errors';
 import type { HasMetadata, PickOne } from 'type-fns';
 import type { VisualogicContext } from 'visualogic';
 
-import { getGithubClient } from '../../access/sdks/getGithubClient';
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import type { DeclaredGithubOrg } from '../../domain.objects/DeclaredGithubOrg';
+import { getGithubClient } from '@src/access/sdks/getGithubClient';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import type { DeclaredGithubOrg } from '@src/domain.objects/DeclaredGithubOrg';
+
 import { castToDeclaredGithubOrg } from './castToDeclaredGithubOrg';
 import { getOneOrg } from './getOneOrg';
 

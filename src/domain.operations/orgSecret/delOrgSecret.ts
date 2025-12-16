@@ -3,9 +3,9 @@ import type { Ref } from 'domain-objects';
 import { HelpfulError } from 'helpful-errors';
 import type { VisualogicContext } from 'visualogic';
 
-import { getGithubClient } from '../../access/sdks/getGithubClient';
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import type { DeclaredGithubOrgSecret } from '../../domain.objects/DeclaredGithubOrgSecret';
+import { getGithubClient } from '@src/access/sdks/getGithubClient';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import type { DeclaredGithubOrgSecret } from '@src/domain.objects/DeclaredGithubOrgSecret';
 
 /**
  * .what = deletes a GitHub Organization secret

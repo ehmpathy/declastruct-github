@@ -3,8 +3,8 @@ import type { Endpoints } from '@octokit/types';
 import type { RefByUnique } from 'domain-objects';
 import type { HasMetadata } from 'type-fns';
 
-import type { DeclaredGithubOrg } from '../../domain.objects/DeclaredGithubOrg';
-import { DeclaredGithubOrgVariable } from '../../domain.objects/DeclaredGithubOrgVariable';
+import type { DeclaredGithubOrg } from '@src/domain.objects/DeclaredGithubOrg';
+import { DeclaredGithubOrgVariable } from '@src/domain.objects/DeclaredGithubOrgVariable';
 
 type GithubOrgVariableResponse =
   Endpoints['GET /orgs/{org}/actions/variables/{name}']['response']['data'];

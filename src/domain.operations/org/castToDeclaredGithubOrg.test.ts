@@ -1,6 +1,7 @@
 import { given, then, when } from 'test-fns';
 
-import { DeclaredGithubOrg } from '../../domain.objects/DeclaredGithubOrg';
+import { DeclaredGithubOrg } from '@src/domain.objects/DeclaredGithubOrg';
+
 import { castToDeclaredGithubOrg } from './castToDeclaredGithubOrg';
 
 describe('castToDeclaredGithubOrg', () => {

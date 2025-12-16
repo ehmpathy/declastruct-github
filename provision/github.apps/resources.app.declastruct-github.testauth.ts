@@ -1,4 +1,4 @@
-import { DeclaredResource } from 'declastruct';
+import type { DeclaredResource } from 'declastruct';
 
 import {
   DeclaredGithubApp,
@@ -14,14 +14,18 @@ export const getResourcesOfAppDeclastructGithubTestAuth = async (): Promise<
   DeclaredResource[]
 > => {
   // declare the owner
-  const owner = new DeclaredGithubOwner({ type: 'organization', slug: 'ehmpathy' });
+  const owner = new DeclaredGithubOwner({
+    type: 'organization',
+    slug: 'ehmpathy',
+  });
 
   // declare the app
   const app = DeclaredGithubApp.as({
     owner,
     slug: 'declastruct-github-test-auth',
     name: 'Declastruct GitHub Test Auth',
-    description: 'grant narrow auth to test within the declastruct-github repo with short-lived github app tokens',
+    description:
+      'grant narrow auth to test within the declastruct-github repo with short-lived github app tokens',
     homepageUrl: 'https://github.com/ehmpathy/declastruct-github',
     public: false,
 

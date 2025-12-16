@@ -3,10 +3,10 @@ import { isRefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubOrg } from '../../domain.objects/DeclaredGithubOrg';
-import { getOneOrg } from '../../domain.operations/org/getOneOrg';
-import { setOrg } from '../../domain.operations/org/setOrg';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import { DeclaredGithubOrg } from '@src/domain.objects/DeclaredGithubOrg';
+import { getOneOrg } from '@src/domain.operations/org/getOneOrg';
+import { setOrg } from '@src/domain.operations/org/setOrg';
 
 /**
  * .what = declastruct DAO for GitHub Organization resources

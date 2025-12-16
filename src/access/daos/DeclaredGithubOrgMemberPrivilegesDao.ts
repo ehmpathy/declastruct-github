@@ -3,10 +3,10 @@ import { isRefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
-import { DeclaredGithubOrgMemberPrivileges } from '../../domain.objects/DeclaredGithubOrgMemberPrivileges';
-import { getOneOrgMemberPrivileges } from '../../domain.operations/orgMemberPrivileges/getOneOrgMemberPrivileges';
-import { setOrgMemberPrivileges } from '../../domain.operations/orgMemberPrivileges/setOrgMemberPrivileges';
+import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
+import { DeclaredGithubOrgMemberPrivileges } from '@src/domain.objects/DeclaredGithubOrgMemberPrivileges';
+import { getOneOrgMemberPrivileges } from '@src/domain.operations/orgMemberPrivileges/getOneOrgMemberPrivileges';
+import { setOrgMemberPrivileges } from '@src/domain.operations/orgMemberPrivileges/setOrgMemberPrivileges';
 
 /**
  * .what = declastruct DAO for GitHub Organization Member Privileges

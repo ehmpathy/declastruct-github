@@ -1,6 +1,7 @@
 import { given, then, when } from 'test-fns';
 
-import { DeclaredGithubOrgVariable } from '../../domain.objects/DeclaredGithubOrgVariable';
+import { DeclaredGithubOrgVariable } from '@src/domain.objects/DeclaredGithubOrgVariable';
+
 import { castToDeclaredGithubOrgVariable } from './castToDeclaredGithubOrgVariable';
 
 describe('castToDeclaredGithubOrgVariable', () => {
