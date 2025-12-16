@@ -120,9 +120,14 @@ export interface DeclaredGithubAppOrganizationPermissions {
   hooks?: GithubAppPermissionLevel | null;
 
   /**
-   * .what = organization-wide secrets
+   * .what = organization-wide actions secrets
    */
-  secrets?: GithubAppPermissionLevel | null;
+  actionsSecrets?: GithubAppPermissionLevel | null;
+
+  /**
+   * .what = organization-wide actions variables
+   */
+  actionsVariables?: GithubAppPermissionLevel | null;
 
   /**
    * .what = project management

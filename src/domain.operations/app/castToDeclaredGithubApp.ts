@@ -129,7 +129,8 @@ const castPermissions = (
     organization_custom_properties: 'customProperties',
     organization_user_blocking: 'userBlocking',
     organization_hooks: 'hooks',
-    organization_secrets: 'secrets',
+    organization_secrets: 'actionsSecrets',
+    organization_actions_variables: 'actionsVariables',
     organization_projects: 'projects',
     organization_self_hosted_runners: 'selfHostedRunners',
   };

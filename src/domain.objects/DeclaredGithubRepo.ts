@@ -69,5 +69,6 @@ export class DeclaredGithubRepo
   extends DomainEntity<DeclaredGithubRepo>
   implements DeclaredGithubRepo
 {
+  public static primary = ['id'] as const;
   public static unique = ['owner', 'name'] as const;
 }

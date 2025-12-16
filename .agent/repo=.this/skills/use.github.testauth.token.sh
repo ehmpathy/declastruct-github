@@ -39,7 +39,7 @@ fi
 if [[ -t 0 && -t 1 ]]; then
   # interactive: run the alias to get a new token
   >&2 echo ""
-  >&2 echo "🔄 token expired or missing, refreshing..."
+  >&2 echo "🔭 token expired or missing, will refresh..."
   >&2 echo ""
 
   # get new token using the get_github_app_token function

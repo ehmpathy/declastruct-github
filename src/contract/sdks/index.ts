@@ -10,6 +10,11 @@ export type { DeclaredGithubAppPermissions } from '../../domain.objects/Declared
 // domain objects - repos
 export { DeclaredGithubBranch } from '../../domain.objects/DeclaredGithubBranch';
 export { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';
+// domain objects - orgs
+export { DeclaredGithubOrg } from '../../domain.objects/DeclaredGithubOrg';
+export { DeclaredGithubOrgMemberPrivileges } from '../../domain.objects/DeclaredGithubOrgMemberPrivileges';
+export { DeclaredGithubOrgSecret } from '../../domain.objects/DeclaredGithubOrgSecret';
+export { DeclaredGithubOrgVariable } from '../../domain.objects/DeclaredGithubOrgVariable';
 export { DeclaredGithubOwner } from '../../domain.objects/DeclaredGithubOwner';
 export { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
 export { DeclaredGithubRepoConfig } from '../../domain.objects/DeclaredGithubRepoConfig';
