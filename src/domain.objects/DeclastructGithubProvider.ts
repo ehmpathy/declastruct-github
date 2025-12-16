@@ -6,6 +6,10 @@ import type { DeclaredGithubApp } from './DeclaredGithubApp';
 import type { DeclaredGithubAppInstallation } from './DeclaredGithubAppInstallation';
 import type { DeclaredGithubBranch } from './DeclaredGithubBranch';
 import type { DeclaredGithubBranchProtection } from './DeclaredGithubBranchProtection';
+import type { DeclaredGithubOrg } from './DeclaredGithubOrg';
+import type { DeclaredGithubOrgMemberPrivileges } from './DeclaredGithubOrgMemberPrivileges';
+import type { DeclaredGithubOrgSecret } from './DeclaredGithubOrgSecret';
+import type { DeclaredGithubOrgVariable } from './DeclaredGithubOrgVariable';
 import type { DeclaredGithubRepo } from './DeclaredGithubRepo';
 import type { DeclaredGithubRepoConfig } from './DeclaredGithubRepoConfig';
 
@@ -37,6 +41,24 @@ export type DeclastructGithubProvider = DeclastructProvider<
     >;
     DeclaredGithubAppInstallation: DeclastructDao<
       typeof DeclaredGithubAppInstallation,
+      ContextGithubApi & ContextLogTrail
+    >;
+
+    // Organization resources
+    DeclaredGithubOrg: DeclastructDao<
+      typeof DeclaredGithubOrg,
+      ContextGithubApi & ContextLogTrail
+    >;
+    DeclaredGithubOrgMemberPrivileges: DeclastructDao<
+      typeof DeclaredGithubOrgMemberPrivileges,
+      ContextGithubApi & ContextLogTrail
+    >;
+    DeclaredGithubOrgVariable: DeclastructDao<
+      typeof DeclaredGithubOrgVariable,
+      ContextGithubApi & ContextLogTrail
+    >;
+    DeclaredGithubOrgSecret: DeclastructDao<
+      typeof DeclaredGithubOrgSecret,
       ContextGithubApi & ContextLogTrail
     >;
   },

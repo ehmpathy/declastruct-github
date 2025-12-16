@@ -28,16 +28,21 @@ export const getResourcesOfAppDeclastructGithubTestAuth = async (): Promise<
     // wide permissions are safe here because installation is scoped to demo repos only
     permissions: {
       repository: {
-        metadata: 'read', // always required
-
         // DeclaredGithubRepo, DeclaredGithubRepoConfig, DeclaredGithubBranchProtection
         administration: 'write',
         // DeclaredGithubBranch
         contents: 'write',
+
+        metadata: 'read', // always required
       },
       organization: {
+        // todo: install this in the org `declastruct-github-demo` and move repo `declastruct-github-demo` into it. then, we can give full admin access to that org
         // DeclaredGithubAppInstallation (list installations on org)
         administration: 'read',
+        // DeclaredGithubOrgVariable
+        actionsVariables: 'read',
+        // DeclaredGithubOrgSecret
+        // actionsSecrets: undefined // not comfortable giving this repo access to all ehmpathy org secrets. we'll test these by hand
       },
     },
     events: [],

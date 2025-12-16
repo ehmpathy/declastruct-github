@@ -5,6 +5,10 @@ import { DeclaredGithubAppDao } from '../../access/daos/DeclaredGithubAppDao';
 import { DeclaredGithubAppInstallationDao } from '../../access/daos/DeclaredGithubAppInstallationDao';
 import { DeclaredGithubBranchDao } from '../../access/daos/DeclaredGithubBranchDao';
 import { DeclaredGithubBranchProtectionDao } from '../../access/daos/DeclaredGithubBranchProtectionDao';
+import { DeclaredGithubOrgDao } from '../../access/daos/DeclaredGithubOrgDao';
+import { DeclaredGithubOrgMemberPrivilegesDao } from '../../access/daos/DeclaredGithubOrgMemberPrivilegesDao';
+import { DeclaredGithubOrgSecretDao } from '../../access/daos/DeclaredGithubOrgSecretDao';
+import { DeclaredGithubOrgVariableDao } from '../../access/daos/DeclaredGithubOrgVariableDao';
 import { DeclaredGithubRepoConfigDao } from '../../access/daos/DeclaredGithubRepoConfigDao';
 import { DeclaredGithubRepoDao } from '../../access/daos/DeclaredGithubRepoDao';
 import type { ContextGithubApi } from '../../domain.objects/ContextGithubApi';
@@ -38,6 +42,11 @@ export const getDeclastructGithubProvider = (
     DeclaredGithubBranchProtection: DeclaredGithubBranchProtectionDao,
     DeclaredGithubApp: DeclaredGithubAppDao,
     DeclaredGithubAppInstallation: DeclaredGithubAppInstallationDao,
+    // Organization resources
+    DeclaredGithubOrg: DeclaredGithubOrgDao,
+    DeclaredGithubOrgMemberPrivileges: DeclaredGithubOrgMemberPrivilegesDao,
+    DeclaredGithubOrgVariable: DeclaredGithubOrgVariableDao,
+    DeclaredGithubOrgSecret: DeclaredGithubOrgSecretDao,
   };
 
   // return provider with all required properties
