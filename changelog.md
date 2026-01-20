@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/ehmpathy/declastruct-github/compare/v1.3.0...v1.3.1) (2026-01-20)
+
+
+### Bug Fixes
+
+* **deps:** bump deps for thinner transitive deps ([#26](https://github.com/ehmpathy/declastruct-github/issues/26)) ([139f761](https://github.com/ehmpathy/declastruct-github/commit/139f761d2a00e91fe73f4470819e1b9a8de95036))
+
 ## [1.3.0](https://github.com/ehmpathy/declastruct-github/compare/v1.2.1...v1.3.0) (2025-12-16)
 
 
