@@ -29,7 +29,7 @@ export const getResourcesOfAppRhelease = async (): Promise<
     description:
       'grants the narrowest auth possible to power please-release workflows with short-lived github app tokens. (github, where is your oidc auth?)',
     homepageUrl: 'https://github.com/ehmpathy/rhelease',
-    public: false,
+    public: true, // this is usable across all orgs that wish to leverage rhelease
     permissions: {
       repository: {
         // release workflow needs
