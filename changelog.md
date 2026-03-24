@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/ehmpathy/declastruct-github/compare/v1.3.1...v1.3.2) (2026-03-24)
+
+
+### Bug Fixes
+
+* **rhelease:** set app public for cross-org usage ([#29](https://github.com/ehmpathy/declastruct-github/issues/29)) ([5f54347](https://github.com/ehmpathy/declastruct-github/commit/5f543477b418576a9421c1a63e00dee39ef94c9f))
+
 ## [1.3.1](https://github.com/ehmpathy/declastruct-github/compare/v1.3.0...v1.3.1) (2026-01-20)
 
 
