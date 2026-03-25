@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.4](https://github.com/ehmpathy/declastruct-github/compare/v1.3.3...v1.3.4) (2026-03-25)
+
+
+### Bug Fixes
+
+* **test:** increase waitFor timeout for eventual consistency ([#33](https://github.com/ehmpathy/declastruct-github/issues/33)) ([eb06f71](https://github.com/ehmpathy/declastruct-github/commit/eb06f7150f33e9e088064935f5f3ab630dadc0e6))
+
 ## [1.3.3](https://github.com/ehmpathy/declastruct-github/compare/v1.3.2...v1.3.3) (2026-03-25)
 
 
