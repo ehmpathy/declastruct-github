@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.3](https://github.com/ehmpathy/declastruct-github/compare/v1.3.2...v1.3.3) (2026-03-25)
+
+
+### Bug Fixes
+
+* **deps:** add dreamer role and brain packages ([#31](https://github.com/ehmpathy/declastruct-github/issues/31)) ([0aedf88](https://github.com/ehmpathy/declastruct-github/commit/0aedf88c2953f2b2e7fc839cda11112b0c6a66ba))
+
 ## [1.3.2](https://github.com/ehmpathy/declastruct-github/compare/v1.3.1...v1.3.2) (2026-03-24)
 
 
