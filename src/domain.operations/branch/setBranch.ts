@@ -74,7 +74,7 @@ export const setBranch = asProcedure(
               },
               context,
             )) ?? undefined,
-          { timeout: { seconds: 10 } },
+          { timeout: { seconds: 30 } },
         );
       } catch (error) {
         if (!(error instanceof Error)) throw error;
@@ -125,7 +125,7 @@ export const setBranch = asProcedure(
             },
             context,
           )) ?? undefined,
-        { timeout: { seconds: 10 } },
+        { timeout: { seconds: 30 } },
       );
     } catch (error) {
       if (!(error instanceof Error)) throw error;
