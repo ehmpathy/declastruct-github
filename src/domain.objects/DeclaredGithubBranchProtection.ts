@@ -123,5 +123,7 @@ export class DeclaredGithubBranchProtection
   public static nested = {
     branch: RefByUnique<typeof DeclaredGithubBranch>,
     requiredStatusChecks: DomainLiteral,
+    requiredPullRequestReviews: DomainLiteral,
+    restrictions: DomainLiteral,
   };
 }

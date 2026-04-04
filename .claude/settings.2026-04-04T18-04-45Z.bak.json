@@ -47,17 +47,6 @@
             "author": "repo=ehmpathy/role=ergonomist"
           }
         ]
-      },
-      {
-        "matcher": "PostCompact",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./node_modules/.bin/rhachet run --repo ehmpathy --role mechanic --init claude.hooks/postcompact.trust-but-verify",
-            "timeout": 30,
-            "author": "repo=ehmpathy/role=mechanic"
-          }
-        ]
       }
     ],
     "PreToolUse": [
@@ -79,12 +68,6 @@
           {
             "type": "command",
             "command": "./node_modules/.bin/rhachet run --repo ehmpathy --role mechanic --init claude.hooks/pretooluse.forbid-suspicious-shell-syntax",
-            "timeout": 5,
-            "author": "repo=ehmpathy/role=mechanic"
-          },
-          {
-            "type": "command",
-            "command": "./node_modules/.bin/rhachet run --repo ehmpathy --role mechanic --init claude.hooks/pretooluse.forbid-sedreplace-special-chars",
             "timeout": 5,
             "author": "repo=ehmpathy/role=mechanic"
           }
@@ -145,17 +128,6 @@
             "author": "repo=ehmpathy/role=mechanic"
           }
         ]
-      },
-      {
-        "matcher": "Write|Edit|Read|Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./node_modules/.bin/rhachet run --repo ehmpathy --role mechanic --init claude.hooks/pretooluse.forbid-tmp-writes",
-            "timeout": 5,
-            "author": "repo=ehmpathy/role=mechanic"
-          }
-        ]
       }
     ],
     "Stop": [
@@ -189,14 +161,17 @@
       "mcp__ide__getDiagnostics",
       "WebSearch",
       "WebFetch",
+      "Bash(ls:*)",
       "Bash(tree:*)",
       "Bash(cat:*)",
       "Bash(head:*)",
       "Bash(tail:*)",
+      "Bash(grep:*)",
       "Bash(wc:*)",
       "Bash(diff:*)",
       "Bash(which:*)",
       "Bash(file:*)",
+      "Bash(mkdir:*)",
       "Bash(pwd)",
       "Bash(jq)",
       "Bash(echo:*)",
@@ -218,26 +193,9 @@
       "Bash(npx rhachet run --skill sedreplace:*)",
       "Bash(npx rhachet run --skill sedreplace --old 'oldName' --new 'newName' --glob 'src/**/*.ts')",
       "Bash(npx rhachet run --skill sedreplace --old 'oldName' --new 'newName' --glob 'src/**/*.ts' --mode apply)",
-      "Bash(echo '{ pattern }' | npx rhachet run --skill sedreplace --old @stdin --new 'replacement' --glob 'src/**/*.ts')",
-      "Bash(printf '{ old }\\0{ new }' | npx rhachet run --skill sedreplace --old @stdin --new @stdin --glob 'src/**/*.ts')",
       "Bash(npx rhachet run --skill cpsafe:*)",
       "Bash(npx rhachet run --skill mvsafe:*)",
       "Bash(npx rhachet run --skill rmsafe:*)",
-      "Bash(npx rhachet run --skill globsafe:*)",
-      "Bash(rhx globsafe:*)",
-      "Bash(npx rhachet run --skill globsafe --pattern 'src/**/*.ts')",
-      "Bash(npx rhachet run --skill globsafe --pattern '*.md' --path docs/)",
-      "Bash(rhx globsafe --pattern 'src/**/*.ts' --long)",
-      "Bash(npx rhachet run --skill grepsafe:*)",
-      "Bash(rhx grepsafe:*)",
-      "Bash(npx rhachet run --skill grepsafe --pattern 'foo|bar')",
-      "Bash(npx rhachet run --skill grepsafe --pattern 'foo|bar' --glob '*.ts')",
-      "Bash(rhx grepsafe --pattern '(ERROR|WARN):' --context 3)",
-      "Bash(npx rhachet run --skill mkdirsafe:*)",
-      "Bash(rhx mkdirsafe:*)",
-      "Bash(npx rhachet run --skill mkdirsafe --path 'src/domain')",
-      "Bash(npx rhachet run --skill mkdirsafe --path 'src/deep/nested' --parents)",
-      "Bash(rhx mkdirsafe --path 'src' --path 'test' --path 'docs')",
       "Bash(npx rhachet run --skill teesafe:*)",
       "Bash(rhx teesafe:*)",
       "Bash(cmd | npx rhachet run --skill teesafe file.txt)",
@@ -447,10 +405,7 @@
       "Bash(git remote set-url:*)",
       "Bash(git stash:*)",
       "Bash(git tag -d:*)",
-      "Bash(grep:*)",
       "Bash(ln:*)",
-      "Bash(ls:*)",
-      "Bash(mkdir:*)",
       "Bash(mv:*)",
       "Bash(npx biome:*)",
       "Bash(npx jest:*)",
