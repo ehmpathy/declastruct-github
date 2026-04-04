@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.5](https://github.com/ehmpathy/declastruct-github/compare/v1.3.4...v1.3.5) (2026-04-04)
+
+
+### Bug Fixes
+
+* **dobj:** add missing nested declarations for DeclaredGithubBranchProtection ([#35](https://github.com/ehmpathy/declastruct-github/issues/35)) ([09763c1](https://github.com/ehmpathy/declastruct-github/commit/09763c1aad789b4df7bf7f34f8a863cf7592f732))
+
 ## [1.3.4](https://github.com/ehmpathy/declastruct-github/compare/v1.3.3...v1.3.4) (2026-03-25)
 
 
