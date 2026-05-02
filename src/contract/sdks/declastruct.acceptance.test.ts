@@ -131,7 +131,7 @@ describe('declastruct CLI workflow', () => {
           .replace(/\/[^\s]+\.ts/g, '<path>.ts')
           .replace(/done in \d+\.\d+s/g, 'done in <time>s')
           // strip ESC characters (terminal control sequences)
-          // eslint-disable-next-line no-control-regex
+          // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
           .replace(/\x1b/g, '')
           // strip cursor control sequences (may be mid-line like [A[K)
           .replace(/\[A/g, '')
@@ -222,7 +222,7 @@ describe('declastruct CLI workflow', () => {
           .replace(/\d+ms/g, '<duration>ms')
           .replace(/done in \d+\.\d+s/g, 'done in <time>s')
           // strip ESC characters (terminal control sequences)
-          // eslint-disable-next-line no-control-regex
+          // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
           .replace(/\x1b/g, '')
           // strip cursor control sequences (may be mid-line like [A[K)
           .replace(/\[A/g, '')
@@ -336,7 +336,7 @@ describe('declastruct CLI workflow', () => {
 
         expect(errorOutput.length).toBeGreaterThan(0);
         // strip ESC chars and end whitespace from each line
-        // eslint-disable-next-line no-control-regex
+        // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
         const stable = errorOutput
           .replace(/\x1b/g, '')
           .split('\n')
@@ -365,7 +365,7 @@ describe('declastruct CLI workflow', () => {
 
         expect(errorOutput.length).toBeGreaterThan(0);
         // strip ESC chars and end whitespace from each line
-        // eslint-disable-next-line no-control-regex
+        // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
         const stable = errorOutput
           .replace(/\x1b/g, '')
           .split('\n')
@@ -403,7 +403,7 @@ describe('declastruct CLI workflow', () => {
         expect(errorOutput.length).toBeGreaterThan(0);
         // strip ESC chars, timestamps, and end whitespace from each line
         const stableErrorOutput = errorOutput
-          // eslint-disable-next-line no-control-regex
+          // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
           .replace(/\x1b/g, '')
           .replace(
             /run\.\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/g,
@@ -440,7 +440,7 @@ describe('declastruct CLI workflow', () => {
 
         expect(errorOutput.length).toBeGreaterThan(0);
         // strip ESC chars and end whitespace from each line
-        // eslint-disable-next-line no-control-regex
+        // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
         const stable = errorOutput
           .replace(/\x1b/g, '')
           .split('\n')
