@@ -337,7 +337,11 @@ describe('declastruct CLI workflow', () => {
         expect(errorOutput.length).toBeGreaterThan(0);
         // strip ESC chars and end whitespace from each line
         // eslint-disable-next-line no-control-regex
-        const stable = errorOutput.replace(/\x1b/g, '').split('\n').map((l) => l.trimEnd()).join('\n');
+        const stable = errorOutput
+          .replace(/\x1b/g, '')
+          .split('\n')
+          .map((l) => l.trimEnd())
+          .join('\n');
         expect(stable).toMatchSnapshot('plan nonexistent wish error');
       });
 
@@ -362,7 +366,11 @@ describe('declastruct CLI workflow', () => {
         expect(errorOutput.length).toBeGreaterThan(0);
         // strip ESC chars and end whitespace from each line
         // eslint-disable-next-line no-control-regex
-        const stable = errorOutput.replace(/\x1b/g, '').split('\n').map((l) => l.trimEnd()).join('\n');
+        const stable = errorOutput
+          .replace(/\x1b/g, '')
+          .split('\n')
+          .map((l) => l.trimEnd())
+          .join('\n');
         expect(stable).toMatchSnapshot('apply nonexistent plan error');
       });
 
@@ -433,7 +441,11 @@ describe('declastruct CLI workflow', () => {
         expect(errorOutput.length).toBeGreaterThan(0);
         // strip ESC chars and end whitespace from each line
         // eslint-disable-next-line no-control-regex
-        const stable = errorOutput.replace(/\x1b/g, '').split('\n').map((l) => l.trimEnd()).join('\n');
+        const stable = errorOutput
+          .replace(/\x1b/g, '')
+          .split('\n')
+          .map((l) => l.trimEnd())
+          .join('\n');
         expect(stable).toMatchSnapshot('apply empty plan error');
       });
     });
