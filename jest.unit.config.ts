@@ -31,6 +31,10 @@ const config: Config = {
     '!**/*.integration.test.ts',
     '!**/.yalc/**',
   ],
+  modulePathIgnorePatterns: [
+    // ignore mechanic cache with rmsafe trash backups
+    '<rootDir>/.agent/.cache',
+  ],
   setupFilesAfterEnv: ['./jest.unit.env.ts'],
 
   // use 50% of threads to leave headroom for other processes

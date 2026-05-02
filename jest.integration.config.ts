@@ -25,6 +25,10 @@ const config: Config = {
     // 'node_modules/(?!(@octokit|universal-user-agent|before-after-hook)/)',
   ],
   testMatch: ['**/*.integration.test.ts', '!**/.yalc/**'],
+  modulePathIgnorePatterns: [
+    // ignore mechanic cache with rmsafe trash backups
+    '<rootDir>/.agent/.cache',
+  ],
   setupFilesAfterEnv: ['./jest.integration.env.ts'],
 
   // use 50% of threads to leave headroom for other processes

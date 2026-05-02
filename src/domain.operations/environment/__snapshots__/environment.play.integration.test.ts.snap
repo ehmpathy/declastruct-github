@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`environment lifecycle given: [case1] full environment lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, update, delete: environment after create 1`] = `
+{
+  "deploymentBranchPolicy": null,
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": null,
+}
+`;
+
+exports[`environment lifecycle given: [case1] full environment lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, update, delete: environment after delete returns null 1`] = `null`;
+
+exports[`environment lifecycle given: [case1] full environment lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, update, delete: environment after fetch 1`] = `
+{
+  "deploymentBranchPolicy": null,
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": null,
+}
+`;
+
+exports[`environment lifecycle given: [case1] full environment lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, update, delete: environment after idempotent findsert 1`] = `
+{
+  "deploymentBranchPolicy": null,
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": null,
+}
+`;
+
+exports[`environment lifecycle given: [case1] full environment lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, update, delete: environment after upsert 1`] = `
+{
+  "deploymentBranchPolicy": null,
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": 10,
+}
+`;
+
+exports[`environment lifecycle given: [case1] full environment lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, update, delete: environment not-found returns null 1`] = `null`;
+
+exports[`environment lifecycle given: [case2] environment with reviewers when: [t0] reviewer operations are executed then: should create environment with user reviewer: environment with reviewer 1`] = `
+{
+  "deploymentBranchPolicy": null,
+  "preventSelfReview": true,
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": DomainLiteral {
+    "teams": null,
+    "users": [
+      "uladkasach",
+    ],
+  },
+  "waitTimer": null,
+}
+`;
+
+exports[`environment lifecycle given: [case2] environment with reviewers when: [t0] reviewer operations are executed then: should create environment with user reviewer: environment with reviewer after fetch 1`] = `
+{
+  "deploymentBranchPolicy": null,
+  "preventSelfReview": true,
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": DomainLiteral {
+    "teams": null,
+    "users": [
+      "uladkasach",
+    ],
+  },
+  "waitTimer": null,
+}
+`;
+
+exports[`environment lifecycle given: [case3] environment with branch policy when: [t0] branch policy operations are executed then: should create and update branch policies: environment updated to protected branches 1`] = `
+{
+  "deploymentBranchPolicy": DomainLiteral {
+    "protectedBranches": true,
+  },
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": null,
+}
+`;
+
+exports[`environment lifecycle given: [case3] environment with branch policy when: [t0] branch policy operations are executed then: should create and update branch policies: environment with custom branch policy 1`] = `
+{
+  "deploymentBranchPolicy": DomainLiteral {
+    "customBranches": [
+      "main",
+      "release/*",
+    ],
+  },
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": null,
+}
+`;

@@ -1,6 +1,7 @@
 *.local.json
 *.log
 *.tsbuildinfo
+.agent/.cache
 .artifact
 .env
 .local.json

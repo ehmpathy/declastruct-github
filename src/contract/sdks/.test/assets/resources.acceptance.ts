@@ -1,6 +1,7 @@
 import { UnexpectedCodePathError } from 'helpful-errors';
 
 import {
+  DeclaredGithubEnvironment,
   DeclaredGithubRepo,
   DeclaredGithubRepoConfig,
   getDeclastructGithubProvider,
@@ -57,5 +58,47 @@ export const getResources = async () => {
     allowUpdateBranch: true,
   });
 
-  return [repo, repoConfig];
+  const environment = DeclaredGithubEnvironment.as({
+    repo,
+    name: 'acceptance-test-env',
+    reviewers: null,
+    waitTimer: null,
+    deploymentBranchPolicy: {
+      customBranches: ['main'],
+    },
+    preventSelfReview: false,
+  });
+
+  /**
+   * .what = production-on-main environment
+   * .why = demonstrates main-only deploys where PR approval is the gate
+   */
+  const productionOnMain = DeclaredGithubEnvironment.as({
+    repo,
+    name: 'production-on-main',
+    reviewers: null,
+    waitTimer: null,
+    deploymentBranchPolicy: {
+      customBranches: ['main'],
+    },
+    preventSelfReview: false,
+  });
+
+  /**
+   * .what = production-on-else environment
+   * .why = demonstrates hotfix/preview deploys with required reviewers
+   */
+  const productionOnElse = DeclaredGithubEnvironment.as({
+    repo,
+    name: 'production-on-else',
+    reviewers: {
+      users: ['uladkasach'],
+      teams: null,
+    },
+    waitTimer: null,
+    deploymentBranchPolicy: null, // all branches
+    preventSelfReview: true,
+  });
+
+  return [repo, repoConfig, environment, productionOnMain, productionOnElse];
 };

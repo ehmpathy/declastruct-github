@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DeclaredGithubEnvironment given: [case3] invalid waitTimer when: [t0] waitTimer exceeds maximum (43200) then: it should throw validation error: waitTimer exceeds max error 1`] = `"BadRequestError: waitTimer must be 0-43200 minutes, got 50000"`;
+
+exports[`DeclaredGithubEnvironment given: [case3] invalid waitTimer when: [t1] waitTimer is negative then: it should throw validation error: waitTimer negative error 1`] = `"BadRequestError: waitTimer must be 0-43200 minutes, got -5"`;
+
+exports[`DeclaredGithubEnvironment given: [case4] invalid reviewers count when: [t0] more than 6 reviewers total then: it should throw validation error: reviewers exceeds max error 1`] = `"BadRequestError: max 6 reviewers allowed, got 7"`;

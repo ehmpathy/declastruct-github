@@ -1,22 +1,21 @@
 import { existsSync, readFileSync } from 'fs';
-import { BadRequestError } from 'helpful-errors';
 import { join } from 'path';
+import { keyrack } from 'rhachet/keyrack';
 import util from 'util';
 
 // eslint-disable-next-line no-undef
-jest.setTimeout(90000); // we're calling downstream apis
+jest.setTimeout(90000); // tests call downstream apis
 
 // set console.log to not truncate nested objects
 util.inspect.defaultOptions.depth = 5;
 
 /**
- * .what = verify that the env has sufficient auth to run the tests if aws is used; otherwise, fail fast
- * .why =
- *   - prevent time wasted waiting on tests to fail due to lack of credentials
- *   - prevent time wasted debugging tests which are failing due to hard-to-read missed credential errors
+ * .what = source credentials from keyrack if keyrack.yml exists
+ * .why = keyrack handles credential injection (e.g., GITHUB_TOKEN)
  */
-if (!process.env.GITHUB_TOKEN)
-  throw new BadRequestError('GITHUB_TOKEN was not set. run `source .agent/repo=.this/skills/use.github.testauth.token.sh` to set one. then, run with `source .agent/repo=.this/skills/use.github.testauth.token.sh && THOROUGH=true npm run test`');
+const keyrackYmlPath = join(process.cwd(), '.agent/keyrack.yml');
+if (existsSync(keyrackYmlPath))
+  keyrack.source({ env: 'test', owner: 'ehmpath', mode: 'strict' });
 
 /**
  * .what = verify that we're running from a valid project directory; otherwise, fail fast
