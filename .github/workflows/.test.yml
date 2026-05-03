@@ -185,6 +185,9 @@ jobs:
       - name: start:livedb:dev
         run: npm run start:livedb:dev --if-present
 
+      - name: prepare:rhachet
+        run: npm run prepare:rhachet
+
       - name: test:integration
         run: THOROUGH=true npm run test:integration
         env:
@@ -233,6 +236,9 @@ jobs:
 
       - name: start:livedb:dev
         run: npm run start:livedb:dev --if-present
+
+      - name: prepare:rhachet
+        run: npm run prepare:rhachet
 
       - name: test:acceptance:locally
         run: THOROUGH=true npm run test:acceptance --if-present

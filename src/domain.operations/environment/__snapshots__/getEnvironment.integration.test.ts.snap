@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`getEnvironment given: [case1] environment that does not exist when: [t0] fetched by unique then: it should return null: not-found returns null 1`] = `null`;
+
+exports[`getEnvironment given: [case2] by.ref dispatch when: [t0] fetched by ref (unique key) then: it should dispatch to by.unique: not-found via ref returns null 1`] = `null`;

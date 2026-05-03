@@ -1,0 +1,37 @@
+import { given, then, when } from 'test-fns';
+
+import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
+
+import { delEnvironment } from './delEnvironment';
+
+const log = console;
+
+describe('delEnvironment', () => {
+  const context = { log, ...getSampleGithubContext() };
+  const repo = { owner: 'ehmpathy', name: 'declastruct-github-demo' };
+
+  given('[case1] environment that does not exist', () => {
+    when('[t0] deleted', () => {
+      then('it should not throw (idempotent)', async () => {
+        // delete of nonexistent environment should be idempotent
+        const result = await delEnvironment(
+          {
+            by: {
+              ref: {
+                repo,
+                name: 'nonexistent-environment-12345',
+              },
+            },
+          },
+          context,
+        );
+
+        expect(result).toBeUndefined();
+        expect(result).toMatchSnapshot('delete nonexistent returns undefined');
+      });
+    });
+  });
+
+  // note: positive cases (delete extant environment) tested in environment.play.integration.test.ts
+  // those tests create and delete environments in a full lifecycle
+});

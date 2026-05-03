@@ -1,0 +1,251 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t0] plan is created via declastruct CLI then: CLI stdout includes resource summary: plan CLI stdout 1`] = `
+"
+🌊 declastruct plan
+   wish: src<path>.ts
+   plan: src<path>.json
+
+🔮 plan changes...
+
+○ DeclaredGithubRepo.declastruct-github-demo.ehmpathy.c19e649d55e150b490727f8222f6b494
+
+[K   ├─ ✔ done in <time>s
+   └─ decision [38;2;253;224;71m[UPDATE][39m
+      [32m- Remote[39m
+      [31m+ Desired[39m
+
+      [2m  DeclaredGithubRepo {[22m
+      [2m    "owner": "ehmpathy",[22m
+      [2m    "name": "declastruct-github-demo",[22m
+      [2m    "description": "demo repo for declastruct-github",[22m
+      [2m    "visibility": "public",[22m
+      [32m-   "homepage": null,[39m
+      [32m-   "private": false,[39m
+      [32m-   "archived": false,[39m
+      [2m  }[22m
+
+○ DeclaredGithubRepoConfig.ownerehmpathynamedeclastruct-github-demo.7f326587815b52ff98fb4a2f2ace927b
+
+[K   ├─ ✔ done in <time>s
+   └─ decision [38;2;253;224;71m[UPDATE][39m
+      [32m- Remote[39m
+      [31m+ Desired[39m
+
+      [2m  DeclaredGithubRepoConfig {[22m
+      [2m    "repo": RefByUnique {[22m
+      [2m      "owner": "ehmpathy",[22m
+      [2m      "name": "declastruct-github-demo",[22m
+      [2m    },[22m
+      [2m    "hasIssues": true,[22m
+      [2m    "hasProjects": false,[22m
+      [2m    "hasWiki": false,[22m
+      [2m    "isTemplate": false,[22m
+      [2m    "defaultBranch": "main",[22m
+      [2m    "allowSquashMerge": true,[22m
+      [2m    "allowMergeCommit": false,[22m
+      [2m    "allowRebaseMerge": false,[22m
+      [2m    "allowAutoMerge": false,[22m
+      [2m    "deleteBranchOnMerge": true,[22m
+      [2m    "allowUpdateBranch": true,[22m
+      [32m-   "squashMergeCommitTitle": "COMMIT_OR_PR_TITLE",[39m
+      [32m-   "squashMergeCommitMessage": "COMMIT_MESSAGES",[39m
+      [32m-   "mergeCommitTitle": "MERGE_MESSAGE",[39m
+      [32m-   "mergeCommitMessage": "PR_TITLE",[39m
+      [32m-   "webCommitSignoffRequired": false,[39m
+      [2m  }[22m
+
+○ DeclaredGithubEnvironment.acceptance-test-env.ownerehmpathynamedeclastruct-github-demo.bf43283a2f5051a1abdd4be5f53cf4b0
+
+[K   ├─ ✔ done in <time>s
+
+○ DeclaredGithubEnvironment.production-on-main.ownerehmpathynamedeclastruct-github-demo.fb2a815c7ee758e680e0858263ac2dd9
+
+[K   ├─ ✔ done in <time>s
+
+○ DeclaredGithubEnvironment.production-on-else.ownerehmpathynamedeclastruct-github-demo.0f5aeba601315ab09abd7a99ccc25987
+
+[K   ├─ ✔ done in <time>s
+
+
+🌊 planned for 5 resources
+   into src<path>.json
+
+"
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t0] plan is created via declastruct CLI then: plan output matches snapshot 1`] = `
+{
+  "resourceClasses": [
+    "DeclaredGithubRepo",
+    "DeclaredGithubRepoConfig",
+    "DeclaredGithubEnvironment",
+    "DeclaredGithubEnvironment",
+    "DeclaredGithubEnvironment",
+  ],
+  "resourceCount": 5,
+}
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t1] plan is applied via declastruct CLI then: it applies changes and verifies resources exist: apply CLI stdout 1`] = `
+"
+🌊 declastruct apply
+   plan: src<path>.json
+   wish: src/contract/sdks/.test/assets/resources.acceptance.ts
+
+🔮 plan changes...
+
+○ DeclaredGithubRepo.declastruct-github-demo.ehmpathy.c19e649d55e150b490727f8222f6b494
+
+[K   ├─ ✔ done in <time>s
+   └─ decision [38;2;253;224;71m[UPDATE][39m
+      [32m- Remote[39m
+      [31m+ Desired[39m
+
+      [2m  DeclaredGithubRepo {[22m
+      [2m    "owner": "ehmpathy",[22m
+      [2m    "name": "declastruct-github-demo",[22m
+      [2m    "description": "demo repo for declastruct-github",[22m
+      [2m    "visibility": "public",[22m
+      [32m-   "homepage": null,[39m
+      [32m-   "private": false,[39m
+      [32m-   "archived": false,[39m
+      [2m  }[22m
+
+○ DeclaredGithubRepoConfig.ownerehmpathynamedeclastruct-github-demo.7f326587815b52ff98fb4a2f2ace927b
+
+[K   ├─ ✔ done in <time>s
+   └─ decision [38;2;253;224;71m[UPDATE][39m
+      [32m- Remote[39m
+      [31m+ Desired[39m
+
+      [2m  DeclaredGithubRepoConfig {[22m
+      [2m    "repo": RefByUnique {[22m
+      [2m      "owner": "ehmpathy",[22m
+      [2m      "name": "declastruct-github-demo",[22m
+      [2m    },[22m
+      [2m    "hasIssues": true,[22m
+      [2m    "hasProjects": false,[22m
+      [2m    "hasWiki": false,[22m
+      [2m    "isTemplate": false,[22m
+      [2m    "defaultBranch": "main",[22m
+      [2m    "allowSquashMerge": true,[22m
+      [2m    "allowMergeCommit": false,[22m
+      [2m    "allowRebaseMerge": false,[22m
+      [2m    "allowAutoMerge": false,[22m
+      [2m    "deleteBranchOnMerge": true,[22m
+      [2m    "allowUpdateBranch": true,[22m
+      [32m-   "squashMergeCommitTitle": "COMMIT_OR_PR_TITLE",[39m
+      [32m-   "squashMergeCommitMessage": "COMMIT_MESSAGES",[39m
+      [32m-   "mergeCommitTitle": "MERGE_MESSAGE",[39m
+      [32m-   "mergeCommitMessage": "PR_TITLE",[39m
+      [32m-   "webCommitSignoffRequired": false,[39m
+      [2m  }[22m
+
+○ DeclaredGithubEnvironment.acceptance-test-env.ownerehmpathynamedeclastruct-github-demo.bf43283a2f5051a1abdd4be5f53cf4b0
+
+[K   ├─ ✔ done in <time>s
+
+○ DeclaredGithubEnvironment.production-on-main.ownerehmpathynamedeclastruct-github-demo.fb2a815c7ee758e680e0858263ac2dd9
+
+[K   ├─ ✔ done in <time>s
+
+○ DeclaredGithubEnvironment.production-on-else.ownerehmpathynamedeclastruct-github-demo.0f5aeba601315ab09abd7a99ccc25987
+
+[K   ├─ ✔ done in <time>s
+
+
+👌 plan still valid...
+
+🪄  apply changes...
+
+○ [38;2;253;224;71m[UPDATE][39m DeclaredGithubRepo.declastruct-github-demo.ehmpathy.c19e649d55e150b490727f8222f6b494
+
+[K   └─ ✔ done in <time>s
+
+○ [38;2;253;224;71m[UPDATE][39m DeclaredGithubRepoConfig.ownerehmpathynamedeclastruct-github-demo.7f326587815b52ff98fb4a2f2ace927b
+
+[K   └─ ✔ done in <time>s
+
+
+🌊 applied 2 changes
+
+"
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t2] CLI help output is requested then: apply --help shows usage information: apply --help output 1`] = `
+"Usage: declastruct apply [options]
+
+Apply changes from a plan file
+
+Options:
+  --plan <file>  Path to plan file, or "yolo" for immediate apply
+  --wish <file>  Path to wish file (required when --plan yolo)
+  -h, --help     display help for command
+"
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t2] CLI help output is requested then: plan --help shows usage information: plan --help output 1`] = `
+"Usage: declastruct plan [options]
+
+Generate a change plan from a wish file
+
+Options:
+  --wish <file>  Path to wish file
+  --into <file>  Path to output plan file
+  -h, --help     display help for command
+"
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t3] CLI is called with invalid input then: apply with empty plan file shows clear error: apply empty plan error 1`] = `
+"✖ Error during apply: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at <anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@1.7.3_domain-objects@0.31.9/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:49:37[90m)[39m
+    at async executeApplyCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@1.7.3_domain-objects@0.31.9/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:44:16[90m)[39m
+    at async Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@1.7.3_domain-objects@0.31.9/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:46:9[90m)[39m
+    at async Command.parseAsync [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1122:5[90m)[39m
+    at async invoke [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@1.7.3_domain-objects@0.31.9/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:56:3[90m)[39m
+"
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t3] CLI is called with invalid input then: apply with nonexistent plan file shows clear error: apply nonexistent plan error 1`] = `
+"✖ Error during apply: BadRequestError: BadRequestError: Plan file not found: /nonexistent/plan.json
+    at <anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@1.7.3_domain-objects@0.31.9/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:47:13[90m)[39m
+    at executeApplyCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@1.7.3_domain-objects@0.31.9/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:50:5[90m)[39m
+    at Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@1.7.3_domain-objects@0.31.9/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:46:34[90m)[39m
+    at Command.listener [as _actionHandler] [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:568:17[90m)[39m
+    at [90m<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1604:14
+    at Command._chainOrCall [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1488:12[90m)[39m
+    at Command._parseCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1603:27[90m)[39m
+    at [90m<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1367:27
+    at Command._chainOrCall [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1488:12[90m)[39m
+    at Command._dispatchSubcommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1363:25[90m)[39m
+"
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t3] CLI is called with invalid input then: plan with invalid wish file syntax shows clear error: plan invalid syntax error 1`] = `
+"✖ Error during plan: Error: Transform failed with 1 error:
+<repo>/src/contract/sdks/.test/.temp/acceptance/run.<timestamp>/invalid-wish.ts:1:5: ERROR: Expected ";" but found "is"
+    at failureErrorWithLog [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/esbuild@0.25.12/node_modules/[4mesbuild[24m/lib/main.js:1467:15[90m)[39m
+    at [90m<repo>/[39mnode_modules/[4m.pnpm[24m/esbuild@0.25.12/node_modules/[4mesbuild[24m/lib/main.js:736:50
+    at responseCallbacks.<computed> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/esbuild@0.25.12/node_modules/[4mesbuild[24m/lib/main.js:603:9[90m)[39m
+    at handleIncomingPacket [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/esbuild@0.25.12/node_modules/[4mesbuild[24m/lib/main.js:658:12[90m)[39m
+    at Socket.readFromStdout [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/esbuild@0.25.12/node_modules/[4mesbuild[24m/lib/main.js:581:7[90m)[39m
+[90m    at Socket.emit (node:events:519:28)[39m
+[90m    at addChunk (node:internal/streams/readable:561:12)[39m
+[90m    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)[39m
+[90m    at Readable.push (node:internal/streams/readable:392:5)[39m
+[90m    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)[39m {
+  name: [32m'TransformError'[39m
+}
+"
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t3] CLI is called with invalid input then: plan with nonexistent wish file shows clear error: plan nonexistent wish error 1`] = `
+"✖ Error during plan: BadRequestError: BadRequestError: Wish file not found: /nonexistent/path.ts
+    at executePlanCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@1.7.3_domain-objects@0.31.9/node_modules/[4mdeclastruct[24m/src/contract/cli/plan.ts:38:11[90m)[39m
+    at async Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@1.7.3_domain-objects@0.31.9/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:29:9[90m)[39m
+    at async Command.parseAsync [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1122:5[90m)[39m
+    at async invoke [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@1.7.3_domain-objects@0.31.9/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:56:3[90m)[39m
+"
+`;

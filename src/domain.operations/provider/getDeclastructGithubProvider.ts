@@ -5,6 +5,7 @@ import { DeclaredGithubAppDao } from '@src/access/daos/DeclaredGithubAppDao';
 import { DeclaredGithubAppInstallationDao } from '@src/access/daos/DeclaredGithubAppInstallationDao';
 import { DeclaredGithubBranchDao } from '@src/access/daos/DeclaredGithubBranchDao';
 import { DeclaredGithubBranchProtectionDao } from '@src/access/daos/DeclaredGithubBranchProtectionDao';
+import { DeclaredGithubEnvironmentDao } from '@src/access/daos/DeclaredGithubEnvironmentDao';
 import { DeclaredGithubOrgDao } from '@src/access/daos/DeclaredGithubOrgDao';
 import { DeclaredGithubOrgMemberPrivilegesDao } from '@src/access/daos/DeclaredGithubOrgMemberPrivilegesDao';
 import { DeclaredGithubOrgSecretDao } from '@src/access/daos/DeclaredGithubOrgSecretDao';
@@ -40,6 +41,7 @@ export const getDeclastructGithubProvider = (
     DeclaredGithubBranch: DeclaredGithubBranchDao,
     DeclaredGithubRepoConfig: DeclaredGithubRepoConfigDao,
     DeclaredGithubBranchProtection: DeclaredGithubBranchProtectionDao,
+    DeclaredGithubEnvironment: DeclaredGithubEnvironmentDao,
     DeclaredGithubApp: DeclaredGithubAppDao,
     DeclaredGithubAppInstallation: DeclaredGithubAppInstallationDao,
     // Organization resources

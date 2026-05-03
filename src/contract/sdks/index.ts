@@ -10,6 +10,7 @@ export type { DeclaredGithubAppPermissions } from '@src/domain.objects/DeclaredG
 // domain objects - repos
 export { DeclaredGithubBranch } from '@src/domain.objects/DeclaredGithubBranch';
 export { DeclaredGithubBranchProtection } from '@src/domain.objects/DeclaredGithubBranchProtection';
+export { DeclaredGithubEnvironment } from '@src/domain.objects/DeclaredGithubEnvironment';
 // domain objects - orgs
 export { DeclaredGithubOrg } from '@src/domain.objects/DeclaredGithubOrg';
 export { DeclaredGithubOrgMemberPrivileges } from '@src/domain.objects/DeclaredGithubOrgMemberPrivileges';

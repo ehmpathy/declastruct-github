@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t0] all fields present with user reviewers then: it should cast to DeclaredGithubEnvironment with all fields: full environment with all fields 1`] = `
+DeclaredGithubEnvironment {
+  "deploymentBranchPolicy": DomainLiteral {
+    "customBranches": [
+      "main",
+    ],
+  },
+  "id": 12345,
+  "name": "production-on-main",
+  "preventSelfReview": true,
+  "repo": RefByUnique {
+    "name": "test-repo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": DomainLiteral {
+    "teams": null,
+    "users": [
+      "alice",
+      "bob",
+    ],
+  },
+  "waitTimer": 30,
+}
+`;
+
+exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t1] null reviewers (no protection rules) then: it should cast with null reviewers: environment with null reviewers 1`] = `
+DeclaredGithubEnvironment {
+  "deploymentBranchPolicy": null,
+  "id": 12346,
+  "name": "prep",
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "test-repo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": null,
+}
+`;
+
+exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t2] protected branches policy then: it should cast with protectedBranches policy: environment with protected branches 1`] = `
+DeclaredGithubEnvironment {
+  "deploymentBranchPolicy": DomainLiteral {
+    "protectedBranches": true,
+  },
+  "id": 12347,
+  "name": "production",
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "test-repo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": null,
+}
+`;
+
+exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t3] custom branch policy with multiple patterns then: it should extract all branch patterns: environment with custom branches 1`] = `
+DeclaredGithubEnvironment {
+  "deploymentBranchPolicy": DomainLiteral {
+    "customBranches": [
+      "main",
+      "release/*",
+    ],
+  },
+  "id": 12348,
+  "name": "preview",
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "test-repo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": null,
+}
+`;
+
+exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t4] team reviewers then: it should extract both users and teams: environment with team reviewers 1`] = `
+DeclaredGithubEnvironment {
+  "deploymentBranchPolicy": null,
+  "id": 12349,
+  "name": "prod-team",
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "test-repo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": DomainLiteral {
+    "teams": [
+      "platform-team",
+    ],
+    "users": [
+      "alice",
+    ],
+  },
+  "waitTimer": null,
+}
+`;
