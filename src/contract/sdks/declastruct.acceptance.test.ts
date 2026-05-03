@@ -335,10 +335,16 @@ describe('declastruct CLI workflow', () => {
         }
 
         expect(errorOutput.length).toBeGreaterThan(0);
-        // strip ESC chars and end whitespace from each line
+        // strip ESC chars, repo paths, and end whitespace from each line
         const stable = errorOutput
-          // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
+          // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC strip for terminal output
           .replace(/\x1b/g, '')
+          // strip repo base path (local dev vs CI paths differ)
+          .replace(
+            /\/home\/[^/]+\/[^/]+\/[^/]+\/_worktrees\/[^/]+\//g,
+            '<repo>/',
+          )
+          .replace(/\/home\/runner\/work\/[^/]+\/[^/]+\//g, '<repo>/')
           .split('\n')
           .map((l) => l.trimEnd())
           .join('\n');
@@ -364,10 +370,16 @@ describe('declastruct CLI workflow', () => {
         }
 
         expect(errorOutput.length).toBeGreaterThan(0);
-        // strip ESC chars and end whitespace from each line
+        // strip ESC chars, repo paths, and end whitespace from each line
         const stable = errorOutput
-          // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
+          // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC strip for terminal output
           .replace(/\x1b/g, '')
+          // strip repo base path (local dev vs CI paths differ)
+          .replace(
+            /\/home\/[^/]+\/[^/]+\/[^/]+\/_worktrees\/[^/]+\//g,
+            '<repo>/',
+          )
+          .replace(/\/home\/runner\/work\/[^/]+\/[^/]+\//g, '<repo>/')
           .split('\n')
           .map((l) => l.trimEnd())
           .join('\n');
@@ -401,7 +413,7 @@ describe('declastruct CLI workflow', () => {
         }
 
         expect(errorOutput.length).toBeGreaterThan(0);
-        // strip ESC chars, timestamps, and end whitespace from each line
+        // strip ESC chars, timestamps, repo paths, and end whitespace from each line
         const stableErrorOutput = errorOutput
           // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
           .replace(/\x1b/g, '')
@@ -409,6 +421,12 @@ describe('declastruct CLI workflow', () => {
             /run\.\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/g,
             'run.<timestamp>',
           )
+          // strip repo base path (local dev vs CI paths differ)
+          .replace(
+            /\/home\/[^/]+\/[^/]+\/[^/]+\/_worktrees\/[^/]+\//g,
+            '<repo>/',
+          )
+          .replace(/\/home\/runner\/work\/[^/]+\/[^/]+\//g, '<repo>/')
           .split('\n')
           .map((l) => l.trimEnd())
           .join('\n');
@@ -439,10 +457,16 @@ describe('declastruct CLI workflow', () => {
         }
 
         expect(errorOutput.length).toBeGreaterThan(0);
-        // strip ESC chars and end whitespace from each line
+        // strip ESC chars, repo paths, and end whitespace from each line
         const stable = errorOutput
           // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
           .replace(/\x1b/g, '')
+          // strip repo base path (local dev vs CI paths differ)
+          .replace(
+            /\/home\/[^/]+\/[^/]+\/[^/]+\/_worktrees\/[^/]+\//g,
+            '<repo>/',
+          )
+          .replace(/\/home\/runner\/work\/[^/]+\/[^/]+\//g, '<repo>/')
           .split('\n')
           .map((l) => l.trimEnd())
           .join('\n');
