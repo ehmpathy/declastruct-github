@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/ehmpathy/declastruct-github/compare/v1.3.5...v1.4.0) (2026-05-03)
+
+
+### Features
+
+* **env:** add DeclaredGithubEnvironment for supply chain protection ([#37](https://github.com/ehmpathy/declastruct-github/issues/37)) ([9dc38bd](https://github.com/ehmpathy/declastruct-github/commit/9dc38bdb5a2df1ba97189b85195fc23010815c51))
+
 ## [1.3.5](https://github.com/ehmpathy/declastruct-github/compare/v1.3.4...v1.3.5) (2026-04-04)
 
 
