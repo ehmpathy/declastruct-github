@@ -336,8 +336,8 @@ describe('declastruct CLI workflow', () => {
 
         expect(errorOutput.length).toBeGreaterThan(0);
         // strip ESC chars and end whitespace from each line
-        // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
         const stable = errorOutput
+          // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
           .replace(/\x1b/g, '')
           .split('\n')
           .map((l) => l.trimEnd())
@@ -365,8 +365,8 @@ describe('declastruct CLI workflow', () => {
 
         expect(errorOutput.length).toBeGreaterThan(0);
         // strip ESC chars and end whitespace from each line
-        // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
         const stable = errorOutput
+          // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
           .replace(/\x1b/g, '')
           .split('\n')
           .map((l) => l.trimEnd())
@@ -440,8 +440,8 @@ describe('declastruct CLI workflow', () => {
 
         expect(errorOutput.length).toBeGreaterThan(0);
         // strip ESC chars and end whitespace from each line
-        // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
         const stable = errorOutput
+          // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC stripping for terminal output
           .replace(/\x1b/g, '')
           .split('\n')
           .map((l) => l.trimEnd())
