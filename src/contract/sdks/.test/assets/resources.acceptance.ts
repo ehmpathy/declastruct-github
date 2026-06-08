@@ -58,7 +58,7 @@ export const getResources = async () => {
     allowSquashMerge: true,
     allowMergeCommit: false,
     allowRebaseMerge: false,
-    allowAutoMerge: false,
+    allowAutoMerge: true,
     deleteBranchOnMerge: true,
     allowUpdateBranch: true,
   });
