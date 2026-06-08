@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/ehmpathy/declastruct-github/compare/v1.4.0...v1.5.0) (2026-06-08)
+
+
+### Features
+
+* **teams:** add team and team membership provisioning ([#39](https://github.com/ehmpathy/declastruct-github/issues/39)) ([5cfb6b6](https://github.com/ehmpathy/declastruct-github/commit/5cfb6b67f4a2b6238af2921c6a1a63ec3939f765))
+
 ## [1.4.0](https://github.com/ehmpathy/declastruct-github/compare/v1.3.5...v1.4.0) (2026-05-03)
 
 
