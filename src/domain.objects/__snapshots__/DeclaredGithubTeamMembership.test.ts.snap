@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DeclaredGithubTeamMembership given: [case1] valid config when: [t0] created with member role then: it should create the domain object 1`] = `
+DeclaredGithubTeamMembership {
+  "role": "member",
+  "team": DeclaredGithubTeamRefLiteral {
+    "org": DeclaredGithubOrgRefLiteral {
+      "login": "ehmpathy",
+    },
+    "slug": "platform-engineers",
+  },
+  "username": "testuser",
+}
+`;
+
+exports[`DeclaredGithubTeamMembership given: [case1] valid config when: [t1] created with maintainer role then: it should create the domain object 1`] = `
+DeclaredGithubTeamMembership {
+  "role": "maintainer",
+  "team": DeclaredGithubTeamRefLiteral {
+    "org": DeclaredGithubOrgRefLiteral {
+      "login": "ehmpathy",
+    },
+    "slug": "platform-engineers",
+  },
+  "username": "leaduser",
+}
+`;

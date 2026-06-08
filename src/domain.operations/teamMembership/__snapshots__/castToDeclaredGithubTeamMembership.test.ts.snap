@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`castToDeclaredGithubTeamMembership given: a GitHub API team membership response when: role has unexpected value then: it should default to member 1`] = `
+DeclaredGithubTeamMembership {
+  "role": "member",
+  "team": DeclaredGithubTeamRefLiteral {
+    "org": DeclaredGithubOrgRefLiteral {
+      "login": "ehmpathy",
+    },
+    "slug": "platform-engineers",
+  },
+  "username": "testuser",
+}
+`;
+
+exports[`castToDeclaredGithubTeamMembership given: a GitHub API team membership response when: role is maintainer then: it should cast with maintainer role 1`] = `
+DeclaredGithubTeamMembership {
+  "role": "maintainer",
+  "team": DeclaredGithubTeamRefLiteral {
+    "org": DeclaredGithubOrgRefLiteral {
+      "login": "ehmpathy",
+    },
+    "slug": "platform-engineers",
+  },
+  "username": "leaduser",
+}
+`;
+
+exports[`castToDeclaredGithubTeamMembership given: a GitHub API team membership response when: role is member then: it should cast to DeclaredGithubTeamMembership with member role 1`] = `
+DeclaredGithubTeamMembership {
+  "role": "member",
+  "team": DeclaredGithubTeamRefLiteral {
+    "org": DeclaredGithubOrgRefLiteral {
+      "login": "ehmpathy",
+    },
+    "slug": "platform-engineers",
+  },
+  "username": "testuser",
+}
+`;

@@ -1,9 +1,11 @@
-import { UnexpectedCodePathError } from 'helpful-errors';
+import { ConstraintError } from 'helpful-errors';
 
 import {
   DeclaredGithubEnvironment,
   DeclaredGithubRepo,
   DeclaredGithubRepoConfig,
+  DeclaredGithubTeam,
+  DeclaredGithubTeamMembership,
   getDeclastructGithubProvider,
 } from '../../../../../dist/contract/sdks';
 
@@ -17,7 +19,10 @@ export const getProviders = async () => [
       credentials: {
         token:
           process.env.GITHUB_TOKEN ??
-          UnexpectedCodePathError.throw('github token not supplied'),
+          ConstraintError.throw('GITHUB_TOKEN not supplied', {
+            env: 'GITHUB_TOKEN',
+            hint: 'run: eval $(rhx keyrack source --owner ehmpath --env test)',
+          }),
       },
     },
     {
@@ -53,7 +58,7 @@ export const getResources = async () => {
     allowSquashMerge: true,
     allowMergeCommit: false,
     allowRebaseMerge: false,
-    allowAutoMerge: false,
+    allowAutoMerge: true,
     deleteBranchOnMerge: true,
     allowUpdateBranch: true,
   });
@@ -100,5 +105,58 @@ export const getResources = async () => {
     preventSelfReview: true,
   });
 
-  return [repo, repoConfig, environment, productionOnMain, productionOnElse];
+  /**
+   * .what = acceptance test team
+   * .why = validates team provision via declastruct
+   */
+  const team = DeclaredGithubTeam.as({
+    org: { login: 'ehmpathy' },
+    slug: 'declastruct-acceptance-test-team',
+    name: 'Declastruct Acceptance Test Team',
+    description: 'team for declastruct-github acceptance tests',
+    privacy: 'closed',
+    notifications: 'disabled',
+    parent: null,
+  });
+
+  /**
+   * .what = acceptance test child team
+   * .why = validates nested team provision via declastruct
+   */
+  const childTeam = DeclaredGithubTeam.as({
+    org: { login: 'ehmpathy' },
+    slug: 'declastruct-acceptance-test-child-team',
+    name: 'Declastruct Acceptance Test Child Team',
+    description: 'child team for declastruct-github acceptance tests',
+    privacy: 'closed',
+    notifications: 'disabled',
+    parent: {
+      org: { login: 'ehmpathy' },
+      slug: 'declastruct-acceptance-test-team',
+    },
+  });
+
+  /**
+   * .what = acceptance test team membership
+   * .why = validates team membership provision via declastruct
+   */
+  const teamMembership = DeclaredGithubTeamMembership.as({
+    team: {
+      org: { login: 'ehmpathy' },
+      slug: 'declastruct-acceptance-test-team',
+    },
+    username: 'uladkasach',
+    role: 'maintainer',
+  });
+
+  return [
+    repo,
+    repoConfig,
+    environment,
+    productionOnMain,
+    productionOnElse,
+    team,
+    childTeam,
+    teamMembership,
+  ];
 };

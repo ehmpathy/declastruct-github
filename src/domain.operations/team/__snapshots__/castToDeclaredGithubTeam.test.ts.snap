@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`castToDeclaredGithubTeam given: a GitHub API team response when: all fields are present with closed privacy then: it should cast to DeclaredGithubTeam with all fields 1`] = `
+DeclaredGithubTeam {
+  "createdAt": "2024-01-15T10:30:00.000Z",
+  "description": "core platform team",
+  "id": 12345,
+  "name": "Platform Engineers",
+  "notifications": "enabled",
+  "org": DeclaredGithubOrgRefLiteral {
+    "login": "ehmpathy",
+  },
+  "parent": null,
+  "privacy": "closed",
+  "slug": "platform-engineers",
+  "updatedAt": "2024-06-01T14:45:00.000Z",
+}
+`;
+
+exports[`castToDeclaredGithubTeam given: a GitHub API team response when: notification_setting has unexpected value then: it should default to disabled 1`] = `
+DeclaredGithubTeam {
+  "createdAt": undefined,
+  "description": null,
+  "id": 12348,
+  "name": "Test Team",
+  "notifications": "disabled",
+  "org": DeclaredGithubOrgRefLiteral {
+    "login": "ehmpathy",
+  },
+  "parent": null,
+  "privacy": "closed",
+  "slug": "test-team",
+  "updatedAt": undefined,
+}
+`;
+
+exports[`castToDeclaredGithubTeam given: a GitHub API team response when: privacy is secret then: it should cast with secret privacy 1`] = `
+DeclaredGithubTeam {
+  "createdAt": undefined,
+  "description": null,
+  "id": 12347,
+  "name": "Security Team",
+  "notifications": "disabled",
+  "org": DeclaredGithubOrgRefLiteral {
+    "login": "ehmpathy",
+  },
+  "parent": null,
+  "privacy": "secret",
+  "slug": "security-team",
+  "updatedAt": undefined,
+}
+`;
+
+exports[`castToDeclaredGithubTeam given: a GitHub API team response when: team has a parent team then: it should cast parent as RefByUnique 1`] = `
+DeclaredGithubTeam {
+  "createdAt": undefined,
+  "description": "backend subteam",
+  "id": 12346,
+  "name": "Backend Engineers",
+  "notifications": "disabled",
+  "org": DeclaredGithubOrgRefLiteral {
+    "login": "ehmpathy",
+  },
+  "parent": DeclaredGithubTeamRefLiteral {
+    "org": DeclaredGithubOrgRefLiteral {
+      "login": "ehmpathy",
+    },
+    "slug": "platform-engineers",
+  },
+  "privacy": "closed",
+  "slug": "backend-engineers",
+  "updatedAt": undefined,
+}
+`;

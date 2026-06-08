@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DeclaredGithubTeam given: [case1] valid config when: [t0] created with all fields then: it should create the domain object 1`] = `
+DeclaredGithubTeam {
+  "description": "core platform team",
+  "name": "Platform Engineers",
+  "notifications": "enabled",
+  "org": DeclaredGithubOrgRefLiteral {
+    "login": "ehmpathy",
+  },
+  "parent": null,
+  "privacy": "closed",
+  "slug": "platform-engineers",
+}
+`;
+
+exports[`DeclaredGithubTeam given: [case1] valid config when: [t1] created with parent team then: it should create the domain object 1`] = `
+DeclaredGithubTeam {
+  "description": "backend subteam",
+  "name": "Backend Engineers",
+  "notifications": "disabled",
+  "org": DeclaredGithubOrgRefLiteral {
+    "login": "ehmpathy",
+  },
+  "parent": DeclaredGithubTeamRefLiteral {
+    "org": DeclaredGithubOrgRefLiteral {
+      "login": "ehmpathy",
+    },
+    "slug": "platform-engineers",
+  },
+  "privacy": "closed",
+  "slug": "backend-engineers",
+}
+`;
+
+exports[`DeclaredGithubTeam given: [case1] valid config when: [t2] created as secret team without parent then: it should create the domain object 1`] = `
+DeclaredGithubTeam {
+  "description": "internal security",
+  "name": "Security Team",
+  "notifications": "disabled",
+  "org": DeclaredGithubOrgRefLiteral {
+    "login": "ehmpathy",
+  },
+  "parent": null,
+  "privacy": "secret",
+  "slug": "security-team",
+}
+`;
+
+exports[`DeclaredGithubTeam given: [case1] valid config when: [t3] created with null description then: it should create the domain object 1`] = `
+DeclaredGithubTeam {
+  "description": null,
+  "name": "Temp Team",
+  "notifications": "enabled",
+  "org": DeclaredGithubOrgRefLiteral {
+    "login": "ehmpathy",
+  },
+  "parent": null,
+  "privacy": "closed",
+  "slug": "temp-team",
+}
+`;
+
+exports[`DeclaredGithubTeam given: [case2] invalid config: secret team with parent when: [t0] privacy is secret and parent is not null then: it should throw validation error: secret+parent error 1`] = `
+"BadRequestError: secret teams cannot have a parent
+
+{
+  "slug": "secret-child",
+  "privacy": "secret",
+  "parent": {
+    "org": {
+      "login": "ehmpathy"
+    },
+    "slug": "parent-team"
+  }
+}"
+`;

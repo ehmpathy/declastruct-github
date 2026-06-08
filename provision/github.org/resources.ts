@@ -7,6 +7,8 @@ import { DeclaredGithubOrg } from '../../src/domain.objects/DeclaredGithubOrg';
 import { DeclaredGithubOrgMemberPrivileges } from '../../src/domain.objects/DeclaredGithubOrgMemberPrivileges';
 import { DeclaredGithubOrgSecret } from '../../src/domain.objects/DeclaredGithubOrgSecret';
 import { DeclaredGithubOrgVariable } from '../../src/domain.objects/DeclaredGithubOrgVariable';
+import { DeclaredGithubTeam } from '../../src/domain.objects/DeclaredGithubTeam';
+import { DeclaredGithubTeamMembership } from '../../src/domain.objects/DeclaredGithubTeamMembership';
 
 export const getProviders = async (): Promise<DeclastructProvider[]> => [
   getDeclastructGithubProvider(
@@ -110,6 +112,24 @@ export const getResources = async (): Promise<DomainEntity<any>[]> => {
     visibility: 'all',
   });
 
+  // declare the releasers team
+  const teamReleasers = DeclaredGithubTeam.as({
+    org: { login: 'ehmpathy' },
+    slug: 'releasers',
+    name: 'releasers',
+    description: 'folks able to release',
+    privacy: 'closed',
+    notifications: 'disabled',
+    parent: null,
+  });
+
+  // declare team membership for releasers team
+  const teamReleasersMembershipUladkasach = DeclaredGithubTeamMembership.as({
+    team: { org: { login: 'ehmpathy' }, slug: 'releasers' },
+    username: 'uladkasach',
+    role: 'maintainer',
+  });
+
   return [
     org,
     orgPrivs,
@@ -119,5 +139,7 @@ export const getResources = async (): Promise<DomainEntity<any>[]> => {
     orgSecretDeclastructGithubConformerAppPrivateKey,
     orgVariableRheleaseAppId,
     orgSecretRheleaseAppPrivateKey,
+    teamReleasers,
+    teamReleasersMembershipUladkasach,
   ];
 };
