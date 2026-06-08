@@ -1,4 +1,3 @@
-import { ConstraintError } from 'helpful-errors';
 import { getError, given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -14,20 +13,14 @@ const log = console;
  * .why = verifies full create, read, update, delete cycle
  * .note = requires org admin permissions (admin:org scope)
  *         set TEST_ORG_ADMIN=true to run these tests
+ * .note = skipIf used because CI lacks admin:org scope; apply verified via dogfood
  */
+const hasOrgAdmin = process.env.TEST_ORG_ADMIN === 'true';
 describe('team lifecycle', () => {
   const context = { log, ...getSampleGithubContext() };
   const org = { login: 'ehmpathy' };
 
-  given('[case1] full team lifecycle', () => {
-    beforeAll(() => {
-      // fail loud if org admin permission is absent
-      const hasOrgAdmin = process.env.TEST_ORG_ADMIN === 'true';
-      if (!hasOrgAdmin)
-        throw new ConstraintError('TEST_ORG_ADMIN not set', {
-          hint: 'set TEST_ORG_ADMIN=true to run team lifecycle tests with org admin credentials',
-        });
-    });
+  given.skipIf(!hasOrgAdmin)('[case1] full team lifecycle', () => {
     // unique slug per test run to avoid collision
     const teamSlug = `test-team-${Date.now()}`;
 
@@ -164,51 +157,45 @@ describe('team lifecycle', () => {
     });
   });
 
-  given('[case2] validation error: absent parent team', () => {
-    /**
-     * .what = validates setTeam rejects when parent team does not exist
-     * .why = parent team must exist before child team creation
-     * .note = secret+parent validation is covered in DeclaredGithubTeam.test.ts
-     */
-    when('[t0] setTeam is called with absent parent', () => {
-      then('it throws BadRequestError with snapshot', async () => {
-        const error = await getError(async () =>
-          setTeam(
-            {
-              findsert: {
-                org: { login: 'ehmpathy' },
-                slug: 'child-with-absent-parent',
-                name: 'Child With Absent Parent',
-                description: null,
-                privacy: 'closed',
-                notifications: 'disabled',
-                parent: {
+  given.skipIf(!hasOrgAdmin)(
+    '[case2] validation error: absent parent team',
+    () => {
+      /**
+       * .what = validates setTeam rejects when parent team does not exist
+       * .why = parent team must exist before child team creation
+       * .note = secret+parent validation is covered in DeclaredGithubTeam.test.ts
+       */
+      when('[t0] setTeam is called with absent parent', () => {
+        then('it throws BadRequestError with snapshot', async () => {
+          const error = await getError(async () =>
+            setTeam(
+              {
+                findsert: {
                   org: { login: 'ehmpathy' },
-                  slug: 'nonexistent-parent-team',
+                  slug: 'child-with-absent-parent',
+                  name: 'Child With Absent Parent',
+                  description: null,
+                  privacy: 'closed',
+                  notifications: 'disabled',
+                  parent: {
+                    org: { login: 'ehmpathy' },
+                    slug: 'nonexistent-parent-team',
+                  },
                 },
               },
-            },
-            context,
-          ),
-        );
+              context,
+            ),
+          );
 
-        expect(error).toBeDefined();
-        expect(error.message).toContain('parent team not found');
-        expect(error.message).toMatchSnapshot('setTeam absent parent error');
-      });
-    });
-  });
-
-  given('[case3] nested teams', () => {
-    beforeAll(() => {
-      // fail loud if org admin permission is absent
-      const hasOrgAdmin = process.env.TEST_ORG_ADMIN === 'true';
-      if (!hasOrgAdmin)
-        throw new ConstraintError('TEST_ORG_ADMIN not set', {
-          hint: 'set TEST_ORG_ADMIN=true to run nested teams tests with org admin credentials',
+          expect(error).toBeDefined();
+          expect(error.message).toContain('parent team not found');
+          expect(error.message).toMatchSnapshot('setTeam absent parent error');
         });
-    });
+      });
+    },
+  );
 
+  given.skipIf(!hasOrgAdmin)('[case3] nested teams', () => {
     const parentSlug = `test-parent-${Date.now()}`;
     const childSlug = `test-child-${Date.now()}`;
 

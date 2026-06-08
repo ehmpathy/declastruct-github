@@ -1,7 +1,6 @@
 import { execSync } from 'child_process';
 import type { DeclastructChange } from 'declastruct';
 import { existsSync, mkdirSync, readFileSync } from 'fs';
-import { ConstraintError } from 'helpful-errors';
 import { join } from 'path';
 import { given, then, when } from 'test-fns';
 
@@ -229,309 +228,274 @@ describe('declastruct CLI workflow', () => {
       });
     });
 
-    when('[t1] plan is applied via declastruct CLI', () => {
-      /**
-       * .what = validates declastruct apply command works with github provider
-       * .why = ensures end-to-end workflow from plan to reality
-       * .note = uses beforeAll to create plan once, shared across apply tests
-       * .note = requires org:admin scope because resources include teams
-       */
-      let applyStdout: string;
+    /**
+     * .what = validates declastruct apply command works with github provider
+     * .why = ensures end-to-end workflow from plan to reality
+     * .note = uses beforeAll to create plan once, shared across apply tests
+     * .note = requires org:admin scope because resources include teams
+     * .note = skipIf used because CI lacks admin:org scope; apply verified via dogfood
+     */
+    const hasOrgAdmin = process.env.TEST_ORG_ADMIN === 'true';
+    when.skipIf(!hasOrgAdmin)(
+      '[t1] plan is applied via declastruct CLI',
+      () => {
+        let applyStdout: string;
 
-      beforeAll(() => {
-        // fail loud if org admin permission is absent
-        const hasOrgAdmin = process.env.TEST_ORG_ADMIN === 'true';
-        if (!hasOrgAdmin)
-          throw new ConstraintError('TEST_ORG_ADMIN not set', {
-            hint: 'set TEST_ORG_ADMIN=true to run apply tests that include team resources',
+        beforeAll(() => {
+          // generate plan once for all apply tests
+          execSync(
+            `npx declastruct plan --wish ${resourcesFile} --into ${planFile}`,
+            { env: process.env, encoding: 'utf-8' },
+          );
+
+          // apply plan - fail loud on any error
+          applyStdout = execSync(`npx declastruct apply --plan ${planFile}`, {
+            env: process.env,
+            encoding: 'utf-8',
           });
-        // generate plan once for all apply tests
-        execSync(
-          `npx declastruct plan --wish ${resourcesFile} --into ${planFile}`,
-          { env: process.env, encoding: 'utf-8' },
-        );
-
-        // apply plan - fail loud on any error
-        applyStdout = execSync(`npx declastruct apply --plan ${planFile}`, {
-          env: process.env,
-          encoding: 'utf-8',
         });
-      });
 
-      then('plan file is created', () => {
-        // verify plan file exists
-        const planExists = existsSync(planFile);
-        expect(planExists).toBe(true);
-      });
-
-      then('it applies and verifies repo exists', async () => {
-        /**
-         * .what = verifies repo resource after apply
-         * .why = repo operations work without org:admin scope
-         */
-        const provider = getDeclastructGithubProvider(
-          {
-            credentials: { token: githubContext.github.token },
-          },
-          { log },
-        );
-
-        const repo = await provider.daos.DeclaredGithubRepo.get.one.byUnique(
-          {
-            owner: 'ehmpathy',
-            name: 'declastruct-github-demo',
-          },
-          provider.context,
-        );
-        expect(repo).toBeDefined();
-        expect(repo!.name).toBe('declastruct-github-demo');
-
-        // snapshot stable fields of SDK return value
-        expect({
-          owner: repo!.owner,
-          name: repo!.name,
-        }).toMatchSnapshot('repo SDK return value after apply');
-      });
-
-      then('it applies and verifies environment exists', async () => {
-        /**
-         * .what = verifies environment resource after apply
-         * .why = environment operations work without org:admin scope
-         */
-        const provider = getDeclastructGithubProvider(
-          {
-            credentials: { token: githubContext.github.token },
-          },
-          { log },
-        );
-
-        const environment =
-          await provider.daos.DeclaredGithubEnvironment.get.one.byUnique(
-            {
-              repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
-              name: 'acceptance-test-env',
-            },
-            provider.context,
-          );
-        expect(environment).toBeDefined();
-        expect(environment!.name).toBe('acceptance-test-env');
-
-        // snapshot stable fields of SDK return value
-        expect({
-          repo: environment!.repo,
-          name: environment!.name,
-        }).toMatchSnapshot('environment SDK return value after apply');
-      });
-
-      then('it applies and verifies team exists', async () => {
-        /**
-         * .what = verifies team resource after apply
-         * .why = confirms team creation via declastruct apply
-         */
-        const provider = getDeclastructGithubProvider(
-          {
-            credentials: { token: githubContext.github.token },
-          },
-          { log },
-        );
-
-        const team = await provider.daos.DeclaredGithubTeam.get.one.byUnique(
-          {
-            org: { login: 'ehmpathy' },
-            slug: 'declastruct-acceptance-test-team',
-          },
-          provider.context,
-        );
-        expect(team).toBeDefined();
-        expect(team!.slug).toBe('declastruct-acceptance-test-team');
-
-        // snapshot stable fields of SDK return value
-        expect({
-          org: team!.org,
-          slug: team!.slug,
-          name: team!.name,
-          privacy: team!.privacy,
-          notifications: team!.notifications,
-          parent: team!.parent,
-        }).toMatchSnapshot('team SDK return value after apply');
-      });
-
-      then('it applies and verifies team membership exists', async () => {
-        /**
-         * .what = verifies team membership resource after apply
-         * .why = confirms membership creation via declastruct apply
-         */
-        const provider = getDeclastructGithubProvider(
-          {
-            credentials: { token: githubContext.github.token },
-          },
-          { log },
-        );
-
-        const membership =
-          await provider.daos.DeclaredGithubTeamMembership.get.one.byUnique(
-            {
-              team: {
-                org: { login: 'ehmpathy' },
-                slug: 'declastruct-acceptance-test-team',
-              },
-              username: 'uladkasach',
-            },
-            provider.context,
-          );
-        expect(membership).toBeDefined();
-        expect(membership!.role).toBe('maintainer');
-
-        // snapshot stable fields of SDK return value
-        expect({
-          team: membership!.team,
-          username: membership!.username,
-          role: membership!.role,
-        }).toMatchSnapshot('membership SDK return value after apply');
-      });
-
-      then('it applies and verifies repo config exists', async () => {
-        /**
-         * .what = verifies repo config resource after apply
-         * .why = confirms repo config via declastruct apply
-         */
-        const provider = getDeclastructGithubProvider(
-          {
-            credentials: { token: githubContext.github.token },
-          },
-          { log },
-        );
-
-        const config =
-          await provider.daos.DeclaredGithubRepoConfig.get.one.byUnique(
-            {
-              repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
-            },
-            provider.context,
-          );
-        expect(config).toBeDefined();
-
-        // snapshot stable fields of SDK return value
-        expect({
-          repo: config!.repo,
-          allowMergeCommit: config!.allowMergeCommit,
-          allowSquashMerge: config!.allowSquashMerge,
-          allowRebaseMerge: config!.allowRebaseMerge,
-        }).toMatchSnapshot('config SDK return value after apply');
-      });
-
-      then('apply CLI stdout matches snapshot', () => {
-        /**
-         * .what = snapshot apply stdout for visual diff
-         * .why = enables regression detection in apply output
-         */
-
-        // verify apply stdout is captured
-        expect(applyStdout).toBeDefined();
-        expect(applyStdout.length).toBeGreaterThan(0);
-
-        const normalizedApplyStdout = normalizeCliStdoutForSnapshot({
-          stdout: applyStdout,
+        then('plan file is created', () => {
+          // verify plan file exists
+          const planExists = existsSync(planFile);
+          expect(planExists).toBe(true);
         });
-        expect(normalizedApplyStdout).toMatchSnapshot('apply CLI stdout');
-      });
 
-      then(
-        'it is idempotent - replan after apply shows environment as KEEP',
-        () => {
+        then('it applies and verifies repo exists', async () => {
           /**
-           * .what = validates environment is idempotent after apply
-           * .why = ensures declastruct environment operations follow idempotency requirements
-           * .note = creates a fresh plan after apply; environment should show KEEP action
+           * .what = verifies repo resource after apply
+           * .why = repo operations work without org:admin scope
            */
-
-          // create a fresh plan after first apply
-          const replanFile = join(testDir, 'replan.json');
-          const replanStdout = execSync(
-            `npx declastruct plan --wish ${resourcesFile} --into ${replanFile}`,
+          const provider = getDeclastructGithubProvider(
             {
-              env: process.env,
-              encoding: 'utf-8',
+              credentials: { token: githubContext.github.token },
             },
+            { log },
           );
 
-          // snapshot the replan CLI output
-          const normalizedReplanStdout = normalizeCliStdoutForSnapshot({
-            stdout: replanStdout,
-          });
-          expect(normalizedReplanStdout).toMatchSnapshot('replan CLI stdout');
-
-          // verify environment resource shows KEEP (idempotent)
-          const replan = JSON.parse(readFileSync(replanFile, 'utf8'));
-          const envChange = replan.changes.find(
-            (c: DeclastructChange) =>
-              c.forResource.class === 'DeclaredGithubEnvironment',
+          const repo = await provider.daos.DeclaredGithubRepo.get.one.byUnique(
+            {
+              owner: 'ehmpathy',
+              name: 'declastruct-github-demo',
+            },
+            provider.context,
           );
-          expect(envChange).toBeDefined();
-          expect(envChange!.action).toBe('KEEP');
+          expect(repo).toBeDefined();
+          expect(repo!.name).toBe('declastruct-github-demo');
 
-          // snapshot the environment change (stable fields only)
+          // snapshot stable fields of SDK return value
           expect({
-            action: envChange!.action,
-            forResource: {
-              class: envChange!.forResource.class,
-              slug: envChange!.forResource.slug,
-            },
-          }).toMatchSnapshot('replan environment change KEEP');
-        },
-      );
+            owner: repo!.owner,
+            name: repo!.name,
+          }).toMatchSnapshot('repo SDK return value after apply');
+        });
 
-      then('it is idempotent - replan after apply shows team as KEEP', () => {
-        /**
-         * .what = validates all team resources are idempotent after apply
-         * .why = ensures declastruct team operations follow idempotency requirements
-         */
-        const replanFile = join(testDir, 'replan.json');
-        const replan = JSON.parse(readFileSync(replanFile, 'utf8'));
-        const teamChanges = replan.changes.filter(
-          (c: DeclastructChange) =>
-            c.forResource.class === 'DeclaredGithubTeam',
-        );
-        expect(teamChanges.length).toBeGreaterThan(0);
-        for (const teamChange of teamChanges) {
-          expect(teamChange.action).toBe('KEEP');
-        }
-
-        // snapshot the team changes (stable fields only)
-        const teamChangesNormalized = teamChanges.map(
-          (c: DeclastructChange) => ({
-            action: c.action,
-            forResource: {
-              class: c.forResource.class,
-              slug: c.forResource.slug,
-            },
-          }),
-        );
-        expect(teamChangesNormalized).toMatchSnapshot(
-          'replan team changes KEEP',
-        );
-      });
-
-      then(
-        'it is idempotent - replan after apply shows membership as KEEP',
-        () => {
+        then('it applies and verifies environment exists', async () => {
           /**
-           * .what = validates all team membership resources are idempotent after apply
-           * .why = ensures declastruct membership operations follow idempotency requirements
+           * .what = verifies environment resource after apply
+           * .why = environment operations work without org:admin scope
+           */
+          const provider = getDeclastructGithubProvider(
+            {
+              credentials: { token: githubContext.github.token },
+            },
+            { log },
+          );
+
+          const environment =
+            await provider.daos.DeclaredGithubEnvironment.get.one.byUnique(
+              {
+                repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
+                name: 'acceptance-test-env',
+              },
+              provider.context,
+            );
+          expect(environment).toBeDefined();
+          expect(environment!.name).toBe('acceptance-test-env');
+
+          // snapshot stable fields of SDK return value
+          expect({
+            repo: environment!.repo,
+            name: environment!.name,
+          }).toMatchSnapshot('environment SDK return value after apply');
+        });
+
+        then('it applies and verifies team exists', async () => {
+          /**
+           * .what = verifies team resource after apply
+           * .why = confirms team creation via declastruct apply
+           */
+          const provider = getDeclastructGithubProvider(
+            {
+              credentials: { token: githubContext.github.token },
+            },
+            { log },
+          );
+
+          const team = await provider.daos.DeclaredGithubTeam.get.one.byUnique(
+            {
+              org: { login: 'ehmpathy' },
+              slug: 'declastruct-acceptance-test-team',
+            },
+            provider.context,
+          );
+          expect(team).toBeDefined();
+          expect(team!.slug).toBe('declastruct-acceptance-test-team');
+
+          // snapshot stable fields of SDK return value
+          expect({
+            org: team!.org,
+            slug: team!.slug,
+            name: team!.name,
+            privacy: team!.privacy,
+            notifications: team!.notifications,
+            parent: team!.parent,
+          }).toMatchSnapshot('team SDK return value after apply');
+        });
+
+        then('it applies and verifies team membership exists', async () => {
+          /**
+           * .what = verifies team membership resource after apply
+           * .why = confirms membership creation via declastruct apply
+           */
+          const provider = getDeclastructGithubProvider(
+            {
+              credentials: { token: githubContext.github.token },
+            },
+            { log },
+          );
+
+          const membership =
+            await provider.daos.DeclaredGithubTeamMembership.get.one.byUnique(
+              {
+                team: {
+                  org: { login: 'ehmpathy' },
+                  slug: 'declastruct-acceptance-test-team',
+                },
+                username: 'uladkasach',
+              },
+              provider.context,
+            );
+          expect(membership).toBeDefined();
+          expect(membership!.role).toBe('maintainer');
+
+          // snapshot stable fields of SDK return value
+          expect({
+            team: membership!.team,
+            username: membership!.username,
+            role: membership!.role,
+          }).toMatchSnapshot('membership SDK return value after apply');
+        });
+
+        then('it applies and verifies repo config exists', async () => {
+          /**
+           * .what = verifies repo config resource after apply
+           * .why = confirms repo config via declastruct apply
+           */
+          const provider = getDeclastructGithubProvider(
+            {
+              credentials: { token: githubContext.github.token },
+            },
+            { log },
+          );
+
+          const config =
+            await provider.daos.DeclaredGithubRepoConfig.get.one.byUnique(
+              {
+                repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
+              },
+              provider.context,
+            );
+          expect(config).toBeDefined();
+
+          // snapshot stable fields of SDK return value
+          expect({
+            repo: config!.repo,
+            allowMergeCommit: config!.allowMergeCommit,
+            allowSquashMerge: config!.allowSquashMerge,
+            allowRebaseMerge: config!.allowRebaseMerge,
+          }).toMatchSnapshot('config SDK return value after apply');
+        });
+
+        then('apply CLI stdout matches snapshot', () => {
+          /**
+           * .what = snapshot apply stdout for visual diff
+           * .why = enables regression detection in apply output
+           */
+
+          // verify apply stdout is captured
+          expect(applyStdout).toBeDefined();
+          expect(applyStdout.length).toBeGreaterThan(0);
+
+          const normalizedApplyStdout = normalizeCliStdoutForSnapshot({
+            stdout: applyStdout,
+          });
+          expect(normalizedApplyStdout).toMatchSnapshot('apply CLI stdout');
+        });
+
+        then(
+          'it is idempotent - replan after apply shows environment as KEEP',
+          () => {
+            /**
+             * .what = validates environment is idempotent after apply
+             * .why = ensures declastruct environment operations follow idempotency requirements
+             * .note = creates a fresh plan after apply; environment should show KEEP action
+             */
+
+            // create a fresh plan after first apply
+            const replanFile = join(testDir, 'replan.json');
+            const replanStdout = execSync(
+              `npx declastruct plan --wish ${resourcesFile} --into ${replanFile}`,
+              {
+                env: process.env,
+                encoding: 'utf-8',
+              },
+            );
+
+            // snapshot the replan CLI output
+            const normalizedReplanStdout = normalizeCliStdoutForSnapshot({
+              stdout: replanStdout,
+            });
+            expect(normalizedReplanStdout).toMatchSnapshot('replan CLI stdout');
+
+            // verify environment resource shows KEEP (idempotent)
+            const replan = JSON.parse(readFileSync(replanFile, 'utf8'));
+            const envChange = replan.changes.find(
+              (c: DeclastructChange) =>
+                c.forResource.class === 'DeclaredGithubEnvironment',
+            );
+            expect(envChange).toBeDefined();
+            expect(envChange!.action).toBe('KEEP');
+
+            // snapshot the environment change (stable fields only)
+            expect({
+              action: envChange!.action,
+              forResource: {
+                class: envChange!.forResource.class,
+                slug: envChange!.forResource.slug,
+              },
+            }).toMatchSnapshot('replan environment change KEEP');
+          },
+        );
+
+        then('it is idempotent - replan after apply shows team as KEEP', () => {
+          /**
+           * .what = validates all team resources are idempotent after apply
+           * .why = ensures declastruct team operations follow idempotency requirements
            */
           const replanFile = join(testDir, 'replan.json');
           const replan = JSON.parse(readFileSync(replanFile, 'utf8'));
-          const membershipChanges = replan.changes.filter(
+          const teamChanges = replan.changes.filter(
             (c: DeclastructChange) =>
-              c.forResource.class === 'DeclaredGithubTeamMembership',
+              c.forResource.class === 'DeclaredGithubTeam',
           );
-          expect(membershipChanges.length).toBeGreaterThan(0);
-          for (const membershipChange of membershipChanges) {
-            expect(membershipChange.action).toBe('KEEP');
+          expect(teamChanges.length).toBeGreaterThan(0);
+          for (const teamChange of teamChanges) {
+            expect(teamChange.action).toBe('KEEP');
           }
 
-          // snapshot the membership changes (stable fields only)
-          const membershipChangesNormalized = membershipChanges.map(
+          // snapshot the team changes (stable fields only)
+          const teamChangesNormalized = teamChanges.map(
             (c: DeclastructChange) => ({
               action: c.action,
               forResource: {
@@ -540,12 +504,46 @@ describe('declastruct CLI workflow', () => {
               },
             }),
           );
-          expect(membershipChangesNormalized).toMatchSnapshot(
-            'replan membership changes KEEP',
+          expect(teamChangesNormalized).toMatchSnapshot(
+            'replan team changes KEEP',
           );
-        },
-      );
-    });
+        });
+
+        then(
+          'it is idempotent - replan after apply shows membership as KEEP',
+          () => {
+            /**
+             * .what = validates all team membership resources are idempotent after apply
+             * .why = ensures declastruct membership operations follow idempotency requirements
+             */
+            const replanFile = join(testDir, 'replan.json');
+            const replan = JSON.parse(readFileSync(replanFile, 'utf8'));
+            const membershipChanges = replan.changes.filter(
+              (c: DeclastructChange) =>
+                c.forResource.class === 'DeclaredGithubTeamMembership',
+            );
+            expect(membershipChanges.length).toBeGreaterThan(0);
+            for (const membershipChange of membershipChanges) {
+              expect(membershipChange.action).toBe('KEEP');
+            }
+
+            // snapshot the membership changes (stable fields only)
+            const membershipChangesNormalized = membershipChanges.map(
+              (c: DeclastructChange) => ({
+                action: c.action,
+                forResource: {
+                  class: c.forResource.class,
+                  slug: c.forResource.slug,
+                },
+              }),
+            );
+            expect(membershipChangesNormalized).toMatchSnapshot(
+              'replan membership changes KEEP',
+            );
+          },
+        );
+      },
+    );
 
     when('[t2] CLI help output is requested', () => {
       /**
