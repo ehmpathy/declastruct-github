@@ -12,6 +12,8 @@ import { DeclaredGithubOrgSecretDao } from '@src/access/daos/DeclaredGithubOrgSe
 import { DeclaredGithubOrgVariableDao } from '@src/access/daos/DeclaredGithubOrgVariableDao';
 import { DeclaredGithubRepoConfigDao } from '@src/access/daos/DeclaredGithubRepoConfigDao';
 import { DeclaredGithubRepoDao } from '@src/access/daos/DeclaredGithubRepoDao';
+import { DeclaredGithubTeamDao } from '@src/access/daos/DeclaredGithubTeamDao';
+import { DeclaredGithubTeamMembershipDao } from '@src/access/daos/DeclaredGithubTeamMembershipDao';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import type { DeclastructGithubProvider } from '@src/domain.objects/DeclastructGithubProvider';
 
@@ -49,6 +51,9 @@ export const getDeclastructGithubProvider = (
     DeclaredGithubOrgMemberPrivileges: DeclaredGithubOrgMemberPrivilegesDao,
     DeclaredGithubOrgVariable: DeclaredGithubOrgVariableDao,
     DeclaredGithubOrgSecret: DeclaredGithubOrgSecretDao,
+    // Team resources
+    DeclaredGithubTeam: DeclaredGithubTeamDao,
+    DeclaredGithubTeamMembership: DeclaredGithubTeamMembershipDao,
   };
 
   // return provider with all required properties

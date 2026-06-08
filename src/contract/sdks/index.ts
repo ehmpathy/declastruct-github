@@ -19,6 +19,9 @@ export { DeclaredGithubOrgVariable } from '@src/domain.objects/DeclaredGithubOrg
 export { DeclaredGithubOwner } from '@src/domain.objects/DeclaredGithubOwner';
 export { DeclaredGithubRepo } from '@src/domain.objects/DeclaredGithubRepo';
 export { DeclaredGithubRepoConfig } from '@src/domain.objects/DeclaredGithubRepoConfig';
+// domain objects - teams
+export { DeclaredGithubTeam } from '@src/domain.objects/DeclaredGithubTeam';
+export { DeclaredGithubTeamMembership } from '@src/domain.objects/DeclaredGithubTeamMembership';
 // provider
 export type { DeclastructGithubProvider } from '@src/domain.objects/DeclastructGithubProvider';
 export { getDeclastructGithubProvider } from '@src/domain.operations/provider/getDeclastructGithubProvider';

@@ -13,6 +13,8 @@ import type { DeclaredGithubOrgSecret } from './DeclaredGithubOrgSecret';
 import type { DeclaredGithubOrgVariable } from './DeclaredGithubOrgVariable';
 import type { DeclaredGithubRepo } from './DeclaredGithubRepo';
 import type { DeclaredGithubRepoConfig } from './DeclaredGithubRepoConfig';
+import type { DeclaredGithubTeam } from './DeclaredGithubTeam';
+import type { DeclaredGithubTeamMembership } from './DeclaredGithubTeamMembership';
 
 /**
  * .what = the declastruct provider for github resources
@@ -64,6 +66,16 @@ export type DeclastructGithubProvider = DeclastructProvider<
     >;
     DeclaredGithubOrgSecret: DeclastructDao<
       typeof DeclaredGithubOrgSecret,
+      ContextGithubApi & ContextLogTrail
+    >;
+
+    // Team resources
+    DeclaredGithubTeam: DeclastructDao<
+      typeof DeclaredGithubTeam,
+      ContextGithubApi & ContextLogTrail
+    >;
+    DeclaredGithubTeamMembership: DeclastructDao<
+      typeof DeclaredGithubTeamMembership,
       ContextGithubApi & ContextLogTrail
     >;
   },
