@@ -41,7 +41,10 @@ grants the narrowest auth possible to conform github repos to your chosen standa
         // always required
         metadata: 'read',
       },
-      organization: null,
+      organization: {
+        // DeclaredGithubEnvironment with team reviewers requires read access to org teams
+        members: 'read',
+      },
     },
     events: [],
     webhookUrl: null,

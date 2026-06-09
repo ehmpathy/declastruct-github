@@ -10,32 +10,20 @@ resources provisioned:
 - org secrets and variables
 - teams and team memberships
 
-## keyrack credentials
-
-store github admin token in keyrack:
-
-```bash
-# set github admin token (admin:org scope required)
-rhx keyrack set --owner admin --key GITHUB_TOKEN --vault os.daemon
-```
-
 ## usage
 
-### plan
-
 ```bash
-eval $(rhx keyrack source --owner admin --env sudo)
-npx declastruct plan \
-  --wish provision/github.org/resources.ts \
-  --into ./provision/github.org/.temp/plan.json
-```
+# set admin credentials (ephemeral, requires admin:org scope PAT)
+rhx keyrack set --owner admin --env sudo --key GITHUB_TOKEN --vault os.daemon
 
-### apply
+# source credentials
+eval $(rhx keyrack source --owner admin --env sudo --key GITHUB_TOKEN)
 
-```bash
-eval $(rhx keyrack source --owner admin --env sudo)
-npx declastruct apply \
-  --plan ./provision/github.org/.temp/plan.json
+# plan
+npx declastruct plan --wish provision/github.org/resources.ts --into provision/github.org/.temp/plan.json
+
+# apply
+npx declastruct apply --plan provision/github.org/.temp/plan.json
 ```
 
 ## resources
