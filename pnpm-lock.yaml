@@ -84,9 +84,6 @@ importers:
       declastruct:
         specifier: 1.7.3
         version: 1.7.3(domain-objects@0.31.13)
-      declastruct-github:
-        specifier: link:.
-        version: 'link:'
       depcheck:
         specifier: 1.4.3
         version: 1.4.3
