@@ -1,16 +1,16 @@
 import type { DeclastructProvider } from 'declastruct';
-import {
-  type DeclaredGithubBranch,
-  DeclaredGithubBranchProtection,
-  DeclaredGithubRepo,
-  DeclaredGithubRepoConfig,
-  getDeclastructGithubProvider,
-} from 'declastruct-github';
 import { type DomainEntity, RefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 
 import pkg from '../../package.json';
-import { DeclaredGithubEnvironment } from '../../src/contract/sdks';
+import {
+  type DeclaredGithubBranch,
+  DeclaredGithubBranchProtection,
+  DeclaredGithubEnvironment,
+  DeclaredGithubRepo,
+  DeclaredGithubRepoConfig,
+  getDeclastructGithubProvider,
+} from '../../src/contract/sdks';
 
 export const getProviders = async (): Promise<DeclastructProvider[]> => [
   getDeclastructGithubProvider(
