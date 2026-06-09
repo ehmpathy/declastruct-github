@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.1](https://github.com/ehmpathy/declastruct-github/compare/v1.5.0...v1.5.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* **deps:** sync pnpm-lock.yaml after devDep removal ([#43](https://github.com/ehmpathy/declastruct-github/issues/43)) ([58a6c15](https://github.com/ehmpathy/declastruct-github/commit/58a6c1526d2157408584ed0ebad6993751e55d15))
+* **env:** add org members read permission for team reviewers ([#41](https://github.com/ehmpathy/declastruct-github/issues/41)) ([cdd2945](https://github.com/ehmpathy/declastruct-github/commit/cdd294581e33d506d6f778124d4cb949634930e1))
+
 ## [1.5.0](https://github.com/ehmpathy/declastruct-github/compare/v1.4.0...v1.5.0) (2026-06-08)
 
 
