@@ -12,6 +12,18 @@ on:
         required: false
         type: string
         default: "us-east-1"
+      creds-github-app-owner:
+        type: string
+        required: false
+        description: "the owner of the github app to generate a token for"
+      creds-github-app-id:
+        type: string
+        required: false
+        description: "the id of the github app to generate a token for"
+    secrets:
+      creds-github-app-private-key:
+        required: false
+        description: the private key of the github app to generate a token for
 
 permissions:
   id-token: write # required for oidc
@@ -206,6 +218,15 @@ jobs:
       - name: prepare:rhachet
         run: npm run prepare:rhachet --if-present
 
+      - name: get github auth, if creds supplied
+        if: ${{ inputs.creds-github-app-id }}
+        id: github-app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          owner: ${{ inputs.creds-github-app-owner }}
+          app-id: ${{ inputs.creds-github-app-id }}
+          private-key: ${{ secrets.creds-github-app-private-key }}
+
       # .why = keyrack firewall translates and validates secrets before tests run
       #        - filters to declared keys in keyrack.yml
       #        - translates mechanisms (e.g., GitHub App → ghs_* token)
@@ -215,6 +236,7 @@ jobs:
         run: npx rhachet keyrack firewall --env test --from 'json(env://SECRETS_JSON)' --into github.actions
         env:
           SECRETS_JSON: ${{ toJSON(secrets) }}
+          GITHUB_TOKEN: ${{ steps.github-app-token.outputs.token }}
 
       - name: get aws auth, if creds supplied
         if: ${{ inputs.creds-aws-role-arn }}
@@ -290,6 +312,15 @@ jobs:
       - name: prepare:rhachet
         run: npm run prepare:rhachet --if-present
 
+      - name: get github auth, if creds supplied
+        if: ${{ inputs.creds-github-app-id }}
+        id: github-app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          owner: ${{ inputs.creds-github-app-owner }}
+          app-id: ${{ inputs.creds-github-app-id }}
+          private-key: ${{ secrets.creds-github-app-private-key }}
+
       # .why = keyrack firewall translates and validates secrets before tests run
       #        - filters to declared keys in keyrack.yml
       #        - translates mechanisms (e.g., GitHub App → ghs_* token)
@@ -299,6 +330,7 @@ jobs:
         run: npx rhachet keyrack firewall --env test --from 'json(env://SECRETS_JSON)' --into github.actions
         env:
           SECRETS_JSON: ${{ toJSON(secrets) }}
+          GITHUB_TOKEN: ${{ steps.github-app-token.outputs.token }}
 
       - name: get aws auth, if creds supplied
         if: ${{ inputs.creds-aws-role-arn }}
