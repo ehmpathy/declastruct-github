@@ -1,4 +1,5 @@
 import { UnexpectedCodePathError } from 'helpful-errors';
+import { genContextLogTrail } from 'sdk-logs';
 
 import {
   DeclaredGithubApp,
@@ -19,14 +20,7 @@ export const getProviders = async () => [
           UnexpectedCodePathError.throw('github token not supplied'),
       },
     },
-    {
-      log: {
-        info: () => {},
-        debug: () => {},
-        warn: console.warn,
-        error: console.error,
-      },
-    },
+    genContextLogTrail({ trail: null, env: null }),
   ),
 ];
 
