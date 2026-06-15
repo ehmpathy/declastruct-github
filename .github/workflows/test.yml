@@ -24,4 +24,5 @@ jobs:
       creds-aws-role-arn: ${{ vars.CREDS_CICD_AWS_DEV_OIDC_ROLE_ARN }} # use aws auth via oidc, if this repo supplies it
       creds-github-app-owner: ehmpathy
       creds-github-app-id: ${{ vars.DECLASTRUCT_GITHUB_TESTAUTH_APP_ID }}
-    secrets: inherit # keyrack firewall in .test.yml filters to declared keys
+    secrets:
+      creds-github-app-private-key: ${{ secrets.DECLASTRUCT_GITHUB_TESTAUTH_APP_PRIVATE_KEY }}
