@@ -16,7 +16,7 @@ const { log } = genContextLogTrail({ trail: null, env: null });
 describe('getDeclastructGithubProvider', () => {
   given('a declastruct github provider', () => {
     // create provider with credentials (deferred via useBeforeAll to test execution time)
-    const provider = useBeforeAll(() =>
+    const provider = useBeforeAll(async () =>
       getDeclastructGithubProvider(
         {
           credentials: {
