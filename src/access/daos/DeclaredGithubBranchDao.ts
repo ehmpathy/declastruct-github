@@ -1,7 +1,7 @@
 import { DeclastructDao } from 'declastruct';
 import { isRefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
-import type { ContextLogTrail } from 'simple-log-methods';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import { DeclaredGithubBranch } from '@src/domain.objects/DeclaredGithubBranch';

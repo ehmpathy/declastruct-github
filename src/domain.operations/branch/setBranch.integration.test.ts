@@ -1,4 +1,5 @@
 import { UnexpectedCodePathError } from 'helpful-errors';
+import { genContextLogTrail } from 'sdk-logs';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 import { getSampleRepo } from '@src/.test/assets/getSampleRepo';
@@ -6,7 +7,7 @@ import { getSampleRepo } from '@src/.test/assets/getSampleRepo';
 import { getBranch } from './getBranch';
 import { setBranch } from './setBranch';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 describe('setBranch', () => {
   const context = { log, ...getSampleGithubContext() };

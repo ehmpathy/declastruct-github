@@ -1,7 +1,7 @@
 import { asProcedure } from 'as-procedure';
 import type { Ref } from 'domain-objects';
 import { HelpfulError } from 'helpful-errors';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -14,7 +14,7 @@ import type { DeclaredGithubOrgVariable } from '@src/domain.objects/DeclaredGith
 export const delOrgVariable = asProcedure(
   async (
     input: { variable: Ref<typeof DeclaredGithubOrgVariable> },
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<void> => {
     const github = getGithubClient({}, context);
 

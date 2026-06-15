@@ -1,4 +1,5 @@
 import { getError, HelpfulError } from 'helpful-errors';
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
 
 import { DeclaredGithubAppInstallation } from '@src/domain.objects/DeclaredGithubAppInstallation';
@@ -6,7 +7,7 @@ import { DeclaredGithubOwner } from '@src/domain.objects/DeclaredGithubOwner';
 
 import { deleteAppInstallation } from './deleteAppInstallation';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 describe('deleteAppInstallation', () => {
   const mockContext = {

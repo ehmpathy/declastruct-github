@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -5,7 +6,7 @@ import { DeclaredGithubOwner } from '@src/domain.objects/DeclaredGithubOwner';
 
 import { getOneAppInstallation } from './getOneAppInstallation';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 describe('getOneAppInstallation', () => {
   const context = { log, ...getSampleGithubContext() };

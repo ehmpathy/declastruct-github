@@ -1,5 +1,5 @@
 import { DeclastructProvider } from 'declastruct';
-import type { ContextLogTrail } from 'simple-log-methods';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import { DeclaredGithubAppDao } from '@src/access/daos/DeclaredGithubAppDao';
 import { DeclaredGithubAppInstallationDao } from '@src/access/daos/DeclaredGithubAppInstallationDao';

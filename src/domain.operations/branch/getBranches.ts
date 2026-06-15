@@ -1,7 +1,7 @@
 import type { RefByUnique } from 'domain-objects';
 import { HelpfulError } from 'helpful-errors';
 import type { HasMetadata } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -24,7 +24,7 @@ export const getBranches = async (
       limit?: number;
     };
   },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<HasMetadata<DeclaredGithubBranch>[]> => {
   // get cached GitHub client
   const github = getGithubClient({}, context);

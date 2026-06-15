@@ -1,7 +1,7 @@
 import { asProcedure } from 'as-procedure';
 import { MalfunctionError, UnexpectedCodePathError } from 'helpful-errors';
 import type { HasMetadata, PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -49,7 +49,7 @@ const upsertMembershipInGithub = async (
     username: string;
     role: 'member' | 'maintainer';
   },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<HasMetadata<DeclaredGithubTeamMembership>> => {
   const github = getGithubClient({}, context);
   return MalfunctionError.wrap(
@@ -88,7 +88,7 @@ export const setTeamMembership = asProcedure(
       findsert: DeclaredGithubTeamMembership;
       upsert: DeclaredGithubTeamMembership;
     }>,
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubTeamMembership>> => {
     const desired = asDesiredMembership(input);
     const org = desired.team.org.login;

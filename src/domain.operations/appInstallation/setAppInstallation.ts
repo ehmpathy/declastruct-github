@@ -1,7 +1,7 @@
 import { asProcedure } from 'as-procedure';
 import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
 import type { HasMetadata, PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -20,7 +20,7 @@ export const setAppInstallation = asProcedure(
       findsert: DeclaredGithubAppInstallation;
       upsert: DeclaredGithubAppInstallation;
     }>,
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubAppInstallation>> => {
     const desired =
       input.findsert ??
@@ -120,7 +120,7 @@ const syncInstallationRepositories = async (
     currentRepositories: string[];
     app: DeclaredGithubAppInstallation['app'];
   },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<{ repositories: string[] }> => {
   const github = getGithubClient({}, context);
 

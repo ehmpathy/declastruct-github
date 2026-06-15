@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -8,7 +9,7 @@ import { delTeamMembership } from './delTeamMembership';
 import { getOneTeamMembership } from './getOneTeamMembership';
 import { setTeamMembership } from './setTeamMembership';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 /**
  * .what = lifecycle tests for team membership operations

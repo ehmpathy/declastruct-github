@@ -1,6 +1,6 @@
 import { asProcedure } from 'as-procedure';
 import { HelpfulError } from 'helpful-errors';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import type { DeclaredGithubAppInstallation } from '@src/domain.objects/DeclaredGithubAppInstallation';
@@ -15,7 +15,7 @@ export const deleteAppInstallation = asProcedure(
     input: {
       installation: DeclaredGithubAppInstallation;
     },
-    _context: ContextGithubApi & VisualogicContext,
+    _context: ContextGithubApi & ContextLogTrail,
   ): Promise<never> => {
     const { installation } = input;
 

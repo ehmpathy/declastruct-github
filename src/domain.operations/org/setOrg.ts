@@ -1,7 +1,7 @@
 import { asProcedure } from 'as-procedure';
 import { HelpfulError } from 'helpful-errors';
 import type { HasMetadata, PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -25,7 +25,7 @@ export const setOrg = asProcedure(
       findsert: DeclaredGithubOrg;
       upsert: DeclaredGithubOrg;
     }>,
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubOrg>> => {
     const desired = input.findsert ?? input.upsert;
     const github = getGithubClient({}, context);

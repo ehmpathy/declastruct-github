@@ -1,4 +1,4 @@
-import type { VisualogicContext } from 'visualogic';
+import { genContextLogTrail, type ContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import type { DeclaredGithubRepo } from '@src/domain.objects/DeclaredGithubRepo';
@@ -26,9 +26,9 @@ jest.mock('./getRepo');
 
 const { setRepo } = require('./setRepo');
 
-const context: ContextGithubApi & VisualogicContext = {
+const context: ContextGithubApi & ContextLogTrail = {
   github: { token: 'test-token' },
-  log: console,
+  ...genContextLogTrail({ trail: null, env: null }),
 };
 
 const repoSample: DeclaredGithubRepo = {

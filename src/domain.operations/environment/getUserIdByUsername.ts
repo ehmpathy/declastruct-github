@@ -1,5 +1,5 @@
 import { BadRequestError } from 'helpful-errors';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -10,7 +10,7 @@ import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
  */
 export const getUserIdByUsername = async (
   input: { username: string },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<number> => {
   const github = getGithubClient({}, context);
   try {

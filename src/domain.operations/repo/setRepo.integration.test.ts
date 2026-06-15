@@ -1,8 +1,9 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 describe('setRepo', () => {
   const context = { log, ...getSampleGithubContext() };

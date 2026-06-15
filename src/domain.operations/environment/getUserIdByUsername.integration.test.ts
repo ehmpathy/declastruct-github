@@ -1,10 +1,11 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { getError, given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 
 import { getUserIdByUsername } from './getUserIdByUsername';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 describe('getUserIdByUsername', () => {
   const context = { log, ...getSampleGithubContext() };

@@ -1,5 +1,5 @@
 import { given, then, when } from 'test-fns';
-import type { VisualogicContext } from 'visualogic';
+import { genContextLogTrail, type ContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 
@@ -13,9 +13,9 @@ jest.mock('../../access/sdks/getGithubClient', () => ({
 
 const { delOrgVariable } = require('./delOrgVariable');
 
-const context: ContextGithubApi & VisualogicContext = {
+const context: ContextGithubApi & ContextLogTrail = {
   github: { token: 'test-token' },
-  log: console,
+  ...genContextLogTrail({ trail: null, env: null }),
 };
 
 const org = { login: 'test-org' };

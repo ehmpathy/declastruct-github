@@ -2,7 +2,7 @@ import { asProcedure } from 'as-procedure';
 import { isRefByUnique, type Ref } from 'domain-objects';
 import { MalfunctionError, UnexpectedCodePathError } from 'helpful-errors';
 import type { PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -47,7 +47,7 @@ const extractOrgAndSlugFromRef = (input: {
  */
 const deleteTeamFromGithubIdempotent = async (
   input: { org: string; slug: string },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<void> => {
   const github = getGithubClient({}, context);
 
@@ -82,7 +82,7 @@ export const delTeam = asProcedure(
         ref: Ref<typeof DeclaredGithubTeam>;
       }>;
     },
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<void> => {
     // extract org and slug from ref
     const { org, slug } = extractOrgAndSlugFromRef({ ref: input.by.ref });

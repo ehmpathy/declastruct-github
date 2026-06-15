@@ -1,8 +1,7 @@
 import { DeclastructDao } from 'declastruct';
 import { isRefByUnique, type Ref } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
-import type { ContextLogTrail } from 'simple-log-methods';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import { DeclaredGithubTeamMembership } from '@src/domain.objects/DeclaredGithubTeamMembership';
@@ -24,7 +23,7 @@ const isMembershipRefByUnique = isRefByUnique({
  */
 const getOneTeamMembershipByRef = async (
   input: Ref<typeof DeclaredGithubTeamMembership>,
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ) => {
   if (isMembershipRefByUnique(input))
     return getOneTeamMembership({ by: { unique: input } }, context);

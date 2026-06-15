@@ -4,10 +4,12 @@ import { existsSync, mkdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { given, then, when } from 'test-fns';
 
+import { genContextLogTrail } from 'sdk-logs';
+
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 import { getDeclastructGithubProvider } from '@src/domain.operations/provider/getDeclastructGithubProvider';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 /**
  * .what = normalizes CLI stdout for snapshot comparison

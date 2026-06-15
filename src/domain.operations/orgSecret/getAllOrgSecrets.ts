@@ -2,7 +2,7 @@ import { asProcedure } from 'as-procedure';
 import type { RefByUnique } from 'domain-objects';
 import { HelpfulError } from 'helpful-errors';
 import type { HasMetadata } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -19,7 +19,7 @@ import { castToDeclaredGithubOrgSecret } from './castToDeclaredGithubOrgSecret';
 export const getAllOrgSecrets = asProcedure(
   async (
     input: { org: RefByUnique<typeof DeclaredGithubOrg> },
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubOrgSecret>[]> => {
     const github = getGithubClient({}, context);
 

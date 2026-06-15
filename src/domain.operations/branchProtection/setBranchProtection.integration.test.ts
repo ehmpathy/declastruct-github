@@ -1,10 +1,12 @@
+import { genContextLogTrail } from 'sdk-logs';
+
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 import { getSampleRepo } from '@src/.test/assets/getSampleRepo';
 
 import { getBranchProtection } from './getBranchProtection';
 import { setBranchProtection } from './setBranchProtection';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 describe('setBranchProtection', () => {
   const context = { log, ...getSampleGithubContext() };

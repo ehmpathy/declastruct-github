@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { getError, given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -6,7 +7,7 @@ import { delTeam } from './delTeam';
 import { getOneTeam } from './getOneTeam';
 import { setTeam } from './setTeam';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 /**
  * .what = lifecycle tests for team operations

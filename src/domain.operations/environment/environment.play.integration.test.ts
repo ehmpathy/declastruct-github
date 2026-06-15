@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -6,7 +7,7 @@ import { delEnvironment } from './delEnvironment';
 import { getEnvironment } from './getEnvironment';
 import { setEnvironment } from './setEnvironment';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 describe('environment lifecycle', () => {
   const context = { log, ...getSampleGithubContext() };
