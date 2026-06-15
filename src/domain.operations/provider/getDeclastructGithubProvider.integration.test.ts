@@ -10,18 +10,21 @@ import { getDeclastructGithubProvider } from './getDeclastructGithubProvider';
 const { log } = genContextLogTrail({ trail: null, env: null });
 
 /**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getGithubContext = () => getSampleGithubContext();
+
+/**
  * .what = integration tests for declastruct github provider
  * .why = validates provider interface works correctly with real github API
  */
 describe('getDeclastructGithubProvider', () => {
-  const githubContext = getSampleGithubContext();
-
   given('a declastruct github provider', () => {
     // create provider with credentials
     const provider = getDeclastructGithubProvider(
       {
         credentials: {
-          token: githubContext.github.token,
+          token: getGithubContext().github.token,
         },
       },
       { log },
@@ -44,7 +47,7 @@ describe('getDeclastructGithubProvider', () => {
     });
 
     then('should have github context with token', () => {
-      expect(provider.context.github.token).toBe(githubContext.github.token);
+      expect(provider.context.github.token).toBe(getGithubContext().github.token);
     });
 
     when('using repo dao', () => {
