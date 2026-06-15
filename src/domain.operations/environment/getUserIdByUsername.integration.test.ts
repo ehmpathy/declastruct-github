@@ -7,16 +7,18 @@ import { getUserIdByUsername } from './getUserIdByUsername';
 
 const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('getUserIdByUsername', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   given('[case1] valid username', () => {
     when('[t0] user exists', () => {
       then('it should return numeric user ID', async () => {
         // lookup a known GitHub user
         const userId = await getUserIdByUsername(
           { username: 'uladkasach' },
-          context,
+          getContext(),
         );
         expect(typeof userId).toBe('number');
         expect(userId).toBeGreaterThan(0);
@@ -30,7 +32,7 @@ describe('getUserIdByUsername', () => {
         const error = await getError(
           getUserIdByUsername(
             { username: 'this-user-definitely-does-not-exist-12345' },
-            context,
+            getContext(),
           ),
         );
         expect(error).toBeDefined();

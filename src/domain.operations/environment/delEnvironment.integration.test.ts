@@ -7,8 +7,11 @@ import { delEnvironment } from './delEnvironment';
 
 const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('delEnvironment', () => {
-  const context = { log, ...getSampleGithubContext() };
   const repo = { owner: 'ehmpathy', name: 'declastruct-github-demo' };
 
   given('[case1] environment that does not exist', () => {
@@ -24,7 +27,7 @@ describe('delEnvironment', () => {
               },
             },
           },
-          context,
+          getContext(),
         );
 
         expect(result).toBeUndefined();

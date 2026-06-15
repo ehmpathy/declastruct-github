@@ -8,9 +8,11 @@ import { getRepo } from './getRepo';
 
 const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('getRepo', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   given('a live example repo exists', () => {
     then('we should be able to get its state', async () => {
       const sampleRepo = getSampleRepo({
@@ -27,7 +29,7 @@ describe('getRepo', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       console.log(repo);
@@ -49,7 +51,7 @@ describe('getRepo', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       expect(repo).toBeNull();

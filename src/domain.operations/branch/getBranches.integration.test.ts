@@ -8,9 +8,11 @@ import { getBranches } from './getBranches';
 
 const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('getBranches', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   given('a live example repo with branches', () => {
     then('we should be able to list its branches', async () => {
       const sampleRepo = getSampleRepo({
@@ -27,7 +29,7 @@ describe('getBranches', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       console.log(branches);

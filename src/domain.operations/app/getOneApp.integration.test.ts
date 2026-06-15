@@ -8,9 +8,11 @@ import { getOneApp } from './getOneApp';
 
 const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('getOneApp', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   given('a known public GitHub App exists', () => {
     then('we should be able to get its state by slug', async () => {
       // use github-actions app (a well-known public app)
@@ -26,7 +28,7 @@ describe('getOneApp', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       console.log(app);
@@ -50,7 +52,7 @@ describe('getOneApp', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       expect(app).toBeNull();

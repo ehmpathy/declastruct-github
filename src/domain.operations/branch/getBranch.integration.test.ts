@@ -8,9 +8,11 @@ import { getBranch } from './getBranch';
 
 const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('getBranch', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   given('a live example repo with a main branch', () => {
     then('we should be able to get the branch state', async () => {
       const sampleRepo = getSampleRepo({
@@ -30,7 +32,7 @@ describe('getBranch', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       console.log(branch);
@@ -64,7 +66,7 @@ describe('getBranch', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       expect(branch).toBeNull();
