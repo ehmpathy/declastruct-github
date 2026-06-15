@@ -1,4 +1,4 @@
-import { genContextLogTrail, type ContextLogTrail } from 'sdk-logs';
+import { type ContextLogTrail, genContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import type { DeclaredGithubBranchProtection } from '@src/domain.objects/DeclaredGithubBranchProtection';

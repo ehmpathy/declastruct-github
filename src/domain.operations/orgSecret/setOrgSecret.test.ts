@@ -1,5 +1,5 @@
+import { type ContextLogTrail, genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
-import { genContextLogTrail, type ContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import type { DeclaredGithubOrgSecret } from '@src/domain.objects/DeclaredGithubOrgSecret';

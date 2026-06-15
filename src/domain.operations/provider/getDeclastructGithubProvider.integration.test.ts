@@ -1,5 +1,5 @@
-import { given, then, when } from 'test-fns';
 import { genContextLogTrail } from 'sdk-logs';
+import { given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 import { DeclaredGithubBranchProtection } from '@src/domain.objects/DeclaredGithubBranchProtection';

@@ -1,7 +1,7 @@
 import type { RefByUnique } from 'domain-objects';
 import { HelpfulError } from 'helpful-errors';
-import type { HasMetadata } from 'type-fns';
 import type { ContextLogTrail } from 'sdk-logs';
+import type { HasMetadata } from 'type-fns';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';

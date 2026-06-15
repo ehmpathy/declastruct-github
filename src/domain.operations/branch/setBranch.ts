@@ -1,8 +1,8 @@
 import { waitFor } from '@ehmpathy/uni-time';
 import { asProcedure } from 'as-procedure';
 import { HelpfulError } from 'helpful-errors';
-import type { HasMetadata, PickOne } from 'type-fns';
 import type { ContextLogTrail } from 'sdk-logs';
+import type { HasMetadata, PickOne } from 'type-fns';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';

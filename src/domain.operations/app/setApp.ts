@@ -1,7 +1,7 @@
 import { asProcedure } from 'as-procedure';
 import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
-import type { HasMetadata, PickOne } from 'type-fns';
 import type { ContextLogTrail } from 'sdk-logs';
+import type { HasMetadata, PickOne } from 'type-fns';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import type { DeclaredGithubApp } from '@src/domain.objects/DeclaredGithubApp';
