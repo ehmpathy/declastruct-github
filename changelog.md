@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/ehmpathy/declastruct-github/compare/v1.5.1...v1.5.2) (2026-06-16)
+
+
+### Bug Fixes
+
+* **env:** add environments write permission to conformer app ([#45](https://github.com/ehmpathy/declastruct-github/issues/45)) ([fe93ff5](https://github.com/ehmpathy/declastruct-github/commit/fe93ff5cc270a3775adf84b0bc9b672d4c25c760))
+
 ## [1.5.1](https://github.com/ehmpathy/declastruct-github/compare/v1.5.0...v1.5.1) (2026-06-09)
 
 
