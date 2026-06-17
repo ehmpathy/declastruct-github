@@ -37,7 +37,8 @@ grants the narrowest auth possible to conform github repos to your chosen standa
           // DeclaredGithubRepo, DeclaredGithubRepoConfig, DeclaredGithubBranchProtection
           administration: 'write', // !: important! this is a nuclear option! ensure that your organization denies the ability of members to delete or transfer repos; e.g., https://github.com/organizations/ehmpathy/settings/member_privileges
 
-          // DeclaredGithubEnvironment
+          // DeclaredGithubEnvironment (actions:read for GET, environments:write for PUT)
+          actions: 'read',
           environments: 'write',
 
           // always required
