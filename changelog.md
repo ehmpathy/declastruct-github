@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3](https://github.com/ehmpathy/declastruct-github/compare/v1.5.2...v1.5.3) (2026-06-17)
+
+
+### Bug Fixes
+
+* **env:** add actions read permission for environment GET requests ([#47](https://github.com/ehmpathy/declastruct-github/issues/47)) ([0de744f](https://github.com/ehmpathy/declastruct-github/commit/0de744f61b9404d12ba41b34e852a9aca883e822))
+
 ## [1.5.2](https://github.com/ehmpathy/declastruct-github/compare/v1.5.1...v1.5.2) (2026-06-16)
 
 
