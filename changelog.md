@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.4](https://github.com/ehmpathy/declastruct-github/compare/v1.5.3...v1.5.4) (2026-06-18)
+
+
+### Bug Fixes
+
+* **test:** remove flaky acceptance test snapshots ([#49](https://github.com/ehmpathy/declastruct-github/issues/49)) ([c0c04f2](https://github.com/ehmpathy/declastruct-github/commit/c0c04f2d833162e0c1d1ec803a67762b78ea1d14))
+
 ## [1.5.3](https://github.com/ehmpathy/declastruct-github/compare/v1.5.2...v1.5.3) (2026-06-17)
 
 
