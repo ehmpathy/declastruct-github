@@ -1,0 +1,8 @@
+# guard for blueprint stone
+# human-approved, reviews dropped per human directive
+
+protect:
+  - src/**/*
+
+judges:
+  - $rhachet run --repo bhrain --skill route.stone.judge --mechanism approved? --stone $stone --route $route

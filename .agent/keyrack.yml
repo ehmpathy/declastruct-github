@@ -3,6 +3,7 @@ extends:
   - .agent/repo=bhrain/role=reviewer/keyrack.yml
   - .agent/repo=ehmpathy/role=mechanic/keyrack.yml
 env.prod: null
-env.prep: null
+env.prep:
+  - FIREWORKS_API_KEY
 env.test:
   - GITHUB_TOKEN

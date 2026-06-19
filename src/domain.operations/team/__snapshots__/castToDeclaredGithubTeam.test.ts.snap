@@ -7,7 +7,7 @@ DeclaredGithubTeam {
   "id": 12345,
   "name": "Platform Engineers",
   "notifications": "enabled",
-  "org": DeclaredGithubOrgRefLiteral {
+  "org": DeclaredGithubOrg {
     "login": "ehmpathy",
   },
   "parent": null,
@@ -24,7 +24,7 @@ DeclaredGithubTeam {
   "id": 12348,
   "name": "Test Team",
   "notifications": "disabled",
-  "org": DeclaredGithubOrgRefLiteral {
+  "org": DeclaredGithubOrg {
     "login": "ehmpathy",
   },
   "parent": null,
@@ -41,7 +41,7 @@ DeclaredGithubTeam {
   "id": 12347,
   "name": "Security Team",
   "notifications": "disabled",
-  "org": DeclaredGithubOrgRefLiteral {
+  "org": DeclaredGithubOrg {
     "login": "ehmpathy",
   },
   "parent": null,
@@ -58,11 +58,11 @@ DeclaredGithubTeam {
   "id": 12346,
   "name": "Backend Engineers",
   "notifications": "disabled",
-  "org": DeclaredGithubOrgRefLiteral {
+  "org": DeclaredGithubOrg {
     "login": "ehmpathy",
   },
-  "parent": DeclaredGithubTeamRefLiteral {
-    "org": DeclaredGithubOrgRefLiteral {
+  "parent": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
       "login": "ehmpathy",
     },
     "slug": "platform-engineers",

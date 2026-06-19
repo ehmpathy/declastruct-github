@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DeclaredGithubTeamRepoAccess given: [case1] valid config when: [t0] created with push permission then: it should create the domain object 1`] = `
+DeclaredGithubTeamRepoAccess {
+  "permission": "push",
+  "repo": DeclaredGithubRepo {
+    "name": "declastruct-github",
+    "owner": "ehmpathy",
+  },
+  "team": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
+      "login": "ehmpathy",
+    },
+    "slug": "platform-engineers",
+  },
+}
+`;
+
+exports[`DeclaredGithubTeamRepoAccess given: [case1] valid config when: [t1] created with admin permission then: it should create the domain object 1`] = `
+DeclaredGithubTeamRepoAccess {
+  "permission": "admin",
+  "repo": DeclaredGithubRepo {
+    "name": "infra",
+    "owner": "ehmpathy",
+  },
+  "team": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
+      "login": "ehmpathy",
+    },
+    "slug": "admins",
+  },
+}
+`;
+
+exports[`DeclaredGithubTeamRepoAccess given: [case1] valid config when: [t2] created with pull permission then: it should create the domain object 1`] = `
+DeclaredGithubTeamRepoAccess {
+  "permission": "pull",
+  "repo": DeclaredGithubRepo {
+    "name": "docs",
+    "owner": "ehmpathy",
+  },
+  "team": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
+      "login": "ehmpathy",
+    },
+    "slug": "readers",
+  },
+}
+`;
+
+exports[`DeclaredGithubTeamRepoAccess given: [case1] valid config when: [t3] created with triage permission then: it should create the domain object 1`] = `
+DeclaredGithubTeamRepoAccess {
+  "permission": "triage",
+  "repo": DeclaredGithubRepo {
+    "name": "issues",
+    "owner": "ehmpathy",
+  },
+  "team": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
+      "login": "ehmpathy",
+    },
+    "slug": "support",
+  },
+}
+`;
+
+exports[`DeclaredGithubTeamRepoAccess given: [case1] valid config when: [t4] created with maintain permission then: it should create the domain object 1`] = `
+DeclaredGithubTeamRepoAccess {
+  "permission": "maintain",
+  "repo": DeclaredGithubRepo {
+    "name": "package",
+    "owner": "ehmpathy",
+  },
+  "team": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
+      "login": "ehmpathy",
+    },
+    "slug": "maintainers",
+  },
+}
+`;

@@ -1,0 +1,11 @@
+{
+  "protections": [
+    {
+      "glob": "src/**/*",
+      "stone": "3.3.1.blueprint.product",
+      "guard": ".behavior/v2026_06_17.fix-team-to-repo/3.3.1.blueprint.product.guard",
+      "route": ".behavior/v2026_06_17.fix-team-to-repo",
+      "passed": true
+    }
+  ]
+}

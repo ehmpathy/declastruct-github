@@ -1,7 +1,6 @@
 import { DomainEntity, type RefByUnique } from 'domain-objects';
 
-import type { DeclaredGithubTeam } from './DeclaredGithubTeam';
-import { DeclaredGithubTeamRefLiteral } from './DeclaredGithubTeamRefLiterals';
+import { DeclaredGithubTeam } from './DeclaredGithubTeam';
 
 /**
  * .what = a declarative structure which represents membership in a GitHub team
@@ -32,6 +31,6 @@ export class DeclaredGithubTeamMembership
 {
   public static unique = ['team', 'username'] as const;
   public static nested = {
-    team: DeclaredGithubTeamRefLiteral,
+    team: DeclaredGithubTeam,
   };
 }

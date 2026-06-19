@@ -6,6 +6,7 @@ import {
   DeclaredGithubRepoConfig,
   DeclaredGithubTeam,
   DeclaredGithubTeamMembership,
+  DeclaredGithubTeamRepoAccess,
   getDeclastructGithubProvider,
 } from '../../../../../dist/contract/sdks';
 
@@ -149,6 +150,20 @@ export const getResources = async () => {
     role: 'maintainer',
   });
 
+  /**
+   * .what = acceptance test team repo access
+   * .why = validates team repo access provision via declastruct
+   *        and enables team to be environment reviewer
+   */
+  const teamRepoAccess = DeclaredGithubTeamRepoAccess.as({
+    team: {
+      org: { login: 'ehmpathy' },
+      slug: 'declastruct-acceptance-test-team',
+    },
+    repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
+    permission: 'push',
+  });
+
   return [
     repo,
     repoConfig,
@@ -158,5 +173,6 @@ export const getResources = async () => {
     team,
     childTeam,
     teamMembership,
+    teamRepoAccess,
   ];
 };

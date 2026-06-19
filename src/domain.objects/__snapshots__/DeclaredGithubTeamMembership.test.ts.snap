@@ -3,8 +3,8 @@
 exports[`DeclaredGithubTeamMembership given: [case1] valid config when: [t0] created with member role then: it should create the domain object 1`] = `
 DeclaredGithubTeamMembership {
   "role": "member",
-  "team": DeclaredGithubTeamRefLiteral {
-    "org": DeclaredGithubOrgRefLiteral {
+  "team": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
       "login": "ehmpathy",
     },
     "slug": "platform-engineers",
@@ -16,8 +16,8 @@ DeclaredGithubTeamMembership {
 exports[`DeclaredGithubTeamMembership given: [case1] valid config when: [t1] created with maintainer role then: it should create the domain object 1`] = `
 DeclaredGithubTeamMembership {
   "role": "maintainer",
-  "team": DeclaredGithubTeamRefLiteral {
-    "org": DeclaredGithubOrgRefLiteral {
+  "team": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
       "login": "ehmpathy",
     },
     "slug": "platform-engineers",
