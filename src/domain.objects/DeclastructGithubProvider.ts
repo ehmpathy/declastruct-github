@@ -15,6 +15,7 @@ import type { DeclaredGithubRepo } from './DeclaredGithubRepo';
 import type { DeclaredGithubRepoConfig } from './DeclaredGithubRepoConfig';
 import type { DeclaredGithubTeam } from './DeclaredGithubTeam';
 import type { DeclaredGithubTeamMembership } from './DeclaredGithubTeamMembership';
+import type { DeclaredGithubTeamRepoAccess } from './DeclaredGithubTeamRepoAccess';
 
 /**
  * .what = the declastruct provider for github resources
@@ -76,6 +77,10 @@ export type DeclastructGithubProvider = DeclastructProvider<
     >;
     DeclaredGithubTeamMembership: DeclastructDao<
       typeof DeclaredGithubTeamMembership,
+      ContextGithubApi & ContextLogTrail
+    >;
+    DeclaredGithubTeamRepoAccess: DeclastructDao<
+      typeof DeclaredGithubTeamRepoAccess,
       ContextGithubApi & ContextLogTrail
     >;
   },

@@ -11,8 +11,9 @@ exports[`declastruct CLI workflow given: a declastruct resources file when: [t0]
     "DeclaredGithubTeam",
     "DeclaredGithubTeam",
     "DeclaredGithubTeamMembership",
+    "DeclaredGithubTeamRepoAccess",
   ],
-  "resourceCount": 8,
+  "resourceCount": 9,
 }
 `;
 
@@ -111,5 +112,7 @@ exports[`declastruct CLI workflow given: a declastruct resources file when: [t4]
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t4] SDK boundary tests (not-found paths) then: SDK get returns null for nonexistent repo: repo SDK not-found returns null 1`] = `null`;
 
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t4] SDK boundary tests (not-found paths) then: SDK get returns null for nonexistent team membership: membership SDK not-found returns null 1`] = `null`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t4] SDK boundary tests (not-found paths) then: SDK get returns null for nonexistent team repo access: teamRepoAccess SDK not-found returns null 1`] = `null`;
 
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t4] SDK boundary tests (not-found paths) then: SDK get returns null for nonexistent team: team SDK not-found returns null 1`] = `null`;

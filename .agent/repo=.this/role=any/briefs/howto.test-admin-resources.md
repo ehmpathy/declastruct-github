@@ -25,10 +25,11 @@ some resources require org admin permissions that CI/CD tokens lack.
 
 for resources that need admin:org scope, dogfood via `provision/github`:
 
-1. add resources to `provision/github/resources.ts`
-2. run `declastruct plan` locally with admin token
-3. run `declastruct apply` to provision
-4. verify via GitHub UI or API
+1. add resources to `provision/github.repo/resources.ts`
+2. see `provision/github.repo/readme.md` for credential setup and commands
+3. run `declastruct plan` locally with admin token
+4. run `declastruct apply` to provision
+5. verify via GitHub UI or API
 
 this tests the full lifecycle (plan + apply) against a real org.
 

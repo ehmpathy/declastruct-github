@@ -22,3 +22,5 @@ ignores:
   - rhachet-roles-ehmpathy
   - rhachet-brains-anthropic
   - rhachet-brains-xai
+  - rhachet-brains-fireworksai
+  - rhachet-roles-rhachet

@@ -3,8 +3,8 @@
 exports[`castToDeclaredGithubTeamMembership given: a GitHub API team membership response when: role has unexpected value then: it should default to member 1`] = `
 DeclaredGithubTeamMembership {
   "role": "member",
-  "team": DeclaredGithubTeamRefLiteral {
-    "org": DeclaredGithubOrgRefLiteral {
+  "team": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
       "login": "ehmpathy",
     },
     "slug": "platform-engineers",
@@ -16,8 +16,8 @@ DeclaredGithubTeamMembership {
 exports[`castToDeclaredGithubTeamMembership given: a GitHub API team membership response when: role is maintainer then: it should cast with maintainer role 1`] = `
 DeclaredGithubTeamMembership {
   "role": "maintainer",
-  "team": DeclaredGithubTeamRefLiteral {
-    "org": DeclaredGithubOrgRefLiteral {
+  "team": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
       "login": "ehmpathy",
     },
     "slug": "platform-engineers",
@@ -29,8 +29,8 @@ DeclaredGithubTeamMembership {
 exports[`castToDeclaredGithubTeamMembership given: a GitHub API team membership response when: role is member then: it should cast to DeclaredGithubTeamMembership with member role 1`] = `
 DeclaredGithubTeamMembership {
   "role": "member",
-  "team": DeclaredGithubTeamRefLiteral {
-    "org": DeclaredGithubOrgRefLiteral {
+  "team": DeclaredGithubTeam {
+    "org": DeclaredGithubOrg {
       "login": "ehmpathy",
     },
     "slug": "platform-engineers",

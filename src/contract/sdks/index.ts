@@ -22,6 +22,7 @@ export { DeclaredGithubRepoConfig } from '@src/domain.objects/DeclaredGithubRepo
 // domain objects - teams
 export { DeclaredGithubTeam } from '@src/domain.objects/DeclaredGithubTeam';
 export { DeclaredGithubTeamMembership } from '@src/domain.objects/DeclaredGithubTeamMembership';
+export { DeclaredGithubTeamRepoAccess } from '@src/domain.objects/DeclaredGithubTeamRepoAccess';
 // provider
 export type { DeclastructGithubProvider } from '@src/domain.objects/DeclastructGithubProvider';
 export { getDeclastructGithubProvider } from '@src/domain.operations/provider/getDeclastructGithubProvider';

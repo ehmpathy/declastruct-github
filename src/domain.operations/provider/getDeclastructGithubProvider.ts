@@ -14,6 +14,7 @@ import { DeclaredGithubRepoConfigDao } from '@src/access/daos/DeclaredGithubRepo
 import { DeclaredGithubRepoDao } from '@src/access/daos/DeclaredGithubRepoDao';
 import { DeclaredGithubTeamDao } from '@src/access/daos/DeclaredGithubTeamDao';
 import { DeclaredGithubTeamMembershipDao } from '@src/access/daos/DeclaredGithubTeamMembershipDao';
+import { DeclaredGithubTeamRepoAccessDao } from '@src/access/daos/DeclaredGithubTeamRepoAccessDao';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import type { DeclastructGithubProvider } from '@src/domain.objects/DeclastructGithubProvider';
 
@@ -54,6 +55,7 @@ export const getDeclastructGithubProvider = (
     // Team resources
     DeclaredGithubTeam: DeclaredGithubTeamDao,
     DeclaredGithubTeamMembership: DeclaredGithubTeamMembershipDao,
+    DeclaredGithubTeamRepoAccess: DeclaredGithubTeamRepoAccessDao,
   };
 
   // return provider with all required properties

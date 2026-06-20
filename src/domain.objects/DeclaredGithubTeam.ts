@@ -2,11 +2,7 @@ import type { UniDateTime } from '@ehmpathy/uni-time';
 import { DomainEntity, type RefByUnique } from 'domain-objects';
 import { BadRequestError } from 'helpful-errors';
 
-import type { DeclaredGithubOrg } from './DeclaredGithubOrg';
-import {
-  DeclaredGithubOrgRefLiteral,
-  DeclaredGithubTeamRefLiteral,
-} from './DeclaredGithubTeamRefLiterals';
+import { DeclaredGithubOrg } from './DeclaredGithubOrg';
 
 /**
  * .what = a declarative structure which represents a GitHub team within an organization
@@ -79,8 +75,8 @@ export class DeclaredGithubTeam
   public static primary = ['id'] as const;
   public static unique = ['org', 'slug'] as const;
   public static nested = {
-    org: DeclaredGithubOrgRefLiteral,
-    parent: DeclaredGithubTeamRefLiteral,
+    org: DeclaredGithubOrg,
+    parent: DeclaredGithubTeam,
   };
 
   constructor(props: DeclaredGithubTeam) {
