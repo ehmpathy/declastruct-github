@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.5](https://github.com/ehmpathy/declastruct-github/compare/v1.5.4...v1.5.5) (2026-06-20)
+
+
+### Bug Fixes
+
+* **team-repo-access:** add DeclaredGithubTeamRepoAccess resource type ([#51](https://github.com/ehmpathy/declastruct-github/issues/51)) ([219dc66](https://github.com/ehmpathy/declastruct-github/commit/219dc66c2b2689e3d7f8d9acb2f10c66c57173bd))
+
 ## [1.5.4](https://github.com/ehmpathy/declastruct-github/compare/v1.5.3...v1.5.4) (2026-06-18)
 
 
