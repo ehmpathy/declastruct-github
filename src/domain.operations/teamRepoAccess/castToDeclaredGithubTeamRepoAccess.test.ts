@@ -127,6 +127,56 @@ describe('castToDeclaredGithubTeamRepoAccess', () => {
     });
   });
 
+  /**
+   * .note = github api returns 'read'/'write' but we use 'pull'/'push' in our domain
+   *         ref: https://docs.github.com/en/rest/teams/teams
+   */
+  given('[case5a] github api response with read role_name', () => {
+    const input = {
+      data: {
+        id: 501,
+        name: 'docs',
+        full_name: 'ehmpathy/docs',
+        role_name: 'read',
+      } as any,
+      org: 'ehmpathy',
+      teamSlug: 'readers',
+      repoOwner: 'ehmpathy',
+      repoName: 'docs',
+    };
+
+    when('[t0] cast to domain object', () => {
+      then('it should map read to pull permission', () => {
+        const result = castToDeclaredGithubTeamRepoAccess(input);
+
+        expect(result.permission).toEqual('pull');
+      });
+    });
+  });
+
+  given('[case5b] github api response with write role_name', () => {
+    const input = {
+      data: {
+        id: 502,
+        name: 'app',
+        full_name: 'ehmpathy/app',
+        role_name: 'write',
+      } as any,
+      org: 'ehmpathy',
+      teamSlug: 'developers',
+      repoOwner: 'ehmpathy',
+      repoName: 'app',
+    };
+
+    when('[t0] cast to domain object', () => {
+      then('it should map write to push permission', () => {
+        const result = castToDeclaredGithubTeamRepoAccess(input);
+
+        expect(result.permission).toEqual('push');
+      });
+    });
+  });
+
   given('[case6] github api response with undefined role_name', () => {
     const input = {
       data: {

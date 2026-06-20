@@ -38,17 +38,33 @@ export const castToDeclaredGithubTeamRepoAccess = (input: {
 /**
  * .what = converts GitHub role_name to domain permission type
  * .why = maps external API values to our domain type with failfast on unrecognized
+ * .note = github API returns 'read'/'write' but we use 'pull'/'push' to match
+ *         the permission names used in addOrUpdateRepoPermissionsInOrg
  */
 const asPermission = (input: {
   roleName: string;
 }): DeclaredGithubTeamRepoAccess['permission'] => {
-  const validPermissions = ['pull', 'push', 'triage', 'maintain', 'admin'];
-  if (validPermissions.includes(input.roleName))
-    return input.roleName as DeclaredGithubTeamRepoAccess['permission'];
+  // map github api role names to our domain permission names
+  const roleNameMap: Record<
+    string,
+    DeclaredGithubTeamRepoAccess['permission']
+  > = {
+    read: 'pull',
+    write: 'push',
+    triage: 'triage',
+    maintain: 'maintain',
+    admin: 'admin',
+    // also accept our domain names directly (for consistency)
+    pull: 'pull',
+    push: 'push',
+  };
+
+  const permission = roleNameMap[input.roleName];
+  if (permission) return permission;
 
   // failfast on unrecognized permission
   return UnexpectedCodePathError.throw('unrecognized permission role_name', {
     roleName: input.roleName,
-    validPermissions,
+    validRoleNames: Object.keys(roleNameMap),
   });
 };

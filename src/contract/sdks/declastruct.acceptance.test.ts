@@ -817,6 +817,37 @@ describe('declastruct CLI workflow', () => {
           'membership SDK not-found returns null',
         );
       });
+
+      then(
+        'SDK get returns null for nonexistent team repo access',
+        async () => {
+          const provider = getDeclastructGithubProvider(
+            {
+              credentials: { token: githubContext.github.token },
+            },
+            { log },
+          );
+
+          const teamRepoAccess =
+            await provider.daos.DeclaredGithubTeamRepoAccess.get.one.byUnique(
+              {
+                team: {
+                  org: { login: 'ehmpathy' },
+                  slug: 'this-team-does-not-exist-12345',
+                },
+                repo: {
+                  owner: 'ehmpathy',
+                  name: 'this-repo-does-not-exist-12345',
+                },
+              },
+              provider.context,
+            );
+          expect(teamRepoAccess).toBeNull();
+          expect(teamRepoAccess).toMatchSnapshot(
+            'teamRepoAccess SDK not-found returns null',
+          );
+        },
+      );
     });
   });
 });

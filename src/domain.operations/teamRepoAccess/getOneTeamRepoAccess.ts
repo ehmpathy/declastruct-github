@@ -34,6 +34,8 @@ const extractAccessDetailsFromUniqueRef = (input: {
 /**
  * .what = fetches team repo access from GitHub API, returns null if not found
  * .why = communicator that handles GitHub 404 responses as null for idempotency
+ * .note = must use Accept: application/vnd.github.v3.repository+json header
+ *         otherwise github returns 204 No Content without role_name field
  */
 const getAccessFromGithubOrNull = async (
   input: { org: string; teamSlug: string; repoOwner: string; repoName: string },
@@ -47,6 +49,9 @@ const getAccessFromGithubOrNull = async (
       team_slug: input.teamSlug,
       owner: input.repoOwner,
       repo: input.repoName,
+      headers: {
+        accept: 'application/vnd.github.v3.repository+json',
+      },
     });
     return castToDeclaredGithubTeamRepoAccess({
       data: response.data,
