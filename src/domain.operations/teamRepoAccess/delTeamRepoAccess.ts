@@ -1,8 +1,8 @@
 import { asProcedure } from 'as-procedure';
 import { isRefByUnique, type Ref } from 'domain-objects';
 import { MalfunctionError, UnexpectedCodePathError } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -52,7 +52,7 @@ const extractTeamAndRepoFromRef = (input: {
  */
 const deleteAccessFromGithubIdempotent = async (
   input: { org: string; teamSlug: string; repoOwner: string; repoName: string },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<void> => {
   const github = getGithubClient({}, context);
 
@@ -91,7 +91,7 @@ export const delTeamRepoAccess = asProcedure(
         ref: Ref<typeof DeclaredGithubTeamRepoAccess>;
       }>;
     },
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<void> => {
     // extract team and repo from ref
     const { team, repo } = extractTeamAndRepoFromRef({

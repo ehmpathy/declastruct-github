@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -8,7 +9,7 @@ import { delTeamRepoAccess } from './delTeamRepoAccess';
 import { getOneTeamRepoAccess } from './getOneTeamRepoAccess';
 import { setTeamRepoAccess } from './setTeamRepoAccess';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 /**
  * .what = lifecycle tests for team repo access operations
