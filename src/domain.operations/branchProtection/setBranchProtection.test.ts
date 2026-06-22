@@ -1,4 +1,4 @@
-import type { VisualogicContext } from 'visualogic';
+import { type ContextLogTrail, genContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import type { DeclaredGithubBranchProtection } from '@src/domain.objects/DeclaredGithubBranchProtection';
@@ -22,9 +22,9 @@ jest.mock('./getBranchProtection');
 
 const { setBranchProtection } = require('./setBranchProtection');
 
-const context: ContextGithubApi & VisualogicContext = {
+const context: ContextGithubApi & ContextLogTrail = {
   github: { token: 'test-token' },
-  log: console,
+  ...genContextLogTrail({ trail: null, env: null }),
 };
 
 const protectionSample: DeclaredGithubBranchProtection = {

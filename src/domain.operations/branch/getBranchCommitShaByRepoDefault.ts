@@ -1,6 +1,6 @@
 import type { RefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -16,7 +16,7 @@ export const getBranchCommitShaByRepoDefault = async (
   input: {
     repo: RefByUnique<typeof DeclaredGithubRepo>;
   },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<string> => {
   // get cached GitHub client
   const github = getGithubClient({}, context);

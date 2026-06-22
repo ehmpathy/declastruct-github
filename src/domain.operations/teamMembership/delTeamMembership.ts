@@ -1,8 +1,8 @@
 import { asProcedure } from 'as-procedure';
 import { isRefByUnique, type Ref } from 'domain-objects';
 import { MalfunctionError, UnexpectedCodePathError } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -52,7 +52,7 @@ const extractTeamAndUsernameFromRef = (input: {
  */
 const deleteMembershipFromGithubIdempotent = async (
   input: { org: string; teamSlug: string; username: string },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<void> => {
   const github = getGithubClient({}, context);
 
@@ -89,7 +89,7 @@ export const delTeamMembership = asProcedure(
         ref: Ref<typeof DeclaredGithubTeamMembership>;
       }>;
     },
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<void> => {
     // extract team and username from ref
     const { team, username } = extractTeamAndUsernameFromRef({

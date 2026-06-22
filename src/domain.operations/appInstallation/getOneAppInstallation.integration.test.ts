@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -5,11 +6,13 @@ import { DeclaredGithubOwner } from '@src/domain.objects/DeclaredGithubOwner';
 
 import { getOneAppInstallation } from './getOneAppInstallation';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('getOneAppInstallation', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   given('a by.unique lookup for an organization', () => {
     const owner = new DeclaredGithubOwner({
       type: 'organization',
@@ -26,7 +29,7 @@ describe('getOneAppInstallation', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       // if no installation exists, this will be null - that's acceptable
@@ -53,7 +56,7 @@ describe('getOneAppInstallation', () => {
               },
             },
           },
-          context,
+          getContext(),
         );
 
         expect(installation).toBeNull();

@@ -1,12 +1,15 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('setRepo', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   given('a repo declaration for findsert', () => {
     then('it should return existing repo if it exists', async () => {
       /**

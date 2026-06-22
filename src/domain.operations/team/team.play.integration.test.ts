@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { getError, given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -6,7 +7,7 @@ import { delTeam } from './delTeam';
 import { getOneTeam } from './getOneTeam';
 import { setTeam } from './setTeam';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 /**
  * .what = lifecycle tests for team operations
@@ -14,10 +15,11 @@ const log = console;
  * .note = requires org admin permissions (admin:org scope)
  *         set TEST_ORG_ADMIN=true to run these tests
  * .note = skipIf used because CI lacks admin:org scope; apply verified via dogfood
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
  */
 const hasOrgAdmin = process.env.TEST_ORG_ADMIN === 'true';
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('team lifecycle', () => {
-  const context = { log, ...getSampleGithubContext() };
   const org = { login: 'ehmpathy' };
 
   given.skipIf(!hasOrgAdmin)('[case1] full team lifecycle', () => {
@@ -29,7 +31,7 @@ describe('team lifecycle', () => {
         // step 1: verify team does not exist
         const teamBefore = await getOneTeam(
           { by: { unique: { org, slug: teamSlug } } },
-          context,
+          getContext(),
         );
         expect(teamBefore).toBeNull();
         // snapshot for not-found case
@@ -48,7 +50,7 @@ describe('team lifecycle', () => {
               parent: null,
             },
           },
-          context,
+          getContext(),
         );
         expect(teamCreated).toBeDefined();
         expect(teamCreated.slug).toBe(teamSlug);
@@ -67,7 +69,7 @@ describe('team lifecycle', () => {
         // step 3: fetch team after creation
         const teamFetched = await getOneTeam(
           { by: { unique: { org, slug: teamSlug } } },
-          context,
+          getContext(),
         );
         expect(teamFetched).not.toBeNull();
         expect(teamFetched!.slug).toBe(teamSlug);
@@ -94,7 +96,7 @@ describe('team lifecycle', () => {
               parent: null,
             },
           },
-          context,
+          getContext(),
         );
         expect(teamFindsertAgain).toBeDefined();
         expect(teamFindsertAgain.slug).toBe(teamSlug);
@@ -123,7 +125,7 @@ describe('team lifecycle', () => {
               parent: null,
             },
           },
-          context,
+          getContext(),
         );
         expect(teamUpserted).toBeDefined();
         expect(teamUpserted.slug).toBe(teamSlug);
@@ -141,12 +143,12 @@ describe('team lifecycle', () => {
         }).toMatchSnapshot('team after upsert');
 
         // step 6: delete team
-        await delTeam({ by: { ref: { org, slug: teamSlug } } }, context);
+        await delTeam({ by: { ref: { org, slug: teamSlug } } }, getContext());
 
         // step 7: verify team is deleted
         const teamAfterDelete = await getOneTeam(
           { by: { unique: { org, slug: teamSlug } } },
-          context,
+          getContext(),
         );
         expect(teamAfterDelete).toBeNull();
         // snapshot for deleted state (same as not-found)
@@ -183,7 +185,7 @@ describe('team lifecycle', () => {
                   },
                 },
               },
-              context,
+              getContext(),
             ),
           );
 
@@ -214,7 +216,7 @@ describe('team lifecycle', () => {
               parent: null,
             },
           },
-          context,
+          getContext(),
         );
         expect(parentCreated).toBeDefined();
         expect(parentCreated.slug).toBe(parentSlug);
@@ -232,7 +234,7 @@ describe('team lifecycle', () => {
               parent: { org, slug: parentSlug },
             },
           },
-          context,
+          getContext(),
         );
         expect(childCreated).toBeDefined();
         expect(childCreated.slug).toBe(childSlug);
@@ -249,8 +251,8 @@ describe('team lifecycle', () => {
         }).toMatchSnapshot('child team with parent');
 
         // cleanup: delete child first, then parent
-        await delTeam({ by: { ref: { org, slug: childSlug } } }, context);
-        await delTeam({ by: { ref: { org, slug: parentSlug } } }, context);
+        await delTeam({ by: { ref: { org, slug: childSlug } } }, getContext());
+        await delTeam({ by: { ref: { org, slug: parentSlug } } }, getContext());
       });
     });
   });

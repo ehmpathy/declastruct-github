@@ -6,8 +6,8 @@ import {
   type RefByUnique,
 } from 'domain-objects';
 import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { HasMetadata, PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -28,7 +28,7 @@ export const getEnvironment = asProcedure(
         ref: Ref<typeof DeclaredGithubEnvironment>;
       }>;
     },
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubEnvironment> | null> => {
     // handle by.ref dispatch
     if (input.by.ref) {

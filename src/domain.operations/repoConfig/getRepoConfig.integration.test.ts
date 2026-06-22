@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -5,11 +6,13 @@ import { getSampleRepo } from '@src/.test/assets/getSampleRepo';
 
 import { getRepoConfig } from './getRepoConfig';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('getRepoConfig', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   given('a live example repo exists', () => {
     then('we should be able to get its config', async () => {
       const sampleRepo = getSampleRepo({
@@ -28,7 +31,7 @@ describe('getRepoConfig', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       console.log(config);
@@ -58,7 +61,7 @@ describe('getRepoConfig', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       expect(config).toBeNull();

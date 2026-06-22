@@ -1,7 +1,7 @@
 import { asProcedure } from 'as-procedure';
 import { MalfunctionError, UnexpectedCodePathError } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { HasMetadata, PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -50,7 +50,7 @@ const upsertAccessInGithub = async (
     repoName: string;
     permission: DeclaredGithubTeamRepoAccess['permission'];
   },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<HasMetadata<DeclaredGithubTeamRepoAccess>> => {
   const github = getGithubClient({}, context);
 
@@ -115,7 +115,7 @@ export const setTeamRepoAccess = asProcedure(
       findsert: DeclaredGithubTeamRepoAccess;
       upsert: DeclaredGithubTeamRepoAccess;
     }>,
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubTeamRepoAccess>> => {
     const desired = asDesiredAccess(input);
     const org = desired.team.org.login;

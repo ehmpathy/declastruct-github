@@ -1,4 +1,5 @@
 import { getError, HelpfulError } from 'helpful-errors';
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
 
 import { DeclaredGithubApp } from '@src/domain.objects/DeclaredGithubApp';
@@ -11,7 +12,7 @@ import { setApp } from './setApp';
 jest.mock('./getOneApp');
 const { getOneApp } = jest.requireMock('./getOneApp');
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 describe('setApp', () => {
   const mockContext = {

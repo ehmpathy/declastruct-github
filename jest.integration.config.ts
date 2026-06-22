@@ -12,9 +12,14 @@ process.env.FORCE_COLOR = 'true';
 // https://jestjs.io/docs/configuration
 const config: Config = {
   verbose: true,
+  reporters: [
+    ['default', { summaryThreshold: 0 }], // ensure we always get a failure summary at the bottom, to avoid the hunt
+    ['test-fns/slowtest.reporter.jest', { slow: '10s', output: '.log/slowtest/integration.report.json' }],
+  ],
   testEnvironment: 'node',
   moduleFileExtensions: ['js', 'ts'],
   moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/$1',
     '^@src/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
@@ -25,10 +30,6 @@ const config: Config = {
     // 'node_modules/(?!(@octokit|universal-user-agent|before-after-hook)/)',
   ],
   testMatch: ['**/*.integration.test.ts', '!**/.yalc/**'],
-  modulePathIgnorePatterns: [
-    // ignore mechanic cache with rmsafe trash backups
-    '<rootDir>/.agent/.cache',
-  ],
   setupFilesAfterEnv: ['./jest.integration.env.ts'],
 
   // use 50% of threads to leave headroom for other processes

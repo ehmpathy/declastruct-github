@@ -1,8 +1,8 @@
 import { asProcedure } from 'as-procedure';
 import type { RefByUnique } from 'domain-objects';
 import { HelpfulError } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { HasMetadata } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -18,7 +18,7 @@ import { castToDeclaredGithubOrgVariable } from './castToDeclaredGithubOrgVariab
 export const getAllOrgVariables = asProcedure(
   async (
     input: { org: RefByUnique<typeof DeclaredGithubOrg> },
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubOrgVariable>[]> => {
     const github = getGithubClient({}, context);
 

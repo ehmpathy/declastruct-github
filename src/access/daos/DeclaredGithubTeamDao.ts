@@ -1,8 +1,7 @@
 import { DeclastructDao } from 'declastruct';
 import { isRefByUnique, type Ref } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
-import type { ContextLogTrail } from 'simple-log-methods';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import { DeclaredGithubTeam } from '@src/domain.objects/DeclaredGithubTeam';
@@ -22,7 +21,7 @@ const isTeamRefByUnique = isRefByUnique({ of: DeclaredGithubTeam });
  */
 const getOneTeamByRef = async (
   input: Ref<typeof DeclaredGithubTeam>,
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ) => {
   if (isTeamRefByUnique(input))
     return getOneTeam({ by: { unique: input } }, context);

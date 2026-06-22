@@ -1,4 +1,5 @@
 import { UnexpectedCodePathError } from 'helpful-errors';
+import { genContextLogTrail } from 'sdk-logs';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 import { getSampleRepo } from '@src/.test/assets/getSampleRepo';
@@ -6,11 +7,13 @@ import { getSampleRepo } from '@src/.test/assets/getSampleRepo';
 import { getBranch } from './getBranch';
 import { setBranch } from './setBranch';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('setBranch', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   describe('live tests', () => {
     it('should create a new branch with explicit commit.sha', async () => {
       const sampleRepo = getSampleRepo({
@@ -29,7 +32,7 @@ describe('setBranch', () => {
               },
             },
           },
-          context,
+          getContext(),
         )) ??
         UnexpectedCodePathError.throw('demo repo branch not found', {
           sampleRepo,
@@ -48,7 +51,7 @@ describe('setBranch', () => {
             commit: { sha: demoRepoBranch.commit!.sha },
           },
         },
-        context,
+        getContext(),
       );
 
       expect(result).toBeDefined();
@@ -73,7 +76,7 @@ describe('setBranch', () => {
             name: 'main',
           },
         },
-        context,
+        getContext(),
       );
 
       expect(result).toBeDefined();

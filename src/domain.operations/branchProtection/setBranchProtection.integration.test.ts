@@ -1,14 +1,18 @@
+import { genContextLogTrail } from 'sdk-logs';
+
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 import { getSampleRepo } from '@src/.test/assets/getSampleRepo';
 
 import { getBranchProtection } from './getBranchProtection';
 import { setBranchProtection } from './setBranchProtection';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('setBranchProtection', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   describe('live tests', () => {
     it('should update branch protection rules', async () => {
       const sampleRepo = getSampleRepo({
@@ -31,7 +35,7 @@ describe('setBranchProtection', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       console.log('Current protection:', currentProtection);
@@ -55,7 +59,7 @@ describe('setBranchProtection', () => {
             restrictions: null,
           },
         },
-        context,
+        getContext(),
       );
 
       expect(result).toBeDefined();
@@ -85,7 +89,7 @@ describe('setBranchProtection', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       // Only run findsert test if protection exists
@@ -104,7 +108,7 @@ describe('setBranchProtection', () => {
               requireLinearHistory: true,
             },
           },
-          context,
+          getContext(),
         );
 
         expect(result).toBeDefined();

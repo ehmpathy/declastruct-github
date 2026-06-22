@@ -4,8 +4,8 @@ import {
   MalfunctionError,
   UnexpectedCodePathError,
 } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { HasMetadata, PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -49,7 +49,7 @@ const asGithubTeamNotifyValue = (input: {
  */
 const asParentTeamIdOrUndefined = async (
   input: { parent: { slug: string } | null; org: string },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<number | undefined> => {
   if (!input.parent) return undefined;
   return getParentTeamId({ org: input.org, slug: input.parent.slug }, context);
@@ -80,7 +80,7 @@ const updateTeamInGithub = async (
     notifyValue: 'notifications_enabled' | 'notifications_disabled';
     parentTeamId: number | undefined;
   },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<HasMetadata<DeclaredGithubTeam>> => {
   const github = getGithubClient({}, context);
   return MalfunctionError.wrap(
@@ -116,7 +116,7 @@ const createTeamInGithub = async (
     notifyValue: 'notifications_enabled' | 'notifications_disabled';
     parentTeamId: number | undefined;
   },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<HasMetadata<DeclaredGithubTeam>> => {
   const github = getGithubClient({}, context);
   return MalfunctionError.wrap(
@@ -148,7 +148,7 @@ export const setTeam = asProcedure(
       findsert: DeclaredGithubTeam;
       upsert: DeclaredGithubTeam;
     }>,
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubTeam>> => {
     const desired = asDesiredTeam(input);
     const org = desired.org.login;
@@ -207,7 +207,7 @@ export const setTeam = asProcedure(
  */
 const getParentTeamId = async (
   input: { org: string; slug: string },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<number> => {
   const parent = await getOneTeam(
     { by: { unique: { org: { login: input.org }, slug: input.slug } } },

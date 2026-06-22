@@ -1,8 +1,7 @@
 import { DeclastructDao } from 'declastruct';
 import { isRefByUnique, type Ref } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
-import type { ContextLogTrail } from 'simple-log-methods';
-import type { VisualogicContext } from 'visualogic';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import { DeclaredGithubTeamRepoAccess } from '@src/domain.objects/DeclaredGithubTeamRepoAccess';
@@ -24,7 +23,7 @@ const isAccessRefByUnique = isRefByUnique({
  */
 const getOneTeamRepoAccessByRef = async (
   input: Ref<typeof DeclaredGithubTeamRepoAccess>,
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ) => {
   if (isAccessRefByUnique(input))
     return getOneTeamRepoAccess({ by: { unique: input } }, context);

@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -6,10 +7,13 @@ import { delEnvironment } from './delEnvironment';
 import { getEnvironment } from './getEnvironment';
 import { setEnvironment } from './setEnvironment';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('environment lifecycle', () => {
-  const context = { log, ...getSampleGithubContext() };
   const repo = { owner: 'ehmpathy', name: 'declastruct-github-demo' };
 
   given('[case1] full environment lifecycle', () => {
@@ -21,7 +25,7 @@ describe('environment lifecycle', () => {
         // step 1: verify environment does not exist
         const envBefore = await getEnvironment(
           { by: { unique: { repo, name: envName } } },
-          context,
+          getContext(),
         );
         expect(envBefore).toBeNull();
         // snapshot for not-found case
@@ -39,7 +43,7 @@ describe('environment lifecycle', () => {
               preventSelfReview: false,
             },
           },
-          context,
+          getContext(),
         );
         expect(envCreated).toBeDefined();
         expect(envCreated.name).toBe(envName);
@@ -58,7 +62,7 @@ describe('environment lifecycle', () => {
         // step 3: fetch environment after creation
         const envFetched = await getEnvironment(
           { by: { unique: { repo, name: envName } } },
-          context,
+          getContext(),
         );
         expect(envFetched).not.toBeNull();
         expect(envFetched!.name).toBe(envName);
@@ -83,7 +87,7 @@ describe('environment lifecycle', () => {
               preventSelfReview: false,
             },
           },
-          context,
+          getContext(),
         );
         expect(envFindsertAgain).toBeDefined();
         expect(envFindsertAgain.name).toBe(envName);
@@ -112,7 +116,7 @@ describe('environment lifecycle', () => {
               preventSelfReview: false,
             },
           },
-          context,
+          getContext(),
         );
         expect(envUpserted).toBeDefined();
         expect(envUpserted.name).toBe(envName);
@@ -128,12 +132,15 @@ describe('environment lifecycle', () => {
         }).toMatchSnapshot('environment after upsert');
 
         // step 6: delete environment
-        await delEnvironment({ by: { ref: { repo, name: envName } } }, context);
+        await delEnvironment(
+          { by: { ref: { repo, name: envName } } },
+          getContext(),
+        );
 
         // step 7: verify environment is deleted
         const envAfterDelete = await getEnvironment(
           { by: { unique: { repo, name: envName } } },
-          context,
+          getContext(),
         );
         expect(envAfterDelete).toBeNull();
         // snapshot for deleted state (same as not-found)
@@ -165,7 +172,7 @@ describe('environment lifecycle', () => {
               preventSelfReview: true,
             },
           },
-          context,
+          getContext(),
         );
         expect(envCreated).toBeDefined();
         expect(envCreated.name).toBe(envName);
@@ -184,7 +191,7 @@ describe('environment lifecycle', () => {
         // fetch environment to verify reviewer persisted
         const envFetched = await getEnvironment(
           { by: { unique: { repo, name: envName } } },
-          context,
+          getContext(),
         );
         expect(envFetched).not.toBeNull();
         expect(envFetched!.reviewers).toBeDefined();
@@ -199,7 +206,10 @@ describe('environment lifecycle', () => {
         }).toMatchSnapshot('environment with reviewer after fetch');
 
         // cleanup: delete environment
-        await delEnvironment({ by: { ref: { repo, name: envName } } }, context);
+        await delEnvironment(
+          { by: { ref: { repo, name: envName } } },
+          getContext(),
+        );
       });
     });
   });
@@ -223,7 +233,7 @@ describe('environment lifecycle', () => {
               preventSelfReview: false,
             },
           },
-          context,
+          getContext(),
         );
         expect(envCreated.deploymentBranchPolicy).toBeDefined();
         expect(envCreated.deploymentBranchPolicy).toHaveProperty(
@@ -257,7 +267,7 @@ describe('environment lifecycle', () => {
               preventSelfReview: false,
             },
           },
-          context,
+          getContext(),
         );
         expect(envUpdated.deploymentBranchPolicy).toBeDefined();
         expect(envUpdated.deploymentBranchPolicy).toHaveProperty(
@@ -274,7 +284,10 @@ describe('environment lifecycle', () => {
         }).toMatchSnapshot('environment updated to protected branches');
 
         // cleanup: delete environment
-        await delEnvironment({ by: { ref: { repo, name: envName } } }, context);
+        await delEnvironment(
+          { by: { ref: { repo, name: envName } } },
+          getContext(),
+        );
       });
     });
   });

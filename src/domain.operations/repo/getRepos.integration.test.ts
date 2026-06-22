@@ -1,17 +1,20 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 
 import { getRepos } from './getRepos';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('getRepos', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   given('an authenticated user with repos', () => {
     then('we should be able to get a list', async () => {
-      const repos = await getRepos({ page: { limit: 10 } }, context);
+      const repos = await getRepos({ page: { limit: 10 } }, getContext());
       console.log(repos);
       expect(repos.length).toBeGreaterThan(0);
     });
@@ -24,7 +27,7 @@ describe('getRepos', () => {
           where: { owner: 'ehmpathy' },
           page: { limit: 5 },
         },
-        context,
+        getContext(),
       );
       console.log(repos);
       expect(repos.length).toBeGreaterThan(0);

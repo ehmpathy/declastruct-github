@@ -30,44 +30,50 @@ Options:
 `;
 
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t2] CLI help output is requested then: plan --help shows usage information: plan --help output 1`] = `
-"Usage: declastruct plan [options]
+"Usage: declastruct plan --wish <file> --into <file> [-- <wish-args>]
 
 Generate a change plan from a wish file
 
 Options:
   --wish <file>  Path to wish file
   --into <file>  Path to output plan file
+  --snap <file>  Path to output snapshot file
   -h, --help     display help for command
 "
 `;
 
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t3] CLI is called with invalid input then: apply with empty plan file shows clear error: apply empty plan error 1`] = `
-"✖ Error during apply: SyntaxError: Unexpected end of JSON input
+"✖ apply failed: SyntaxError: Unexpected end of JSON input
     at JSON.parse (<anonymous>)
-    at <anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:49:37[90m)[39m
-    at async executeApplyCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:44:16[90m)[39m
-    at async Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:46:9[90m)[39m
+    at <anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:59:37[90m)[39m
+    at async executeApplyCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:51:16[90m)[39m
+    at async Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:80:9[90m)[39m
     at async Command.parseAsync [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1122:5[90m)[39m
-    at async invoke [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:56:3[90m)[39m
+    at async invoke [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:93:3[90m)[39m
 "
 `;
 
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t3] CLI is called with invalid input then: apply with invalid plan file syntax shows clear error: apply invalid syntax error 1`] = `
-"✖ Error during apply: SyntaxError: Unexpected token 'h', "this is not"... is not valid JSON
+"✖ apply failed: SyntaxError: Unexpected token 'h', "this is not"... is not valid JSON
     at JSON.parse (<anonymous>)
-    at <anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:49:37[90m)[39m
-    at async executeApplyCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:44:16[90m)[39m
-    at async Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:46:9[90m)[39m
+    at <anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:59:37[90m)[39m
+    at async executeApplyCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:51:16[90m)[39m
+    at async Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:80:9[90m)[39m
     at async Command.parseAsync [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1122:5[90m)[39m
-    at async invoke [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:56:3[90m)[39m
+    at async invoke [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:93:3[90m)[39m
 "
 `;
 
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t3] CLI is called with invalid input then: apply with nonexistent plan file shows clear error: apply nonexistent plan error 1`] = `
-"✖ Error during apply: BadRequestError: BadRequestError: Plan file not found: /nonexistent/plan.json
-    at <anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:47:13[90m)[39m
-    at executeApplyCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:50:5[90m)[39m
-    at Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:46:34[90m)[39m
+"✖ apply failed: BadRequestError: BadRequestError: plan file not found
+
+{
+  "path": "/nonexistent/plan.json",
+  "hint": "check that the --plan path points to an extant file"
+}
+    at <anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:54:13[90m)[39m
+    at executeApplyCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/apply.ts:60:5[90m)[39m
+    at Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:80:34[90m)[39m
     at Command.listener [as _actionHandler] [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:568:17[90m)[39m
     at [90m<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1604:14
     at Command._chainOrCall [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1488:12[90m)[39m
@@ -79,7 +85,7 @@ exports[`declastruct CLI workflow given: a declastruct resources file when: [t3]
 `;
 
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t3] CLI is called with invalid input then: plan with invalid wish file syntax shows clear error: plan invalid syntax error 1`] = `
-"✖ Error during plan: Error: Transform failed with 1 error:
+"✖ plan failed: Error: Transform failed with 1 error:
 <repo>/src/contract/sdks/.test/.temp/acceptance/run.<timestamp>/invalid-wish.ts:1:5: ERROR: Expected ";" but found "is"
     at failureErrorWithLog [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/esbuild@0.25.12/node_modules/[4mesbuild[24m/lib/main.js:1467:15[90m)[39m
     at [90m<repo>/[39mnode_modules/[4m.pnpm[24m/esbuild@0.25.12/node_modules/[4mesbuild[24m/lib/main.js:736:50
@@ -97,11 +103,16 @@ exports[`declastruct CLI workflow given: a declastruct resources file when: [t3]
 `;
 
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t3] CLI is called with invalid input then: plan with nonexistent wish file shows clear error: plan nonexistent wish error 1`] = `
-"✖ Error during plan: BadRequestError: BadRequestError: Wish file not found: /nonexistent/path.ts
-    at executePlanCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/plan.ts:38:11[90m)[39m
-    at async Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:29:9[90m)[39m
+"✖ plan failed: BadRequestError: BadRequestError: wish file not found
+
+{
+  "path": "/nonexistent/path.ts",
+  "hint": "check that the --wish path points to an extant file"
+}
+    at executePlanCommand [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/plan.ts:58:11[90m)[39m
+    at async Command.<anonymous> [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:57:9[90m)[39m
     at async Command.parseAsync [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/commander@14.0.2/node_modules/[4mcommander[24m/lib/command.js:1122:5[90m)[39m
-    at async invoke [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:56:3[90m)[39m
+    at async invoke [90m(<repo>/[39mnode_modules/[4m.pnpm[24m/declastruct@<version>/node_modules/[4mdeclastruct[24m/src/contract/cli/invoke.ts:93:3[90m)[39m
 "
 `;
 

@@ -1,4 +1,5 @@
 import { getError, HelpfulError } from 'helpful-errors';
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
 
 import { DeclaredGithubAppInstallation } from '@src/domain.objects/DeclaredGithubAppInstallation';
@@ -15,7 +16,7 @@ const { getGithubClient } = jest.requireMock(
   '../../access/sdks/getGithubClient',
 );
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 describe('setAppInstallation', () => {
   const mockContext = {

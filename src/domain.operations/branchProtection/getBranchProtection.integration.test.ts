@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -5,11 +6,13 @@ import { getSampleRepo } from '@src/.test/assets/getSampleRepo';
 
 import { getBranchProtection } from './getBranchProtection';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('getBranchProtection', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   given('a protected branch exists', () => {
     then('we should be able to get its protection rules', async () => {
       const sampleRepo = getSampleRepo({
@@ -31,7 +34,7 @@ describe('getBranchProtection', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       console.log(protection);
@@ -66,7 +69,7 @@ describe('getBranchProtection', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       // Should return null for non-existent branch or unprotected branch

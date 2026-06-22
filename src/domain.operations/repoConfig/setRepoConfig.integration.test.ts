@@ -1,14 +1,18 @@
+import { genContextLogTrail } from 'sdk-logs';
+
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 import { getSampleRepo } from '@src/.test/assets/getSampleRepo';
 
 import { getRepoConfig } from './getRepoConfig';
 import { setRepoConfig } from './setRepoConfig';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
+/**
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
+ */
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('setRepoConfig', () => {
-  const context = { log, ...getSampleGithubContext() };
-
   describe('live tests', () => {
     it('should update repo config settings', async () => {
       const sampleRepo = getSampleRepo({
@@ -28,7 +32,7 @@ describe('setRepoConfig', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       expect(currentConfig).toBeDefined();
@@ -48,7 +52,7 @@ describe('setRepoConfig', () => {
             deleteBranchOnMerge: true, // ensure this is set to true
           },
         },
-        context,
+        getContext(),
       );
 
       expect(result).toBeDefined();
@@ -75,7 +79,7 @@ describe('setRepoConfig', () => {
             },
           },
         },
-        context,
+        getContext(),
       );
 
       expect(currentConfig).toBeDefined();
@@ -95,7 +99,7 @@ describe('setRepoConfig', () => {
             allowRebaseMerge: true,
           },
         },
-        context,
+        getContext(),
       );
 
       expect(result).toBeDefined();

@@ -1,6 +1,7 @@
 import type { DeclastructProvider } from 'declastruct';
 import { type DomainEntity, RefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
+import { genLogMethods } from 'sdk-logs';
 
 import { getDeclastructGithubProvider } from '../../src/contract/sdks';
 import { DeclaredGithubOrg } from '../../src/domain.objects/DeclaredGithubOrg';
@@ -20,12 +21,7 @@ export const getProviders = async (): Promise<DeclastructProvider[]> => [
       },
     },
     {
-      log: {
-        info: () => {},
-        debug: () => {},
-        warn: console.warn,
-        error: console.error,
-      },
+      log: genLogMethods(),
     },
   ),
 ];

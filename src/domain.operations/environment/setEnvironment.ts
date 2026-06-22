@@ -1,7 +1,7 @@
 import { asProcedure } from 'as-procedure';
 import { HelpfulError } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { HasMetadata, PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -23,7 +23,7 @@ const lookupReviewerIds = async (
     reviewers: DeclaredGithubEnvironment['reviewers'];
     org: string;
   },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<ReviewerRef[] | undefined> => {
   if (!input.reviewers) return undefined;
 
@@ -85,7 +85,7 @@ export const setEnvironment = asProcedure(
       findsert: DeclaredGithubEnvironment;
       upsert: DeclaredGithubEnvironment;
     }>,
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubEnvironment>> => {
     const desired = input.findsert ?? input.upsert;
     const github = getGithubClient({}, context);

@@ -1,8 +1,8 @@
 import { asProcedure } from 'as-procedure';
 import { isRefByUnique, type Ref } from 'domain-objects';
 import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -47,7 +47,7 @@ export const delEnvironment = asProcedure(
         ref: Ref<typeof DeclaredGithubEnvironment>;
       }>;
     },
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<void> => {
     // extract repo and name from ref
     const { repo, name } = extractRepoAndNameFromRef({ ref: input.by.ref });

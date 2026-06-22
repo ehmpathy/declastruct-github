@@ -1,3 +1,4 @@
+import { genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
@@ -8,7 +9,7 @@ import { delTeamMembership } from './delTeamMembership';
 import { getOneTeamMembership } from './getOneTeamMembership';
 import { setTeamMembership } from './setTeamMembership';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 /**
  * .what = lifecycle tests for team membership operations
@@ -16,10 +17,11 @@ const log = console;
  * .note = requires org admin permissions (admin:org scope)
  *         set TEST_ORG_ADMIN=true to run these tests
  * .note = skipIf used because CI lacks admin:org scope; apply verified via dogfood
+ * .note = context is deferred to avoid throw when GITHUB_TOKEN is not set in CI
  */
 const hasOrgAdmin = process.env.TEST_ORG_ADMIN === 'true';
+const getContext = () => ({ log, ...getSampleGithubContext() });
 describe('teamMembership lifecycle', () => {
-  const context = { log, ...getSampleGithubContext() };
   const org = { login: 'ehmpathy' };
 
   given.skipIf(!hasOrgAdmin)('[case1] full membership lifecycle', () => {
@@ -42,14 +44,14 @@ describe('teamMembership lifecycle', () => {
               parent: null,
             },
           },
-          context,
+          getContext(),
         );
         expect(team).toBeDefined();
 
         // step 1: verify membership does not exist
         const membershipBefore = await getOneTeamMembership(
           { by: { unique: { team: { org, slug: teamSlug }, username } } },
-          context,
+          getContext(),
         );
         expect(membershipBefore).toBeNull();
         // snapshot for not-found case
@@ -66,7 +68,7 @@ describe('teamMembership lifecycle', () => {
               role: 'member',
             },
           },
-          context,
+          getContext(),
         );
         expect(membershipCreated).toBeDefined();
         expect(membershipCreated.username).toBe(username);
@@ -81,7 +83,7 @@ describe('teamMembership lifecycle', () => {
         // step 3: fetch membership after creation
         const membershipFetched = await getOneTeamMembership(
           { by: { unique: { team: { org, slug: teamSlug }, username } } },
-          context,
+          getContext(),
         );
         expect(membershipFetched).not.toBeNull();
         expect(membershipFetched!.username).toBe(username);
@@ -102,7 +104,7 @@ describe('teamMembership lifecycle', () => {
               role: 'maintainer', // should be ignored
             },
           },
-          context,
+          getContext(),
         );
         expect(membershipFindsertAgain).toBeDefined();
         // findsert does not update, so role should still be member
@@ -123,7 +125,7 @@ describe('teamMembership lifecycle', () => {
               role: 'maintainer',
             },
           },
-          context,
+          getContext(),
         );
         expect(membershipUpserted).toBeDefined();
         expect(membershipUpserted.role).toBe('maintainer');
@@ -137,13 +139,13 @@ describe('teamMembership lifecycle', () => {
         // step 6: remove membership
         await delTeamMembership(
           { by: { ref: { team: { org, slug: teamSlug }, username } } },
-          context,
+          getContext(),
         );
 
         // step 7: verify membership is removed
         const membershipAfterDelete = await getOneTeamMembership(
           { by: { unique: { team: { org, slug: teamSlug }, username } } },
-          context,
+          getContext(),
         );
         expect(membershipAfterDelete).toBeNull();
         // snapshot for deleted state (same as not-found)
@@ -152,7 +154,7 @@ describe('teamMembership lifecycle', () => {
         );
 
         // cleanup: delete team
-        await delTeam({ by: { ref: { org, slug: teamSlug } } }, context);
+        await delTeam({ by: { ref: { org, slug: teamSlug } } }, getContext());
       });
     });
   });

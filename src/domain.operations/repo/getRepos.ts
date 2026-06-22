@@ -1,6 +1,6 @@
 import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { HasMetadata } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -24,7 +24,7 @@ export const getRepos = async (
       limit?: number;
     };
   },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<HasMetadata<DeclaredGithubRepo>[]> => {
   // get cached GitHub client
   const github = getGithubClient({}, context);

@@ -1,4 +1,5 @@
-import { given, then, when } from 'test-fns';
+import { genContextLogTrail } from 'sdk-logs';
+import { given, then, useBeforeAll, when } from 'test-fns';
 
 import { getSampleGithubContext } from '@src/.test/assets/getSampleGithubContext';
 import { DeclaredGithubBranchProtection } from '@src/domain.objects/DeclaredGithubBranchProtection';
@@ -6,24 +7,24 @@ import { DeclaredGithubRepoConfig } from '@src/domain.objects/DeclaredGithubRepo
 
 import { getDeclastructGithubProvider } from './getDeclastructGithubProvider';
 
-const log = console;
+const { log } = genContextLogTrail({ trail: null, env: null });
 
 /**
  * .what = integration tests for declastruct github provider
  * .why = validates provider interface works correctly with real github API
  */
 describe('getDeclastructGithubProvider', () => {
-  const githubContext = getSampleGithubContext();
-
   given('a declastruct github provider', () => {
-    // create provider with credentials
-    const provider = getDeclastructGithubProvider(
-      {
-        credentials: {
-          token: githubContext.github.token,
+    // create provider with credentials (deferred via useBeforeAll to test execution time)
+    const provider = useBeforeAll(async () =>
+      getDeclastructGithubProvider(
+        {
+          credentials: {
+            token: getSampleGithubContext().github.token,
+          },
         },
-      },
-      { log },
+        { log },
+      ),
     );
 
     then('should have correct name', () => {
@@ -43,34 +44,34 @@ describe('getDeclastructGithubProvider', () => {
     });
 
     then('should have github context with token', () => {
-      expect(provider.context.github.token).toBe(githubContext.github.token);
+      expect(provider.context.github.token).toBe(
+        getSampleGithubContext().github.token,
+      );
     });
 
     when('using repo dao', () => {
-      const repoDao = provider.daos.DeclaredGithubRepo;
-
       then('should have get.one.byUnique method', () => {
-        expect(repoDao.get.one.byUnique).toBeDefined();
+        expect(provider.daos.DeclaredGithubRepo.get.one.byUnique).toBeDefined();
       });
 
       then('should have get.one.byRef method', () => {
-        expect(repoDao.get.one.byRef).toBeDefined();
+        expect(provider.daos.DeclaredGithubRepo.get.one.byRef).toBeDefined();
       });
 
       then('should have set.findsert method', () => {
-        expect(repoDao.set.findsert).toBeDefined();
+        expect(provider.daos.DeclaredGithubRepo.set.findsert).toBeDefined();
       });
 
       then('should have set.upsert method', () => {
-        expect(repoDao.set.upsert).toBeDefined();
+        expect(provider.daos.DeclaredGithubRepo.set.upsert).toBeDefined();
       });
 
       then('can get repo by unique', async () => {
         /**
-         * .what = validates byUnique can fetch existing repo from github
+         * .what = validates byUnique can fetch extant repo from github
          * .why = ensures read operations work correctly via provider interface
          */
-        const repo = await repoDao.get.one.byUnique(
+        const repo = await provider.daos.DeclaredGithubRepo.get.one.byUnique(
           {
             owner: 'ehmpathy',
             name: 'declastruct-github-demo',
@@ -86,36 +87,37 @@ describe('getDeclastructGithubProvider', () => {
     });
 
     when('using branch dao', () => {
-      const branchDao = provider.daos.DeclaredGithubBranch;
-
       then('should have get.one.byUnique method', () => {
-        expect(branchDao.get.one.byUnique).toBeDefined();
+        expect(
+          provider.daos.DeclaredGithubBranch.get.one.byUnique,
+        ).toBeDefined();
       });
 
       then('should have get.one.byRef method', () => {
-        expect(branchDao.get.one.byRef).toBeDefined();
+        expect(provider.daos.DeclaredGithubBranch.get.one.byRef).toBeDefined();
       });
 
       then('should have set.findsert method', () => {
-        expect(branchDao.set.findsert).toBeDefined();
+        expect(provider.daos.DeclaredGithubBranch.set.findsert).toBeDefined();
       });
 
       then('should have set.upsert method', () => {
-        expect(branchDao.set.upsert).toBeDefined();
+        expect(provider.daos.DeclaredGithubBranch.set.upsert).toBeDefined();
       });
 
       then('can get branch by unique', async () => {
         /**
-         * .what = validates byUnique can fetch existing branch from github
+         * .what = validates byUnique can fetch extant branch from github
          * .why = ensures read operations work correctly via provider interface
          */
-        const branch = await branchDao.get.one.byUnique(
-          {
-            repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
-            name: 'main',
-          },
-          provider.context,
-        );
+        const branch =
+          await provider.daos.DeclaredGithubBranch.get.one.byUnique(
+            {
+              repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
+              name: 'main',
+            },
+            provider.context,
+          );
 
         // verify branch was fetched
         expect(branch).toBeDefined();
@@ -124,35 +126,40 @@ describe('getDeclastructGithubProvider', () => {
     });
 
     when('using repo config dao', () => {
-      const repoConfigDao = provider.daos.DeclaredGithubRepoConfig;
-
       then('should have get.one.byUnique method', () => {
-        expect(repoConfigDao.get.one.byUnique).toBeDefined();
+        expect(
+          provider.daos.DeclaredGithubRepoConfig.get.one.byUnique,
+        ).toBeDefined();
       });
 
       then('should have get.one.byRef method', () => {
-        expect(repoConfigDao.get.one.byRef).toBeDefined();
+        expect(
+          provider.daos.DeclaredGithubRepoConfig.get.one.byRef,
+        ).toBeDefined();
       });
 
       then('should have set.findsert method', () => {
-        expect(repoConfigDao.set.findsert).toBeDefined();
+        expect(
+          provider.daos.DeclaredGithubRepoConfig.set.findsert,
+        ).toBeDefined();
       });
 
       then('should have set.upsert method', () => {
-        expect(repoConfigDao.set.upsert).toBeDefined();
+        expect(provider.daos.DeclaredGithubRepoConfig.set.upsert).toBeDefined();
       });
 
       then('can get repo config by unique', async () => {
         /**
-         * .what = validates byUnique can fetch existing repo config from github
+         * .what = validates byUnique can fetch extant repo config from github
          * .why = ensures read operations work correctly via provider interface
          */
-        const config = await repoConfigDao.get.one.byUnique(
-          {
-            repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
-          },
-          provider.context,
-        );
+        const config =
+          await provider.daos.DeclaredGithubRepoConfig.get.one.byUnique(
+            {
+              repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
+            },
+            provider.context,
+          );
 
         // verify config was fetched
         expect(config).toBeDefined();
@@ -165,7 +172,6 @@ describe('getDeclastructGithubProvider', () => {
          * .why = ensures write operations work correctly via provider interface
          * .note = uses minimal safe configuration for demo repo
          */
-
         // define desired repo configuration
         const desiredConfig = DeclaredGithubRepoConfig.as({
           repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
@@ -183,7 +189,7 @@ describe('getDeclastructGithubProvider', () => {
         });
 
         // upsert
-        const result = await repoConfigDao.set.upsert!(
+        const result = await provider.daos.DeclaredGithubRepoConfig.set.upsert!(
           desiredConfig,
           provider.context,
         );
@@ -195,38 +201,45 @@ describe('getDeclastructGithubProvider', () => {
     });
 
     when('using branch protection dao', () => {
-      const branchProtectionDao = provider.daos.DeclaredGithubBranchProtection;
-
       then('should have get.one.byUnique method', () => {
-        expect(branchProtectionDao.get.one.byUnique).toBeDefined();
+        expect(
+          provider.daos.DeclaredGithubBranchProtection.get.one.byUnique,
+        ).toBeDefined();
       });
 
       then('should have get.one.byRef method', () => {
-        expect(branchProtectionDao.get.one.byRef).toBeDefined();
+        expect(
+          provider.daos.DeclaredGithubBranchProtection.get.one.byRef,
+        ).toBeDefined();
       });
 
       then('should have set.findsert method', () => {
-        expect(branchProtectionDao.set.findsert).toBeDefined();
+        expect(
+          provider.daos.DeclaredGithubBranchProtection.set.findsert,
+        ).toBeDefined();
       });
 
       then('should have set.upsert method', () => {
-        expect(branchProtectionDao.set.upsert).toBeDefined();
+        expect(
+          provider.daos.DeclaredGithubBranchProtection.set.upsert,
+        ).toBeDefined();
       });
 
       then('can get branch protection by unique', async () => {
         /**
-         * .what = validates byUnique can fetch existing branch protection from github
+         * .what = validates byUnique can fetch extant branch protection from github
          * .why = ensures read operations work correctly via provider interface
          */
-        const protection = await branchProtectionDao.get.one.byUnique(
-          {
-            branch: {
-              repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
-              name: 'main',
+        const protection =
+          await provider.daos.DeclaredGithubBranchProtection.get.one.byUnique(
+            {
+              branch: {
+                repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
+                name: 'main',
+              },
             },
-          },
-          provider.context,
-        );
+            provider.context,
+          );
 
         // verify protection was fetched (may be null if not configured)
         expect(protection !== undefined).toBe(true);
@@ -238,7 +251,6 @@ describe('getDeclastructGithubProvider', () => {
          * .why = ensures write operations work correctly via provider interface
          * .note = uses idempotent operation safe for demo repo
          */
-
         // define desired protection configuration
         const desiredProtection = DeclaredGithubBranchProtection.as({
           branch: {
@@ -259,10 +271,8 @@ describe('getDeclastructGithubProvider', () => {
         });
 
         // upsert
-        const result = await branchProtectionDao.set.upsert!(
-          desiredProtection,
-          provider.context,
-        );
+        const result = await provider.daos.DeclaredGithubBranchProtection.set
+          .upsert!(desiredProtection, provider.context);
 
         // verify upsert succeeded
         expect(result).toBeDefined();

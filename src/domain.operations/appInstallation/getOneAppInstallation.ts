@@ -1,8 +1,8 @@
 import { asProcedure } from 'as-procedure';
 import type { RefByUnique } from 'domain-objects';
 import { HelpfulError, UnexpectedCodePathError } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { HasMetadata } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -22,7 +22,7 @@ export const getOneAppInstallation = asProcedure(
     input: {
       by: { unique: RefByUnique<typeof DeclaredGithubAppInstallation> };
     },
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubAppInstallation> | null> => {
     // get cached GitHub client
     const github = getGithubClient({}, context);

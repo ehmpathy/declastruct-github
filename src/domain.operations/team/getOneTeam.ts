@@ -1,8 +1,8 @@
 import { asProcedure } from 'as-procedure';
 import type { RefByUnique } from 'domain-objects';
 import { MalfunctionError, UnexpectedCodePathError } from 'helpful-errors';
+import type { ContextLogTrail } from 'sdk-logs';
 import type { HasMetadata, PickOne } from 'type-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
@@ -35,7 +35,7 @@ const extractOrgAndSlugFromUniqueRef = (input: {
  */
 const getTeamFromGithubOrNull = async (
   input: { org: string; slug: string },
-  context: ContextGithubApi & VisualogicContext,
+  context: ContextGithubApi & ContextLogTrail,
 ): Promise<HasMetadata<DeclaredGithubTeam> | null> => {
   const github = getGithubClient({}, context);
 
@@ -70,7 +70,7 @@ export const getOneTeam = asProcedure(
         unique: RefByUnique<typeof DeclaredGithubTeam>;
       }>;
     },
-    context: ContextGithubApi & VisualogicContext,
+    context: ContextGithubApi & ContextLogTrail,
   ): Promise<HasMetadata<DeclaredGithubTeam> | null> => {
     // extract org and slug from input
     const { org, slug } = extractOrgAndSlugFromUniqueRef(input);

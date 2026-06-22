@@ -1,5 +1,5 @@
 import { genDeclastructDao } from 'declastruct';
-import type { ContextLogTrail } from 'simple-log-methods';
+import type { ContextLogTrail } from 'sdk-logs';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import { DeclaredGithubApp } from '@src/domain.objects/DeclaredGithubApp';

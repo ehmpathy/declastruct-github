@@ -1,4 +1,5 @@
 import { ConstraintError } from 'helpful-errors';
+import { genContextLogTrail } from 'sdk-logs';
 
 import {
   DeclaredGithubEnvironment,
@@ -26,14 +27,7 @@ export const getProviders = async () => [
           }),
       },
     },
-    {
-      log: {
-        info: () => {},
-        debug: () => {},
-        warn: console.warn,
-        error: console.error,
-      },
-    },
+    genContextLogTrail({ trail: null, env: null }),
   ),
 ];
 

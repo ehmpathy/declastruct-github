@@ -1,5 +1,5 @@
+import { type ContextLogTrail, genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
-import type { VisualogicContext } from 'visualogic';
 
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 import type { DeclaredGithubOrgMemberPrivileges } from '@src/domain.objects/DeclaredGithubOrgMemberPrivileges';
@@ -20,9 +20,9 @@ jest.mock('./getOneOrgMemberPrivileges');
 
 const { setOrgMemberPrivileges } = require('./setOrgMemberPrivileges');
 
-const context: ContextGithubApi & VisualogicContext = {
+const context: ContextGithubApi & ContextLogTrail = {
   github: { token: 'test-token' },
-  log: console,
+  ...genContextLogTrail({ trail: null, env: null }),
 };
 
 const org = { login: 'test-org' };
