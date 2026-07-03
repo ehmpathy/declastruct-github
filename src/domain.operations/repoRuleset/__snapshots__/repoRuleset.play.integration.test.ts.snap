@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`repo ruleset lifecycle given: [case1] full tag-protection ruleset lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, idempotent findsert, upsert, delete: ruleset after create 1`] = `
+{
+  "bypassActors": [],
+  "conditions": DomainLiteral {
+    "refNameExclude": [],
+    "refNameInclude": [
+      "refs/tags/v*",
+    ],
+  },
+  "enforcement": "active",
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "rules": [
+    DomainLiteral {
+      "type": "creation",
+    },
+  ],
+  "target": "tag",
+}
+`;
+
+exports[`repo ruleset lifecycle given: [case1] full tag-protection ruleset lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, idempotent findsert, upsert, delete: ruleset after delete returns null 1`] = `null`;
+
+exports[`repo ruleset lifecycle given: [case1] full tag-protection ruleset lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, idempotent findsert, upsert, delete: ruleset after fetch 1`] = `
+{
+  "bypassActors": [],
+  "conditions": DomainLiteral {
+    "refNameExclude": [],
+    "refNameInclude": [
+      "refs/tags/v*",
+    ],
+  },
+  "enforcement": "active",
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "rules": [
+    DomainLiteral {
+      "type": "creation",
+    },
+  ],
+  "target": "tag",
+}
+`;
+
+exports[`repo ruleset lifecycle given: [case1] full tag-protection ruleset lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, idempotent findsert, upsert, delete: ruleset after idempotent findsert 1`] = `
+{
+  "bypassActors": [],
+  "conditions": DomainLiteral {
+    "refNameExclude": [],
+    "refNameInclude": [
+      "refs/tags/v*",
+    ],
+  },
+  "enforcement": "active",
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "rules": [
+    DomainLiteral {
+      "type": "creation",
+    },
+  ],
+  "target": "tag",
+}
+`;
+
+exports[`repo ruleset lifecycle given: [case1] full tag-protection ruleset lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, idempotent findsert, upsert, delete: ruleset after upsert 1`] = `
+{
+  "bypassActors": [],
+  "conditions": DomainLiteral {
+    "refNameExclude": [],
+    "refNameInclude": [
+      "refs/tags/v*",
+    ],
+  },
+  "enforcement": "evaluate",
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "rules": [
+    DomainLiteral {
+      "type": "creation",
+    },
+  ],
+  "target": "tag",
+}
+`;
+
+exports[`repo ruleset lifecycle given: [case1] full tag-protection ruleset lifecycle when: [t0] lifecycle operations are executed then: should complete create, read, idempotent findsert, upsert, delete: ruleset not-found returns null 1`] = `null`;

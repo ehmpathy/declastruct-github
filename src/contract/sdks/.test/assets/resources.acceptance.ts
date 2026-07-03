@@ -5,6 +5,7 @@ import {
   DeclaredGithubEnvironment,
   DeclaredGithubRepo,
   DeclaredGithubRepoConfig,
+  DeclaredGithubRepoRuleset,
   DeclaredGithubTeam,
   DeclaredGithubTeamMembership,
   DeclaredGithubTeamRepoAccess,
@@ -101,6 +102,24 @@ export const getResources = async () => {
   });
 
   /**
+   * .what = tag-protection ruleset
+   * .why = validates repo ruleset provision via declastruct; restricts v* tag creation
+   *        (the primary usecase: only a release app may cut v* tags)
+   */
+  const tagRuleset = DeclaredGithubRepoRuleset.as({
+    repo,
+    name: 'declastruct-acceptance-protect-version-tags',
+    target: 'tag',
+    enforcement: 'active',
+    bypassActors: [],
+    conditions: {
+      refNameInclude: ['refs/tags/v*'],
+      refNameExclude: [],
+    },
+    rules: [{ type: 'creation' }],
+  });
+
+  /**
    * .what = acceptance test team
    * .why = validates team provision via declastruct
    */
@@ -164,6 +183,7 @@ export const getResources = async () => {
     environment,
     productionOnMain,
     productionOnElse,
+    tagRuleset,
     team,
     childTeam,
     teamMembership,
