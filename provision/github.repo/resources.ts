@@ -10,6 +10,7 @@ import {
   DeclaredGithubEnvironment,
   DeclaredGithubRepo,
   DeclaredGithubRepoConfig,
+  DeclaredGithubRepoRuleset,
   DeclaredGithubTeamRepoAccess,
   getDeclastructGithubProvider,
 } from '../../src/contract/sdks';
@@ -133,6 +134,36 @@ export const getResources = async (): Promise<DomainEntity<any>[]> => {
     preventSelfReview: false,
   });
 
+  // restrict who may cut `v*` version tags to the rhelease app only
+  // .why = prod apply is gated on a version tag cut from main; if anyone could push a
+  //        `v*` tag, that gate is bypassable. this ruleset blocks creation of `v*` tags
+  //        for everyone except the rhelease app (the github half of the oidc guarantee)
+  const rulesetVersionTags = DeclaredGithubRepoRuleset.as({
+    repo,
+    name: 'protect-version-tags',
+    target: 'tag',
+    enforcement: 'active',
+
+    // only the rhelease github app may create `v*` tags
+    bypassActors: [
+      {
+        actorId: 2472031, // rhelease github app id (gh api /apps/rhelease)
+        actorType: 'Integration',
+        bypassMode: 'always',
+      },
+    ],
+
+    // applies to version tags only
+    conditions: {
+      refNameInclude: ['refs/tags/v*'],
+      refNameExclude: [],
+    },
+
+    // enforce version-tag immutability: only the bypass actor may create, move, or delete
+    // matched tags. a released `v1.2.3` must never be re-pointed or removed once cut
+    rules: [{ type: 'creation' }, { type: 'update' }, { type: 'deletion' }],
+  });
+
   // declare environment for production deployments from other branches (requires approval)
   const envProductionOnElse = DeclaredGithubEnvironment.as({
     repo,
@@ -151,5 +182,6 @@ export const getResources = async (): Promise<DomainEntity<any>[]> => {
     teamReleasersAccess, // must come before environments that reference this team
     envProductionOnMain,
     envProductionOnElse,
+    rulesetVersionTags,
   ];
 };

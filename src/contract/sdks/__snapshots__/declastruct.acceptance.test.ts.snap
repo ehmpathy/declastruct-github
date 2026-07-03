@@ -8,12 +8,13 @@ exports[`declastruct CLI workflow given: a declastruct resources file when: [t0]
     "DeclaredGithubEnvironment",
     "DeclaredGithubEnvironment",
     "DeclaredGithubEnvironment",
+    "DeclaredGithubRepoRuleset",
     "DeclaredGithubTeam",
     "DeclaredGithubTeam",
     "DeclaredGithubTeamMembership",
     "DeclaredGithubTeamRepoAccess",
   ],
-  "resourceCount": 9,
+  "resourceCount": 10,
 }
 `;
 

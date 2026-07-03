@@ -13,6 +13,7 @@ import type { DeclaredGithubOrgSecret } from './DeclaredGithubOrgSecret';
 import type { DeclaredGithubOrgVariable } from './DeclaredGithubOrgVariable';
 import type { DeclaredGithubRepo } from './DeclaredGithubRepo';
 import type { DeclaredGithubRepoConfig } from './DeclaredGithubRepoConfig';
+import type { DeclaredGithubRepoRuleset } from './DeclaredGithubRepoRuleset';
 import type { DeclaredGithubTeam } from './DeclaredGithubTeam';
 import type { DeclaredGithubTeamMembership } from './DeclaredGithubTeamMembership';
 import type { DeclaredGithubTeamRepoAccess } from './DeclaredGithubTeamRepoAccess';
@@ -41,6 +42,10 @@ export type DeclastructGithubProvider = DeclastructProvider<
     >;
     DeclaredGithubEnvironment: DeclastructDao<
       typeof DeclaredGithubEnvironment,
+      ContextGithubApi & ContextLogTrail
+    >;
+    DeclaredGithubRepoRuleset: DeclastructDao<
+      typeof DeclaredGithubRepoRuleset,
       ContextGithubApi & ContextLogTrail
     >;
     DeclaredGithubApp: DeclastructDao<

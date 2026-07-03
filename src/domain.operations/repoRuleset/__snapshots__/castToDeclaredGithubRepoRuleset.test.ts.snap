@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`castToDeclaredGithubRepoRuleset given: [case1] a full tag ruleset response when: [t0] cast to the domain object then: it maps snake_case to camelCase and preserves values 1`] = `
+DeclaredGithubRepoRuleset {
+  "bypassActors": [
+    DomainLiteral {
+      "actorId": 123456,
+      "actorType": "Integration",
+      "bypassMode": "always",
+    },
+  ],
+  "conditions": DomainLiteral {
+    "refNameExclude": [],
+    "refNameInclude": [
+      "refs/tags/v*",
+    ],
+  },
+  "enforcement": "active",
+  "id": 42,
+  "name": "protect-version-tags",
+  "repo": RefByUnique {
+    "name": "test-repo",
+    "owner": "ehmpathy",
+  },
+  "rules": [
+    DomainLiteral {
+      "type": "creation",
+    },
+  ],
+  "target": "tag",
+}
+`;
