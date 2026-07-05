@@ -1,0 +1,63 @@
+🦉 the way speaks for itself
+
+🗿 route.stone.set
+   ├─ stone = 5.3.verification
+   ├─ passage = overruled
+   ├─ guard
+   │  ├─ artifacts
+   │  │   ├─ $route/5.3.verification.yield.md
+   │  │   └─ src/**/*
+   │  ├─ reviews
+   │  │   ├─ r1: ergo-contract-snapshots (l1, 3/5)
+   │  │   │   ├─ approved 9.4s
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.task56-rulesets-org/.reviews/peer/5.3.verification._.review.i1.e1b555e7d65496af1c.r1._.given.by_peer.ergo-contract-snapshots.md
+   │  │   ├─ r2: mech-external-contracts (l1, 3/5)
+   │  │   │   ├─ approved 9.4s
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.task56-rulesets-org/.reviews/peer/5.3.verification._.review.i1.e1b555e7d65496af1c.r2._.given.by_peer.mech-external-contracts.md
+   │  │   ├─ r3: ergo-acceptance-journey-coverage (l1, 3/5)
+   │  │   │   ├─ approved 12.0s
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.task56-rulesets-org/.reviews/peer/5.3.verification._.review.i1.e1b555e7d65496af1c.r3._.given.by_peer.ergo-acceptance-journey-coverage.md
+   │  │   ├─ r4: ergo-snapshot-visual-blemishes (l1, 3/5)
+   │  │   │   ├─ approved 5.5s
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.task56-rulesets-org/.reviews/peer/5.3.verification._.review.i1.e1b555e7d65496af1c.r4._.given.by_peer.ergo-snapshot-visual-blemishes.md
+   │  │   ├─ r5: mech-given-when-then (l1, 3/5)
+   │  │   │   ├─ approved 4.4s
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.task56-rulesets-org/.reviews/peer/5.3.verification._.review.i1.e1b555e7d65496af1c.r5._.given.by_peer.mech-given-when-then.md
+   │  │   ├─ r6: mech-test-intent (l1, 3/5)
+   │  │   │   ├─ approved 11.4s
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.task56-rulesets-org/.reviews/peer/5.3.verification._.review.i1.e1b555e7d65496af1c.r6._.given.by_peer.mech-test-intent.md
+   │  │   ├─ r7: enroll-verif-snapshot-coverage (l3, 2/3)
+   │  │   │   ├─ approved 144.1s
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.task56-rulesets-org/.reviews/peer/5.3.verification._.review.i1.e1b555e7d65496af1c.r7._.given.by_peer.enroll-verif-snapshot-coverage.md
+   │  │   ├─ r8: enroll-verif-snapshot-blemishes (l3, 2/3)
+   │  │   │   ├─ rejected 243.1s
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 1 nitpick 🟠
+   │  │   │   └─ review: .behavior/v2026_07_03.task56-rulesets-org/.reviews/peer/5.3.verification._.review.i1.e1b555e7d65496af1c.r8._.given.by_peer.enroll-verif-snapshot-blemishes.md
+   │  │   └─ r9: enroll-verif-test-intent (l3, 2/3)
+   │  │       ├─ approved 151.2s
+   │  │       ├─ 0 blockers ✓
+   │  │       ├─ 0 nitpicks ✓
+   │  │       └─ review: .behavior/v2026_07_03.task56-rulesets-org/.reviews/peer/5.3.verification._.review.i1.e1b555e7d65496af1c.r9._.given.by_peer.enroll-verif-test-intent.md
+   │  └─ judges
+   │      └─ j1: $rhachet run --repo bhrain --skill route.stone.judge --mechanism reviewed? --stone $stone --route $route --allow-blockers 0 --allow-nitpicks 0
+   │          └─ · cached
+   │             ├─ on $route/5.3.verification.yield.md
+   │             └─ on src/**/*
+   │
+   └─ the way continues, run
+      └─ rhx route.drive

@@ -8,6 +8,7 @@ import { DeclaredGithubBranchProtectionDao } from '@src/access/daos/DeclaredGith
 import { DeclaredGithubEnvironmentDao } from '@src/access/daos/DeclaredGithubEnvironmentDao';
 import { DeclaredGithubOrgDao } from '@src/access/daos/DeclaredGithubOrgDao';
 import { DeclaredGithubOrgMemberPrivilegesDao } from '@src/access/daos/DeclaredGithubOrgMemberPrivilegesDao';
+import { DeclaredGithubOrgRulesetDao } from '@src/access/daos/DeclaredGithubOrgRulesetDao';
 import { DeclaredGithubOrgSecretDao } from '@src/access/daos/DeclaredGithubOrgSecretDao';
 import { DeclaredGithubOrgVariableDao } from '@src/access/daos/DeclaredGithubOrgVariableDao';
 import { DeclaredGithubRepoConfigDao } from '@src/access/daos/DeclaredGithubRepoConfigDao';
@@ -54,6 +55,7 @@ export const getDeclastructGithubProvider = (
     DeclaredGithubOrgMemberPrivileges: DeclaredGithubOrgMemberPrivilegesDao,
     DeclaredGithubOrgVariable: DeclaredGithubOrgVariableDao,
     DeclaredGithubOrgSecret: DeclaredGithubOrgSecretDao,
+    DeclaredGithubOrgRuleset: DeclaredGithubOrgRulesetDao,
     // Team resources
     DeclaredGithubTeam: DeclaredGithubTeamDao,
     DeclaredGithubTeamMembership: DeclaredGithubTeamMembershipDao,

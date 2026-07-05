@@ -9,6 +9,7 @@ import type { DeclaredGithubBranchProtection } from './DeclaredGithubBranchProte
 import type { DeclaredGithubEnvironment } from './DeclaredGithubEnvironment';
 import type { DeclaredGithubOrg } from './DeclaredGithubOrg';
 import type { DeclaredGithubOrgMemberPrivileges } from './DeclaredGithubOrgMemberPrivileges';
+import type { DeclaredGithubOrgRuleset } from './DeclaredGithubOrgRuleset';
 import type { DeclaredGithubOrgSecret } from './DeclaredGithubOrgSecret';
 import type { DeclaredGithubOrgVariable } from './DeclaredGithubOrgVariable';
 import type { DeclaredGithubRepo } from './DeclaredGithubRepo';
@@ -72,6 +73,10 @@ export type DeclastructGithubProvider = DeclastructProvider<
     >;
     DeclaredGithubOrgSecret: DeclastructDao<
       typeof DeclaredGithubOrgSecret,
+      ContextGithubApi & ContextLogTrail
+    >;
+    DeclaredGithubOrgRuleset: DeclastructDao<
+      typeof DeclaredGithubOrgRuleset,
       ContextGithubApi & ContextLogTrail
     >;
 
