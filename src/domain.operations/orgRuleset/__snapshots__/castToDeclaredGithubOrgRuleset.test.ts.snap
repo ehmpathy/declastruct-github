@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`castToDeclaredGithubOrgRuleset given: [case1] a full org tag ruleset response when: [t0] cast to the domain object then: it maps snake_case to camelCase and preserves values 1`] = `
+DeclaredGithubOrgRuleset {
+  "bypassActors": [
+    DomainLiteral {
+      "actorId": 2472031,
+      "actorType": "Integration",
+      "bypassMode": "always",
+    },
+  ],
+  "conditions": DomainLiteral {
+    "refNameExclude": [],
+    "refNameInclude": [
+      "refs/tags/v*",
+    ],
+    "repositoryNameExclude": [],
+    "repositoryNameInclude": [
+      "~ALL",
+    ],
+    "repositoryNameProtected": false,
+  },
+  "enforcement": "active",
+  "id": 42,
+  "name": "org-protect-version-tags",
+  "org": RefByUnique {
+    "login": "ehmpathy",
+  },
+  "rules": [
+    DomainLiteral {
+      "type": "creation",
+    },
+  ],
+  "target": "tag",
+}
+`;
+
+exports[`castToDeclaredGithubOrgRuleset given: [case2] a response with out-of-order rules and bypass actors when: [t0] cast to the domain object then: the canonical-ordered output matches snapshot 1`] = `
+DeclaredGithubOrgRuleset {
+  "bypassActors": [
+    DomainLiteral {
+      "actorId": 100,
+      "actorType": "Integration",
+      "bypassMode": "pull_request",
+    },
+    DomainLiteral {
+      "actorId": 999,
+      "actorType": "Team",
+      "bypassMode": "always",
+    },
+  ],
+  "conditions": DomainLiteral {
+    "refNameExclude": [],
+    "refNameInclude": [
+      "~ALL",
+    ],
+    "repositoryNameExclude": [],
+    "repositoryNameInclude": [
+      "~ALL",
+    ],
+    "repositoryNameProtected": false,
+  },
+  "enforcement": "active",
+  "id": 7,
+  "name": "mixed",
+  "org": RefByUnique {
+    "login": "ehmpathy",
+  },
+  "rules": [
+    DomainLiteral {
+      "type": "creation",
+    },
+    DomainLiteral {
+      "type": "non_fast_forward",
+    },
+  ],
+  "target": "branch",
+}
+`;
+
+exports[`castToDeclaredGithubOrgRuleset given: [case3] a response with repository_name only (no ref_name) when: [t0] cast to the domain object then: refName arrays are empty and repositoryName is preserved 1`] = `
+DeclaredGithubOrgRuleset {
+  "bypassActors": [],
+  "conditions": DomainLiteral {
+    "refNameExclude": [],
+    "refNameInclude": [],
+    "repositoryNameExclude": [
+      "*-sandbox",
+    ],
+    "repositoryNameInclude": [
+      "svc-*",
+    ],
+    "repositoryNameProtected": true,
+  },
+  "enforcement": "active",
+  "id": 8,
+  "name": "repo-scoped",
+  "org": RefByUnique {
+    "login": "ehmpathy",
+  },
+  "rules": [
+    DomainLiteral {
+      "type": "required_linear_history",
+    },
+  ],
+  "target": "branch",
+}
+`;
+
+exports[`castToDeclaredGithubOrgRuleset given: [case4] a response with no conditions and empty bypass actors when: [t0] cast to the domain object then: conditions is null and arrays are empty 1`] = `
+DeclaredGithubOrgRuleset {
+  "bypassActors": [],
+  "conditions": null,
+  "enforcement": "disabled",
+  "id": 9,
+  "name": "bare",
+  "org": RefByUnique {
+    "login": "ehmpathy",
+  },
+  "rules": [],
+  "target": "branch",
+}
+`;
+
+exports[`castToDeclaredGithubOrgRuleset given: [case5] a deploy-key bypass actor with a null actor id when: [t0] cast to the domain object then: actorId is preserved as null 1`] = `
+DeclaredGithubOrgRuleset {
+  "bypassActors": [
+    DomainLiteral {
+      "actorId": null,
+      "actorType": "DeployKey",
+      "bypassMode": "always",
+    },
+  ],
+  "conditions": null,
+  "enforcement": "active",
+  "id": 11,
+  "name": "deploykey",
+  "org": RefByUnique {
+    "login": "ehmpathy",
+  },
+  "rules": [],
+  "target": "branch",
+}
+`;

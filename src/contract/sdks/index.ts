@@ -14,6 +14,7 @@ export { DeclaredGithubEnvironment } from '@src/domain.objects/DeclaredGithubEnv
 // domain objects - orgs
 export { DeclaredGithubOrg } from '@src/domain.objects/DeclaredGithubOrg';
 export { DeclaredGithubOrgMemberPrivileges } from '@src/domain.objects/DeclaredGithubOrgMemberPrivileges';
+export { DeclaredGithubOrgRuleset } from '@src/domain.objects/DeclaredGithubOrgRuleset';
 export { DeclaredGithubOrgSecret } from '@src/domain.objects/DeclaredGithubOrgSecret';
 export { DeclaredGithubOrgVariable } from '@src/domain.objects/DeclaredGithubOrgVariable';
 export { DeclaredGithubOwner } from '@src/domain.objects/DeclaredGithubOwner';

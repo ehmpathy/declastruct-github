@@ -6,6 +6,8 @@ import { genLogMethods } from 'sdk-logs';
 import { getDeclastructGithubProvider } from '../../src/contract/sdks';
 import { DeclaredGithubOrg } from '../../src/domain.objects/DeclaredGithubOrg';
 import { DeclaredGithubOrgMemberPrivileges } from '../../src/domain.objects/DeclaredGithubOrgMemberPrivileges';
+// todo: upgrade to github teams plan to get this (org rulesets need github team; free org 403s)
+// import { DeclaredGithubOrgRuleset } from '../../src/domain.objects/DeclaredGithubOrgRuleset';
 import { DeclaredGithubOrgSecret } from '../../src/domain.objects/DeclaredGithubOrgSecret';
 import { DeclaredGithubOrgVariable } from '../../src/domain.objects/DeclaredGithubOrgVariable';
 import { DeclaredGithubTeam } from '../../src/domain.objects/DeclaredGithubTeam';
@@ -126,6 +128,37 @@ export const getResources = async (): Promise<DomainEntity<any>[]> => {
     role: 'maintainer',
   });
 
+  // todo: upgrade to github teams plan to get this
+  // .why = org-level rulesets require the github team plan (or higher); the free ehmpathy org
+  //        gets a 403 "Upgrade to GitHub Team to enable this feature" from GET /orgs/{org}/rulesets.
+  //        the DeclaredGithubOrgRuleset code is correct + unit-verified; only the live dogfood is
+  //        blocked by the org's plan tier. re-enable this block once ehmpathy is on github team.
+  // .note = restrict who may cut `v*` version tags to the rhelease app only, org-wide;
+  //         scoped to declastruct-github-demo + evaluate mode to prove the mechanism without
+  //         org-wide blast radius; widen repositoryNameInclude to ~ALL and set enforcement
+  //         to active once vetted (the ~ALL power stays deliberate, not defaulted on)
+  // const orgRulesetVersionTags = DeclaredGithubOrgRuleset.as({
+  //   org: { login: 'ehmpathy' },
+  //   name: 'org-protect-version-tags',
+  //   target: 'tag',
+  //   enforcement: 'evaluate',
+  //   bypassActors: [
+  //     {
+  //       actorId: 2472031, // rhelease github app id (gh api /apps/rhelease)
+  //       actorType: 'Integration',
+  //       bypassMode: 'always',
+  //     },
+  //   ],
+  //   conditions: {
+  //     refNameInclude: ['refs/tags/v*'],
+  //     refNameExclude: [],
+  //     repositoryNameInclude: ['declastruct-github-demo'],
+  //     repositoryNameExclude: [],
+  //     repositoryNameProtected: false,
+  //   },
+  //   rules: [{ type: 'creation' }],
+  // });
+
   return [
     org,
     orgPrivs,
@@ -137,5 +170,6 @@ export const getResources = async (): Promise<DomainEntity<any>[]> => {
     orgSecretRheleaseAppPrivateKey,
     teamReleasers,
     teamReleasersMembershipUladkasach,
+    // orgRulesetVersionTags, // todo: upgrade to github teams plan to get this
   ];
 };
