@@ -11,7 +11,9 @@ describe('DeclaredGithubEnvironment', () => {
           name: 'production-on-main',
           reviewers: { users: ['alice', 'bob'], teams: null },
           waitTimer: 30,
-          deploymentBranchPolicy: { customBranches: ['main'] },
+          deploymentBranchPolicy: {
+            customPatterns: [{ name: 'main', target: 'branch' }],
+          },
           preventSelfReview: true,
         });
 
@@ -21,7 +23,7 @@ describe('DeclaredGithubEnvironment', () => {
         expect(env.reviewers).toEqual({ users: ['alice', 'bob'], teams: null });
         expect(env.waitTimer).toEqual(30);
         expect(env.deploymentBranchPolicy).toEqual({
-          customBranches: ['main'],
+          customPatterns: [{ name: 'main', target: 'branch' }],
         });
         expect(env.preventSelfReview).toEqual(true);
       });
@@ -176,6 +178,117 @@ describe('DeclaredGithubEnvironment', () => {
         });
 
         expect(env).toBeInstanceOf(DeclaredGithubEnvironment);
+      });
+    });
+  });
+
+  given('[case5] customPatterns policy', () => {
+    when('[t0] a tag pattern', () => {
+      then('it should create the domain object', () => {
+        const env = new DeclaredGithubEnvironment({
+          repo: { owner: 'ehmpathy', name: 'test-repo' },
+          name: 'production-on-tag',
+          reviewers: null,
+          waitTimer: null,
+          deploymentBranchPolicy: {
+            customPatterns: [{ name: 'v*', target: 'tag' }],
+          },
+          preventSelfReview: false,
+        });
+
+        expect(env.deploymentBranchPolicy).toEqual({
+          customPatterns: [{ name: 'v*', target: 'tag' }],
+        });
+      });
+    });
+
+    when('[t1] mixed branch and tag patterns', () => {
+      then('it should create the domain object', () => {
+        const env = new DeclaredGithubEnvironment({
+          repo: { owner: 'ehmpathy', name: 'test-repo' },
+          name: 'production-on-mixed',
+          reviewers: null,
+          waitTimer: null,
+          deploymentBranchPolicy: {
+            customPatterns: [
+              { name: 'main', target: 'branch' },
+              { name: 'v*', target: 'tag' },
+            ],
+          },
+          preventSelfReview: false,
+        });
+
+        expect(env.deploymentBranchPolicy).toEqual({
+          customPatterns: [
+            { name: 'main', target: 'branch' },
+            { name: 'v*', target: 'tag' },
+          ],
+        });
+      });
+    });
+
+    when('[t2] the same name with different targets', () => {
+      then('it should allow both (distinct rows)', () => {
+        const env = new DeclaredGithubEnvironment({
+          repo: { owner: 'ehmpathy', name: 'test-repo' },
+          name: 'production',
+          reviewers: null,
+          waitTimer: null,
+          deploymentBranchPolicy: {
+            customPatterns: [
+              { name: 'v*', target: 'branch' },
+              { name: 'v*', target: 'tag' },
+            ],
+          },
+          preventSelfReview: false,
+        });
+
+        expect(env).toBeInstanceOf(DeclaredGithubEnvironment);
+      });
+    });
+  });
+
+  given('[case6] invalid customPatterns', () => {
+    when('[t0] an empty customPatterns array', () => {
+      then('it should throw validation error', async () => {
+        const error = await getError(
+          async () =>
+            new DeclaredGithubEnvironment({
+              repo: { owner: 'ehmpathy', name: 'test-repo' },
+              name: 'production',
+              reviewers: null,
+              waitTimer: null,
+              deploymentBranchPolicy: { customPatterns: [] },
+              preventSelfReview: false,
+            }),
+        );
+
+        expect(error.message).toContain('must not be empty');
+        expect(error.message).toMatchSnapshot('customPatterns empty error');
+      });
+    });
+
+    when('[t1] duplicate (name, target) pairs', () => {
+      then('it should throw validation error', async () => {
+        const error = await getError(
+          async () =>
+            new DeclaredGithubEnvironment({
+              repo: { owner: 'ehmpathy', name: 'test-repo' },
+              name: 'production',
+              reviewers: null,
+              waitTimer: null,
+              deploymentBranchPolicy: {
+                customPatterns: [
+                  { name: 'v*', target: 'tag' },
+                  { name: 'v*', target: 'tag' },
+                ],
+              },
+              preventSelfReview: false,
+            }),
+        );
+
+        expect(error.message).toContain('duplicate (name, target)');
+        expect(error.message).toMatchSnapshot('customPatterns duplicate error');
       });
     });
   });

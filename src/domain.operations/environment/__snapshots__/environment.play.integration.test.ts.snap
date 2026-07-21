@@ -94,7 +94,7 @@ exports[`environment lifecycle given: [case2] environment with reviewers when: [
 
 exports[`environment lifecycle given: [case3] environment with branch policy when: [t0] branch policy operations are executed then: should create and update branch policies: environment updated to protected branches 1`] = `
 {
-  "deploymentBranchPolicy": DomainLiteral {
+  "deploymentBranchPolicy": DeclaredGithubEnvironmentDeploymentBranchPolicy {
     "protectedBranches": true,
   },
   "preventSelfReview": false,
@@ -109,10 +109,16 @@ exports[`environment lifecycle given: [case3] environment with branch policy whe
 
 exports[`environment lifecycle given: [case3] environment with branch policy when: [t0] branch policy operations are executed then: should create and update branch policies: environment with custom branch policy 1`] = `
 {
-  "deploymentBranchPolicy": DomainLiteral {
-    "customBranches": [
-      "main",
-      "release/*",
+  "deploymentBranchPolicy": DeclaredGithubEnvironmentDeploymentBranchPolicy {
+    "customPatterns": [
+      DomainLiteral {
+        "name": "main",
+        "target": "branch",
+      },
+      DomainLiteral {
+        "name": "release/*",
+        "target": "branch",
+      },
     ],
   },
   "preventSelfReview": false,

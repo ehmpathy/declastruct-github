@@ -2,9 +2,12 @@
 
 exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t0] all fields present with user reviewers then: it should cast to DeclaredGithubEnvironment with all fields: full environment with all fields 1`] = `
 DeclaredGithubEnvironment {
-  "deploymentBranchPolicy": DomainLiteral {
-    "customBranches": [
-      "main",
+  "deploymentBranchPolicy": DeclaredGithubEnvironmentDeploymentBranchPolicy {
+    "customPatterns": [
+      DomainLiteral {
+        "name": "main",
+        "target": "branch",
+      },
     ],
   },
   "id": 12345,
@@ -42,7 +45,7 @@ DeclaredGithubEnvironment {
 
 exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t2] protected branches policy then: it should cast with protectedBranches policy: environment with protected branches 1`] = `
 DeclaredGithubEnvironment {
-  "deploymentBranchPolicy": DomainLiteral {
+  "deploymentBranchPolicy": DeclaredGithubEnvironmentDeploymentBranchPolicy {
     "protectedBranches": true,
   },
   "id": 12347,
@@ -57,12 +60,18 @@ DeclaredGithubEnvironment {
 }
 `;
 
-exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t3] custom branch policy with multiple patterns then: it should extract all branch patterns: environment with custom branches 1`] = `
+exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t3] custom branch policy with multiple patterns (no wire type) then: it should default rows without a wire type to branch: environment with custom branches 1`] = `
 DeclaredGithubEnvironment {
-  "deploymentBranchPolicy": DomainLiteral {
-    "customBranches": [
-      "main",
-      "release/*",
+  "deploymentBranchPolicy": DeclaredGithubEnvironmentDeploymentBranchPolicy {
+    "customPatterns": [
+      DomainLiteral {
+        "name": "main",
+        "target": "branch",
+      },
+      DomainLiteral {
+        "name": "release/*",
+        "target": "branch",
+      },
     ],
   },
   "id": 12348,
@@ -97,4 +106,41 @@ DeclaredGithubEnvironment {
   },
   "waitTimer": null,
 }
+`;
+
+exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t5] mixed branch and tag rows (wire type present) then: it should map each row wire type to its target: environment with mixed branch and tag 1`] = `
+DeclaredGithubEnvironment {
+  "deploymentBranchPolicy": DeclaredGithubEnvironmentDeploymentBranchPolicy {
+    "customPatterns": [
+      DomainLiteral {
+        "name": "main",
+        "target": "branch",
+      },
+      DomainLiteral {
+        "name": "v*",
+        "target": "tag",
+      },
+    ],
+  },
+  "id": 12350,
+  "name": "production-on-mixed",
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "test-repo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": null,
+}
+`;
+
+exports[`castToDeclaredGithubEnvironment given: [case1] valid API response when: [t6] custom_branch_policies flag on but zero policy rows then: it should fail loud (flag on with zero rows is anomalous, not "all refs"): flag on but zero rows error 1`] = `
+"💥 MalfunctionError: custom_branch_policies is true but zero policy rows exist; anomalous GitHub state
+
+{
+  "policy": {
+    "protected_branches": false,
+    "custom_branch_policies": true
+  }
+}"
 `;

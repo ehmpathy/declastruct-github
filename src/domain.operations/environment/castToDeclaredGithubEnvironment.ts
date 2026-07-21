@@ -1,9 +1,15 @@
 import type { Endpoints } from '@octokit/types';
 import type { RefByUnique } from 'domain-objects';
+import { MalfunctionError } from 'helpful-errors';
 import type { HasMetadata } from 'type-fns';
 
 import { DeclaredGithubEnvironment } from '@src/domain.objects/DeclaredGithubEnvironment';
 import type { DeclaredGithubRepo } from '@src/domain.objects/DeclaredGithubRepo';
+
+import {
+  asDeploymentPolicyTarget,
+  type DeploymentPolicyTarget,
+} from './asDeploymentPolicyTarget';
 
 type GithubEnvironmentResponse =
   Endpoints['GET /repos/{owner}/{repo}/environments/{environment_name}']['response']['data'];
@@ -95,15 +101,25 @@ const extractPreventSelfReviewFromProtectionRules = (input: {
 };
 
 /**
- * .what = extracts non-null pattern names from branch policies array
- * .why = transforms API shape to an array of names for domain model
+ * .what = extracts typed custom patterns from branch policies array
+ * .why = transforms API shape (wire `type`) to our domain `{ name, target }` rows
+ * .note = a policy row without a `type` defaults to 'branch' (GitHub's historical default)
+ * .note = fails loud on a nameless row rather than drop it silently: a policy row
+ *         with no name is anomalous data that would otherwise become an orphan the
+ *         cast never surfaces as drift
  */
-const extractPatternNamesFromBranchPolicies = (input: {
+const extractCustomPatternsFromBranchPolicies = (input: {
   branchPolicies: GithubBranchPoliciesResponse;
-}): string[] => {
-  return input.branchPolicies.branch_policies
-    .map((bp) => bp.name)
-    .filter((name): name is string => name !== undefined);
+}): Array<{ name: string; target: DeploymentPolicyTarget }> => {
+  return input.branchPolicies.branch_policies.map((bp) => ({
+    name:
+      bp.name ??
+      MalfunctionError.throw(
+        'deployment branch policy row has no name; anomalous GitHub state',
+        { row: bp },
+      ),
+    target: asDeploymentPolicyTarget({ row: bp }),
+  }));
 };
 
 /**
@@ -121,10 +137,18 @@ const extractDeploymentBranchPolicy = (input: {
   }
 
   if (input.policy.custom_branch_policies && input.branchPolicies) {
-    const patterns = extractPatternNamesFromBranchPolicies({
+    const customPatterns = extractCustomPatternsFromBranchPolicies({
       branchPolicies: input.branchPolicies,
     });
-    return { customBranches: patterns };
+    // fail loud on flag-on-zero-rows: `custom_branch_policies: true` with no rows
+    // is an allowlist that admits no ref. null would misreport it as "all refs"
+    // (the exact opposite), so surface the anomalous state rather than invert it
+    if (customPatterns.length === 0)
+      MalfunctionError.throw(
+        'custom_branch_policies is true but zero policy rows exist; anomalous GitHub state',
+        { policy: input.policy },
+      );
+    return { customPatterns };
   }
 
   return null;

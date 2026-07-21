@@ -8,13 +8,15 @@ exports[`declastruct CLI workflow given: a declastruct resources file when: [t0]
     "DeclaredGithubEnvironment",
     "DeclaredGithubEnvironment",
     "DeclaredGithubEnvironment",
+    "DeclaredGithubEnvironment",
+    "DeclaredGithubEnvironment",
     "DeclaredGithubRepoRuleset",
     "DeclaredGithubTeam",
     "DeclaredGithubTeam",
     "DeclaredGithubTeamMembership",
     "DeclaredGithubTeamRepoAccess",
   ],
-  "resourceCount": 10,
+  "resourceCount": 12,
 }
 `;
 
@@ -128,3 +130,28 @@ exports[`declastruct CLI workflow given: a declastruct resources file when: [t4]
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t4] SDK boundary tests (not-found paths) then: SDK get returns null for nonexistent team repo access: teamRepoAccess SDK not-found returns null 1`] = `null`;
 
 exports[`declastruct CLI workflow given: a declastruct resources file when: [t4] SDK boundary tests (not-found paths) then: SDK get returns null for nonexistent team: team SDK not-found returns null 1`] = `null`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: [t5] SDK get returns a found environment with mixed patterns then: it returns the environment with both branch and tag custom patterns: environment SDK found with mixed patterns 1`] = `
+{
+  "deploymentBranchPolicy": DeclaredGithubEnvironmentDeploymentBranchPolicy {
+    "customPatterns": [
+      DomainLiteral {
+        "name": "main",
+        "target": "branch",
+      },
+      DomainLiteral {
+        "name": "v*",
+        "target": "tag",
+      },
+    ],
+  },
+  "name": "acceptance-sdk-found-on-mixed",
+  "preventSelfReview": false,
+  "repo": RefByUnique {
+    "name": "declastruct-github-demo",
+    "owner": "ehmpathy",
+  },
+  "reviewers": null,
+  "waitTimer": null,
+}
+`;

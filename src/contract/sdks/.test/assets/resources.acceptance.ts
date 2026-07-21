@@ -65,7 +65,7 @@ export const getResources = async () => {
     reviewers: null,
     waitTimer: null,
     deploymentBranchPolicy: {
-      customBranches: ['main'],
+      customPatterns: [{ name: 'main', target: 'branch' }],
     },
     preventSelfReview: false,
   });
@@ -80,7 +80,41 @@ export const getResources = async () => {
     reviewers: null,
     waitTimer: null,
     deploymentBranchPolicy: {
-      customBranches: ['main'],
+      customPatterns: [{ name: 'main', target: 'branch' }],
+    },
+    preventSelfReview: false,
+  });
+
+  /**
+   * .what = production-on-tag environment
+   * .why = the primary usecase — allow `v*` tag deploys, reject branches
+   *        (mirrors the ahbode/svc-notifications case that motivated this feature)
+   */
+  const productionOnTag = DeclaredGithubEnvironment.as({
+    repo,
+    name: 'production-on-tag',
+    reviewers: null,
+    waitTimer: null,
+    deploymentBranchPolicy: {
+      customPatterns: [{ name: 'v*', target: 'tag' }],
+    },
+    preventSelfReview: false,
+  });
+
+  /**
+   * .what = production-on-mixed environment
+   * .why = validates that branch and tag policies coexist on one env
+   */
+  const productionOnMixed = DeclaredGithubEnvironment.as({
+    repo,
+    name: 'production-on-mixed',
+    reviewers: null,
+    waitTimer: null,
+    deploymentBranchPolicy: {
+      customPatterns: [
+        { name: 'main', target: 'branch' },
+        { name: 'v*', target: 'tag' },
+      ],
     },
     preventSelfReview: false,
   });
@@ -182,6 +216,8 @@ export const getResources = async () => {
     repoConfig,
     environment,
     productionOnMain,
+    productionOnTag,
+    productionOnMixed,
     productionOnElse,
     tagRuleset,
     team,

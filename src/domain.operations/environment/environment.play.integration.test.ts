@@ -228,7 +228,10 @@ describe('environment lifecycle', () => {
               reviewers: null,
               waitTimer: null,
               deploymentBranchPolicy: {
-                customBranches: ['main', 'release/*'],
+                customPatterns: [
+                  { name: 'main', target: 'branch' },
+                  { name: 'release/*', target: 'branch' },
+                ],
               },
               preventSelfReview: false,
             },
@@ -237,13 +240,19 @@ describe('environment lifecycle', () => {
         );
         expect(envCreated.deploymentBranchPolicy).toBeDefined();
         expect(envCreated.deploymentBranchPolicy).toHaveProperty(
-          'customBranches',
+          'customPatterns',
         );
         const policy = envCreated.deploymentBranchPolicy as {
-          customBranches: string[];
+          customPatterns: Array<{ name: string; target: 'branch' | 'tag' }>;
         };
-        expect(policy.customBranches).toContain('main');
-        expect(policy.customBranches).toContain('release/*');
+        expect(policy.customPatterns).toContainEqual({
+          name: 'main',
+          target: 'branch',
+        });
+        expect(policy.customPatterns).toContainEqual({
+          name: 'release/*',
+          target: 'branch',
+        });
         // snapshot for custom branch policy shape (excludes dynamic name and id)
         expect({
           repo: envCreated.repo,
@@ -289,6 +298,133 @@ describe('environment lifecycle', () => {
           getContext(),
         );
       });
+    });
+  });
+
+  given('[case4] environment with tag and mixed policies', () => {
+    const envName = `test-env-tag-${Date.now()}`;
+
+    // note = assertions only, no snapshots: this case is verified in CI against
+    //        the real GitHub API (repo scope), but a local run needs GITHUB_TOKEN
+    //        to fill; explicit assertions provide functional verification without
+    //        a token-blocked snapshot to pre-generate
+    when('[t0] tag and mixed policy operations are executed', () => {
+      then(
+        'should provision a tag policy, coexist branch+tag, and replace on target change',
+        async () => {
+          // step 1: create with a tag-only custom policy (the core feature)
+          const envCreated = await setEnvironment(
+            {
+              findsert: {
+                repo,
+                name: envName,
+                reviewers: null,
+                waitTimer: null,
+                deploymentBranchPolicy: {
+                  customPatterns: [{ name: 'v*', target: 'tag' }],
+                },
+                preventSelfReview: false,
+              },
+            },
+            getContext(),
+          );
+          const createdPolicy = envCreated.deploymentBranchPolicy as {
+            customPatterns: Array<{ name: string; target: 'branch' | 'tag' }>;
+          };
+          expect(createdPolicy.customPatterns).toContainEqual({
+            name: 'v*',
+            target: 'tag',
+          });
+
+          // step 2: fetch to verify the tag policy round-trips from the API
+          const envFetched = await getEnvironment(
+            { by: { unique: { repo, name: envName } } },
+            getContext(),
+          );
+          const fetchedPolicy = envFetched!.deploymentBranchPolicy as {
+            customPatterns: Array<{ name: string; target: 'branch' | 'tag' }>;
+          };
+          expect(fetchedPolicy.customPatterns).toContainEqual({
+            name: 'v*',
+            target: 'tag',
+          });
+
+          // step 3: upsert to a mixed branch+tag set; both rows must coexist
+          //         under the single custom_branch_policies flag
+          await setEnvironment(
+            {
+              upsert: {
+                repo,
+                name: envName,
+                reviewers: null,
+                waitTimer: null,
+                deploymentBranchPolicy: {
+                  customPatterns: [
+                    { name: 'main', target: 'branch' },
+                    { name: 'v*', target: 'tag' },
+                  ],
+                },
+                preventSelfReview: false,
+              },
+            },
+            getContext(),
+          );
+          const envMixed = await getEnvironment(
+            { by: { unique: { repo, name: envName } } },
+            getContext(),
+          );
+          const mixedPolicy = envMixed!.deploymentBranchPolicy as {
+            customPatterns: Array<{ name: string; target: 'branch' | 'tag' }>;
+          };
+          expect(mixedPolicy.customPatterns).toContainEqual({
+            name: 'main',
+            target: 'branch',
+          });
+          expect(mixedPolicy.customPatterns).toContainEqual({
+            name: 'v*',
+            target: 'tag',
+          });
+
+          // step 4: flip v* from tag to branch; the row is replaced (delete +
+          //         create), not duplicated — (name, target) is the identity
+          await setEnvironment(
+            {
+              upsert: {
+                repo,
+                name: envName,
+                reviewers: null,
+                waitTimer: null,
+                deploymentBranchPolicy: {
+                  customPatterns: [{ name: 'v*', target: 'branch' }],
+                },
+                preventSelfReview: false,
+              },
+            },
+            getContext(),
+          );
+          const envReplaced = await getEnvironment(
+            { by: { unique: { repo, name: envName } } },
+            getContext(),
+          );
+          const replacedPolicy = envReplaced!.deploymentBranchPolicy as {
+            customPatterns: Array<{ name: string; target: 'branch' | 'tag' }>;
+          };
+          expect(replacedPolicy.customPatterns).toContainEqual({
+            name: 'v*',
+            target: 'branch',
+          });
+          expect(replacedPolicy.customPatterns).not.toContainEqual({
+            name: 'v*',
+            target: 'tag',
+          });
+
+          // cleanup: delete environment
+          await delEnvironment(
+            { by: { ref: { repo, name: envName } } },
+            getContext(),
+          );
+        },
+      );
     });
   });
 });

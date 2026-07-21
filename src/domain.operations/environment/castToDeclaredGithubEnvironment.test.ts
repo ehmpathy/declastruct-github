@@ -1,4 +1,5 @@
-import { given, then, when } from 'test-fns';
+import { MalfunctionError } from 'helpful-errors';
+import { getError, given, then, when } from 'test-fns';
 
 import { DeclaredGithubEnvironment } from '@src/domain.objects/DeclaredGithubEnvironment';
 
@@ -66,7 +67,7 @@ describe('castToDeclaredGithubEnvironment', () => {
           });
           expect(result.waitTimer).toEqual(30);
           expect(result.deploymentBranchPolicy).toEqual({
-            customBranches: ['main'],
+            customPatterns: [{ name: 'main', target: 'branch' }],
           });
           expect(result.preventSelfReview).toEqual(true);
           expect(result).toMatchSnapshot('full environment with all fields');
@@ -136,45 +137,51 @@ describe('castToDeclaredGithubEnvironment', () => {
       });
     });
 
-    when('[t3] custom branch policy with multiple patterns', () => {
-      const data = {
-        id: 12348,
-        node_id: 'EN_126',
-        name: 'preview',
-        url: 'https://api.github.com/repos/ehmpathy/test-repo/environments/preview',
-        html_url:
-          'https://github.com/ehmpathy/test-repo/deployments/activity_log?environment=preview',
-        created_at: '2024-01-01T00:00:00Z',
-        updated_at: '2024-01-02T00:00:00Z',
-        can_admins_bypass: true,
-        protection_rules: [],
-        deployment_branch_policy: {
-          protected_branches: false,
-          custom_branch_policies: true,
-        },
-      } as any;
+    when(
+      '[t3] custom branch policy with multiple patterns (no wire type)',
+      () => {
+        const data = {
+          id: 12348,
+          node_id: 'EN_126',
+          name: 'preview',
+          url: 'https://api.github.com/repos/ehmpathy/test-repo/environments/preview',
+          html_url:
+            'https://github.com/ehmpathy/test-repo/deployments/activity_log?environment=preview',
+          created_at: '2024-01-01T00:00:00Z',
+          updated_at: '2024-01-02T00:00:00Z',
+          can_admins_bypass: true,
+          protection_rules: [],
+          deployment_branch_policy: {
+            protected_branches: false,
+            custom_branch_policies: true,
+          },
+        } as any;
 
-      const branchPolicies = {
-        total_count: 2,
-        branch_policies: [
-          { id: 1, node_id: 'BP_1', name: 'main' },
-          { id: 2, node_id: 'BP_2', name: 'release/*' },
-        ],
-      };
+        const branchPolicies = {
+          total_count: 2,
+          branch_policies: [
+            { id: 1, node_id: 'BP_1', name: 'main' },
+            { id: 2, node_id: 'BP_2', name: 'release/*' },
+          ],
+        };
 
-      then('it should extract all branch patterns', () => {
-        const result = castToDeclaredGithubEnvironment({
-          data,
-          branchPolicies,
-          repo,
+        then('it should default rows without a wire type to branch', () => {
+          const result = castToDeclaredGithubEnvironment({
+            data,
+            branchPolicies,
+            repo,
+          });
+
+          expect(result.deploymentBranchPolicy).toEqual({
+            customPatterns: [
+              { name: 'main', target: 'branch' },
+              { name: 'release/*', target: 'branch' },
+            ],
+          });
+          expect(result).toMatchSnapshot('environment with custom branches');
         });
-
-        expect(result.deploymentBranchPolicy).toEqual({
-          customBranches: ['main', 'release/*'],
-        });
-        expect(result).toMatchSnapshot('environment with custom branches');
-      });
-    });
+      },
+    );
 
     when('[t4] team reviewers', () => {
       const data = {
@@ -215,6 +222,86 @@ describe('castToDeclaredGithubEnvironment', () => {
         });
         expect(result).toMatchSnapshot('environment with team reviewers');
       });
+    });
+
+    when('[t5] mixed branch and tag rows (wire type present)', () => {
+      const data = {
+        id: 12350,
+        node_id: 'EN_128',
+        name: 'production-on-mixed',
+        url: 'https://api.github.com/repos/ehmpathy/test-repo/environments/production-on-mixed',
+        html_url:
+          'https://github.com/ehmpathy/test-repo/deployments/activity_log?environment=production-on-mixed',
+        created_at: '2024-01-01T00:00:00Z',
+        updated_at: '2024-01-02T00:00:00Z',
+        can_admins_bypass: true,
+        protection_rules: [],
+        deployment_branch_policy: {
+          protected_branches: false,
+          custom_branch_policies: true,
+        },
+      } as any;
+
+      const branchPolicies = {
+        total_count: 2,
+        branch_policies: [
+          { id: 1, node_id: 'BP_1', name: 'main', type: 'branch' },
+          { id: 2, node_id: 'BP_2', name: 'v*', type: 'tag' },
+        ],
+      } as any;
+
+      then('it should map each row wire type to its target', () => {
+        const result = castToDeclaredGithubEnvironment({
+          data,
+          branchPolicies,
+          repo,
+        });
+
+        expect(result.deploymentBranchPolicy).toEqual({
+          customPatterns: [
+            { name: 'main', target: 'branch' },
+            { name: 'v*', target: 'tag' },
+          ],
+        });
+        expect(result).toMatchSnapshot('environment with mixed branch and tag');
+      });
+    });
+
+    when('[t6] custom_branch_policies flag on but zero policy rows', () => {
+      const data = {
+        id: 12351,
+        node_id: 'EN_129',
+        name: 'production-on-empty',
+        url: 'https://api.github.com/repos/ehmpathy/test-repo/environments/production-on-empty',
+        html_url:
+          'https://github.com/ehmpathy/test-repo/deployments/activity_log?environment=production-on-empty',
+        created_at: '2024-01-01T00:00:00Z',
+        updated_at: '2024-01-02T00:00:00Z',
+        can_admins_bypass: true,
+        protection_rules: [],
+        deployment_branch_policy: {
+          protected_branches: false,
+          custom_branch_policies: true,
+        },
+      } as any;
+
+      const branchPolicies = {
+        total_count: 0,
+        branch_policies: [],
+      };
+
+      then(
+        'it should fail loud (flag on with zero rows is anomalous, not "all refs")',
+        async () => {
+          const error = await getError(async () =>
+            castToDeclaredGithubEnvironment({ data, branchPolicies, repo }),
+          );
+
+          expect(error).toBeInstanceOf(MalfunctionError);
+          expect(error.message).toContain('zero policy rows');
+          expect(error.message).toMatchSnapshot('flag on but zero rows error');
+        },
+      );
     });
   });
 });

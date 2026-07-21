@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';
 import type { DeclastructChange } from 'declastruct';
 import { existsSync, mkdirSync, readFileSync } from 'fs';
+import { UnexpectedCodePathError } from 'helpful-errors';
 import { join } from 'path';
 import { genContextLogTrail } from 'sdk-logs';
 import { given, then, when } from 'test-fns';
@@ -23,16 +24,18 @@ const normalizeCliStdoutForSnapshot = (input: { stdout: string }): string => {
       .replace(/\/[^\s]+\.ts/g, '<path>.ts')
       .replace(/\d+ms/g, '<duration>ms')
       .replace(/done in \d+\.\d+s/g, 'done in <time>s')
+      // strip all ANSI/CSI escape sequences (color codes, cursor moves, line erase):
+      // ESC [ params final-byte. done at the source with the ESC byte intact, so the literal
+      // [UPDATE] / [KEEP] / [CREATE] decision labels (which carry no ESC) are never touched.
+      // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ANSI strip for terminal output
+      .replace(/\x1b\[[0-9;]*[A-Za-z]/g, '')
+      // strip any lone ESC stragglers
       // biome-ignore lint/suspicious/noControlCharactersInRegex: intentional ESC strip for terminal output
       .replace(/\x1b/g, '')
-      .replace(/\[A/g, '')
       .split('\n')
-      .filter((line) => {
-        if (line.includes('inflight')) return false;
-        if (line.includes('[K') && !line.includes('done in')) return false;
-        return true;
-      })
-      .map((line) => line.replace(/^\[K/, '').trimEnd())
+      // drop transient spinner frames (redrawn in place, non-deterministic duration)
+      .filter((line) => !line.includes('inflight'))
+      .map((line) => line.trimEnd())
       .join('\n')
   );
 };
@@ -143,7 +146,7 @@ describe('declastruct CLI workflow', () => {
             (r: DeclastructChange) =>
               r.forResource.class === 'DeclaredGithubRepoConfig',
           );
-          const envResource = plan.changes.find(
+          const envResources = plan.changes.filter(
             (r: DeclastructChange) =>
               r.forResource.class === 'DeclaredGithubEnvironment',
           );
@@ -164,9 +167,18 @@ describe('declastruct CLI workflow', () => {
           expect(configResource!.forResource.slug).toContain(
             'declastruct-github-demo',
           );
-          expect(envResource).toBeDefined();
-          expect(envResource!.forResource.slug).toContain(
-            'acceptance-test-env',
+          // all five declared environments must appear in the plan, the tag
+          // and mixed envs this feature exists to provision among them
+          const envSlugs = envResources.map((r) => r.forResource.slug);
+          expect(envResources.length).toBe(5);
+          expect(envSlugs.some((s) => s.includes('acceptance-test-env'))).toBe(
+            true,
+          );
+          expect(envSlugs.some((s) => s.includes('production-on-tag'))).toBe(
+            true,
+          );
+          expect(envSlugs.some((s) => s.includes('production-on-mixed'))).toBe(
+            true,
           );
           expect(teamResource).toBeDefined();
           expect(teamResource!.forResource.slug).toContain(
@@ -191,7 +203,11 @@ describe('declastruct CLI workflow', () => {
         ).toBe(true);
 
         // snapshot plan structure (without volatile fields)
-        // note: only snapshot resource classes, not actions — actions depend on external state drift
+        // note: only snapshot resource classes, not actions — actions depend on external state drift.
+        // the per-resource `action` snapshot and the full `plan CLI stdout` diff were deliberately
+        // removed on origin/main (c0c04f2, "fix(test): remove flaky acceptance test snapshots") because
+        // they flake on unrelated remote drift (repo/config field changes on the demo repo). do not
+        // reintroduce them here — the feature-scoped env presence assertions above cover this wish.
         const planSummary = {
           resourceCount: plan.changes.length,
           resourceClasses: plan.changes.map(
@@ -206,8 +222,10 @@ describe('declastruct CLI workflow', () => {
      * .what = validates declastruct apply command works with github provider
      * .why = ensures end-to-end workflow from plan to reality
      * .note = uses beforeAll to create plan once, shared across apply tests
-     * .note = requires org:admin scope because resources include teams
-     * .note = skipIf used because CI lacks admin:org scope; apply verified via dogfood
+     * .note = requires org:admin scope because the bundled plan includes teams + membership
+     * .note = skipIf here is the sanctioned admin-priv exception, not a failhide — CI auth
+     *         lacks admin:org by design, so an admin runs this locally with TEST_ORG_ADMIN=true.
+     *         see .agent/repo=.this/role=any/briefs/rule.allow.skipif-for-admin-privs.md
      */
     const hasOrgAdmin = process.env.TEST_ORG_ADMIN === 'true';
     when.skipIf(!hasOrgAdmin)(
@@ -432,23 +450,31 @@ describe('declastruct CLI workflow', () => {
             });
             expect(normalizedReplanStdout).toMatchSnapshot('replan CLI stdout');
 
-            // verify environment resource shows KEEP (idempotent)
+            // verify every environment resource shows KEEP (idempotent),
+            // the tag and mixed envs among them
             const replan = JSON.parse(readFileSync(replanFile, 'utf8'));
-            const envChange = replan.changes.find(
+            const envChanges = replan.changes.filter(
               (c: DeclastructChange) =>
                 c.forResource.class === 'DeclaredGithubEnvironment',
             );
-            expect(envChange).toBeDefined();
-            expect(envChange!.action).toBe('KEEP');
+            expect(envChanges.length).toBe(5);
+            for (const envChange of envChanges) {
+              expect(envChange.action).toBe('KEEP');
+            }
 
-            // snapshot the environment change (stable fields only)
-            expect({
-              action: envChange!.action,
-              forResource: {
-                class: envChange!.forResource.class,
-                slug: envChange!.forResource.slug,
-              },
-            }).toMatchSnapshot('replan environment change KEEP');
+            // snapshot the environment changes (stable fields only)
+            const envChangesNormalized = envChanges.map(
+              (c: DeclastructChange) => ({
+                action: c.action,
+                forResource: {
+                  class: c.forResource.class,
+                  slug: c.forResource.slug,
+                },
+              }),
+            );
+            expect(envChangesNormalized).toMatchSnapshot(
+              'replan environment changes KEEP',
+            );
           },
         );
 
@@ -846,6 +872,91 @@ describe('declastruct CLI workflow', () => {
           expect(teamRepoAccess).toBeNull();
           expect(teamRepoAccess).toMatchSnapshot(
             'teamRepoAccess SDK not-found returns null',
+          );
+        },
+      );
+    });
+
+    when('[t5] SDK get returns a found environment with mixed patterns', () => {
+      /**
+       * .what = positive found-data snapshot for the SDK get contract, on an
+       *         environment that carries both a branch and a tag deployment
+       *         policy — the variant this feature introduces
+       * .why = the contract layer must snap the positive found output, not only
+       *        the not-found nulls; environments are repo-scoped, so this runs
+       *        unconditionally in CICD (no org admin needed)
+       * .note = the volatile `id` (github-assigned) is omitted from the snapshot
+       *         so the found output is deterministic; the resource is provisioned
+       *         then deleted within the test to leave no residue
+       */
+      const envName = 'acceptance-sdk-found-on-mixed';
+
+      then(
+        'it returns the environment with both branch and tag custom patterns',
+        async () => {
+          const provider = getDeclastructGithubProvider(
+            {
+              credentials: { token: githubContext.github.token },
+            },
+            { log },
+          );
+          const envDao = provider.daos.DeclaredGithubEnvironment;
+
+          // the environment dao supports upsert + delete; fail loud if not
+          if (!envDao.set.upsert || !envDao.set.delete)
+            UnexpectedCodePathError.throw(
+              'environment dao must support upsert + delete for this test',
+              {
+                hasUpsert: !!envDao.set.upsert,
+                hasDelete: !!envDao.set.delete,
+              },
+            );
+
+          // provision a mixed branch+tag environment (repo scope, no admin)
+          await envDao.set.upsert(
+            {
+              repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
+              name: envName,
+              reviewers: null,
+              waitTimer: null,
+              deploymentBranchPolicy: {
+                customPatterns: [
+                  { name: 'main', target: 'branch' },
+                  { name: 'v*', target: 'tag' },
+                ],
+              },
+              preventSelfReview: false,
+            },
+            provider.context,
+          );
+
+          // fetch it back via the SDK get contract
+          const environment = await envDao.get.one.byUnique(
+            {
+              repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
+              name: envName,
+            },
+            provider.context,
+          );
+          expect(environment).toBeDefined();
+
+          // snapshot stable fields of the SDK return value (omit volatile id)
+          expect({
+            repo: environment!.repo,
+            name: environment!.name,
+            deploymentBranchPolicy: environment!.deploymentBranchPolicy,
+            reviewers: environment!.reviewers,
+            waitTimer: environment!.waitTimer,
+            preventSelfReview: environment!.preventSelfReview,
+          }).toMatchSnapshot('environment SDK found with mixed patterns');
+
+          // cleanup: delete the environment so the test leaves no residue
+          await envDao.set.delete(
+            {
+              repo: { owner: 'ehmpathy', name: 'declastruct-github-demo' },
+              name: envName,
+            },
+            provider.context,
           );
         },
       );
