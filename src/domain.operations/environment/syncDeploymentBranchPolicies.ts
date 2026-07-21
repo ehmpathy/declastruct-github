@@ -1,112 +1,115 @@
+import { MalfunctionError } from 'helpful-errors';
 import type { ContextLogTrail } from 'sdk-logs';
 
 import { getGithubClient } from '@src/access/sdks/getGithubClient';
 import type { ContextGithubApi } from '@src/domain.objects/ContextGithubApi';
 
-type BranchPolicy = { id?: number; name?: string | null };
+import { asDeploymentPolicyTarget } from './asDeploymentPolicyTarget';
+import {
+  type DesiredPattern,
+  type ExtantPolicy,
+  getDeploymentPolicySyncPlan,
+} from './getDeploymentPolicySyncPlan';
 
 /**
- * .what = extracts non-null pattern names from branch policies
- * .why = transforms API shape to a set of names for comparison
+ * .what = extracts extant policies with their id, name, and target
+ * .why = transforms the API rows into the typed shape the pure diff consumes
+ * .note = fails loud on a nameless row rather than drop it silently: a policy
+ *         row with no name is anomalous data that would otherwise become an
+ *         orphan the diff can neither see nor delete
  */
-const extractPatternNamesAsSet = (input: {
-  branchPolicies: Array<{ name?: string | null }>;
-}): Set<string> => {
-  const names = input.branchPolicies
-    .map((p) => p.name)
-    .filter((name): name is string => !!name);
-  return new Set(names);
+const extractExtantPolicies = (input: {
+  branchPolicies: Array<{ id?: number; name?: string | null }>;
+}): ExtantPolicy[] => {
+  return input.branchPolicies.map((p) => ({
+    id: p.id,
+    name:
+      p.name ??
+      MalfunctionError.throw(
+        'deployment branch policy row has no name; anomalous GitHub state',
+        { row: p },
+      ),
+    target: asDeploymentPolicyTarget({ row: p }),
+  }));
 };
 
 /**
- * .what = computes which extant patterns should be deleted
- * .why = extracts deletion decision logic from sync orchestration
- */
-const computeStalePatternsToDelete = (input: {
-  extantPatterns: BranchPolicy[];
-  desiredNames: Set<string>;
-}): Array<{ id: number; name: string }> => {
-  return input.extantPatterns
-    .filter(
-      (p): p is { id: number; name: string } =>
-        typeof p.id === 'number' &&
-        typeof p.name === 'string' &&
-        !input.desiredNames.has(p.name),
-    )
-    .map((p) => ({ id: p.id, name: p.name }));
-};
-
-/**
- * .what = computes which patterns need to be created
- * .why = extracts creation decision logic from sync orchestration
- */
-const computeNewPatternsToCreate = (input: {
-  desiredPatterns: string[];
-  extantNames: Set<string>;
-}): string[] => {
-  return input.desiredPatterns.filter(
-    (pattern) => !input.extantNames.has(pattern),
-  );
-};
-
-/**
- * .what = syncs deployment branch policies to match desired state
- * .why = custom branch patterns require separate API calls for create/delete
+ * .what = syncs deployment policies (branch and tag) to match desired state
+ * .why = custom patterns require separate API calls for create/delete; each row
+ *        carries its own target ('branch' | 'tag'). the delete/create decision is
+ *        a pure diff (see getDeploymentPolicySyncPlan); this operation is the i/o
+ *        boundary that applies it
  */
 export const syncDeploymentBranchPolicies = async (
   input: {
     owner: string;
     repo: string;
     environmentName: string;
-    desiredPatterns: string[];
+    desiredPatterns: DesiredPattern[];
   },
   context: ContextGithubApi & ContextLogTrail,
 ): Promise<void> => {
   const github = getGithubClient({}, context);
 
-  // get extant patterns
+  // get extant policies
   const extantResponse = await github.repos.listDeploymentBranchPolicies({
     owner: input.owner,
     repo: input.repo,
     environment_name: input.environmentName,
   });
 
-  const extantPatterns = extantResponse.data.branch_policies;
-  const extantNames = extractPatternNamesAsSet({
-    branchPolicies: extantPatterns,
-  });
-  const desiredNames = new Set(input.desiredPatterns);
-
-  // compute patterns to delete
-  const patternsToDelete = computeStalePatternsToDelete({
-    extantPatterns,
-    desiredNames,
+  const extantPolicies = extractExtantPolicies({
+    branchPolicies: extantResponse.data.branch_policies,
   });
 
-  // compute patterns to create
-  const patternsToCreate = computeNewPatternsToCreate({
+  // compute the diff (pure): which rows to delete, which to create
+  const { policiesToDelete, patternsToCreate } = getDeploymentPolicySyncPlan({
+    extantPolicies,
     desiredPatterns: input.desiredPatterns,
-    extantNames,
   });
 
-  // delete stale patterns
-  for (const pattern of patternsToDelete) {
-    await github.repos.deleteDeploymentBranchPolicy({
-      owner: input.owner,
-      repo: input.repo,
-      environment_name: input.environmentName,
-      branch_policy_id: pattern.id,
-    });
+  // delete stale policies
+  for (const policy of policiesToDelete) {
+    await MalfunctionError.wrap(
+      async () =>
+        github.repos.deleteDeploymentBranchPolicy({
+          owner: input.owner,
+          repo: input.repo,
+          environment_name: input.environmentName,
+          branch_policy_id: policy.id,
+        }),
+      {
+        message: 'github.deleteDeploymentBranchPolicy error',
+        metadata: {
+          owner: input.owner,
+          repo: input.repo,
+          environmentName: input.environmentName,
+          policy,
+        },
+      },
+    )();
   }
 
-  // create new patterns
+  // create new patterns with their declared target
   for (const pattern of patternsToCreate) {
-    await github.repos.createDeploymentBranchPolicy({
-      owner: input.owner,
-      repo: input.repo,
-      environment_name: input.environmentName,
-      name: pattern,
-      type: 'branch',
-    });
+    await MalfunctionError.wrap(
+      async () =>
+        github.repos.createDeploymentBranchPolicy({
+          owner: input.owner,
+          repo: input.repo,
+          environment_name: input.environmentName,
+          name: pattern.name,
+          type: pattern.target,
+        }),
+      {
+        message: 'github.createDeploymentBranchPolicy error',
+        metadata: {
+          owner: input.owner,
+          repo: input.repo,
+          environmentName: input.environmentName,
+          pattern,
+        },
+      },
+    )();
   }
 };

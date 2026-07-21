@@ -5,3 +5,37 @@ exports[`DeclaredGithubEnvironment given: [case3] invalid waitTimer when: [t0] w
 exports[`DeclaredGithubEnvironment given: [case3] invalid waitTimer when: [t1] waitTimer is negative then: it should throw validation error: waitTimer negative error 1`] = `"BadRequestError: waitTimer must be 0-43200 minutes, got -5"`;
 
 exports[`DeclaredGithubEnvironment given: [case4] invalid reviewers count when: [t0] more than 6 reviewers total then: it should throw validation error: reviewers exceeds max error 1`] = `"BadRequestError: max 6 reviewers allowed, got 7"`;
+
+exports[`DeclaredGithubEnvironment given: [case6] invalid customPatterns when: [t0] an empty customPatterns array then: it should throw validation error: customPatterns empty error 1`] = `
+"BadRequestError: deploymentBranchPolicy.customPatterns must not be empty; use null to allow all refs
+
+{
+  "repo": {
+    "owner": "ehmpathy",
+    "name": "test-repo"
+  },
+  "name": "production"
+}"
+`;
+
+exports[`DeclaredGithubEnvironment given: [case6] invalid customPatterns when: [t1] duplicate (name, target) pairs then: it should throw validation error: customPatterns duplicate error 1`] = `
+"BadRequestError: deploymentBranchPolicy.customPatterns has duplicate (name, target): tag:v*
+
+{
+  "repo": {
+    "owner": "ehmpathy",
+    "name": "test-repo"
+  },
+  "name": "production",
+  "patterns": [
+    {
+      "name": "v*",
+      "target": "tag"
+    },
+    {
+      "name": "v*",
+      "target": "tag"
+    }
+  ]
+}"
+`;

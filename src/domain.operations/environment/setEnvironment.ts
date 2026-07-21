@@ -64,7 +64,7 @@ const asDeploymentBranchPolicyConfig = (input: {
     };
   }
 
-  if ('customBranches' in input.deploymentBranchPolicy) {
+  if ('customPatterns' in input.deploymentBranchPolicy) {
     return {
       protected_branches: false,
       custom_branch_policies: true,
@@ -77,7 +77,9 @@ const asDeploymentBranchPolicyConfig = (input: {
 /**
  * .what = sets a GitHub environment
  * .why = enables declarative management of deployment environments
- * .note = atomic: if branch pattern sync fails, environment is rolled back
+ * .note = rollback applies only to a newly-created env: if pattern sync fails on
+ *         create, the env is deleted. an update that fails mid-sync is not rolled
+ *         back; sync is idempotent, so a re-apply heals the partial state.
  */
 export const setEnvironment = asProcedure(
   async (
@@ -130,17 +132,17 @@ export const setEnvironment = asProcedure(
         deployment_branch_policy: deploymentBranchPolicy,
       });
 
-      // sync custom branch patterns if needed
+      // sync custom patterns if needed
       if (
         desired.deploymentBranchPolicy &&
-        'customBranches' in desired.deploymentBranchPolicy
+        'customPatterns' in desired.deploymentBranchPolicy
       ) {
         await syncDeploymentBranchPolicies(
           {
             owner: desired.repo.owner,
             repo: desired.repo.name,
             environmentName: desired.name,
-            desiredPatterns: desired.deploymentBranchPolicy.customBranches,
+            desiredPatterns: desired.deploymentBranchPolicy.customPatterns,
           },
           context,
         );

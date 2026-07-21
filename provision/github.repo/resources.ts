@@ -130,7 +130,16 @@ export const getResources = async (): Promise<DomainEntity<any>[]> => {
     name: 'production-on-main',
     reviewers: null, // no approval required — PR merge is the gate
     waitTimer: null, // no delay
-    deploymentBranchPolicy: { customBranches: ['main'] }, // only main branch
+    deploymentBranchPolicy: {
+      // accept both the main branch and `v*` version tags: prod deploys are
+      // triggered by a version tag cut from main (see protect-version-tags
+      // ruleset below), so the ref gate must admit that tag — the exact
+      // capability this repo's own tag-deploy feature exists to provide
+      customPatterns: [
+        { name: 'main', target: 'branch' },
+        { name: 'v*', target: 'tag' },
+      ],
+    },
     preventSelfReview: false,
   });
 
